@@ -5,16 +5,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => MyAppState(),
-      child: MaterialApp(
-        title: 'materialAppYGOBinder',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        ),
-        home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      ),
+    Widget page;
+    var appState = context.watch<YGOBinderState>();
+
+    switch(appState.state) {
+      case 0:
+        page = LoadingApp();
+        break;
+      default:
+        throw UnimplementedError('No widget for $appState.state');
+    }
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Scaffold(
+          body: page,
+        );
+      }
     );
   }
 }
