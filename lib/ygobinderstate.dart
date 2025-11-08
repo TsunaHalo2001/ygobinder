@@ -3,7 +3,7 @@ part of 'main.dart';
 class YGOBinderState extends ChangeNotifier {
   int state = 0;
 
-  static String _lastUpdateKey = 'last_api_update_date';
+  static final String _lastUpdateKey = 'last_api_update_date';
   String actualDate = '';
 
   Map<String, dynamic> cards = {};
@@ -16,8 +16,11 @@ class YGOBinderState extends ChangeNotifier {
   final ApiService _apiService = ApiService();
 
   Future<void> loadInitialData() async {
-    if (await isCacheValid()) await loadFromCache();
-    else await fetchAndCache();
+    if (await isCacheValid()) {
+      await loadFromCache();
+    } else {
+      await fetchAndCache();
+    }
 
     notifyListeners();
   }
