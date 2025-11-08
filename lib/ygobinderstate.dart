@@ -49,6 +49,9 @@ class YGOBinderState extends ChangeNotifier {
   Future<void> loadFromCache() async {
     final data = await cacheFileHelper.readData();
     if (data != null) cards = jsonDecode(data);
+    print(cards["data"][2]["card_prices"]);
+
+    notifyListeners();
   }
 
   Future<void> fetchAndCache() async {
@@ -69,5 +72,4 @@ class YGOBinderState extends ChangeNotifier {
       print(error);
     }
   }
-  // Future<void> loadData() async
 }

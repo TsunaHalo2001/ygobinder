@@ -1,7 +1,7 @@
 part of 'main.dart';
 
 class ApiService {
-  final String _baseUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php'; // <-- Reemplaza con tu URL base
+  final String _baseUrl = 'https://db.ygoprodeck.com/api/v7/cardinfo.php';
 
   Future<Map<String, dynamic>> fetchData(String endpoint) async {
     final uri = Uri.parse('$_baseUrl?$endpoint');

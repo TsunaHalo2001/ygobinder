@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 part 'cachefilehelper.dart';
 part 'apiservice.dart';
+part 'cardclasses.dart';
 part 'ygobinder.dart';
 part 'ygobinderstate.dart';
 part 'myapp.dart';
