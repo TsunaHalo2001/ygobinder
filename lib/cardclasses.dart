@@ -222,12 +222,13 @@ class Card {
         linkMarkers: LinkMarker.genLinkMarkers(item['linkmarkers']),
         ygoProDeckUrl: item['ygo_pro_deck_url'],
         cardSets: CardSet.genCardSets(item['card_sets']),
-        banlistInfo: item['banlist_info'] == null ? null :
-        BanlistInfo(
-          banTCG: item['banlist_info']['ban_tcg'],
-          banOCG: item['banlist_info']['ban_ocg'],
-          banGoat: item['banlist_info']['ban_goat'],
-        ),
+        banlistInfo: item['banlist_info'] == null ?
+          null :
+          BanlistInfo(
+            banTCG: item['banlist_info']['ban_tcg'],
+            banOCG: item['banlist_info']['ban_ocg'],
+            banGoat: item['banlist_info']['ban_goat'],
+          ),
         cardImages: CardImage.genCardImages(item['card_images']),
         cardPrices: CardPrices.genCardPrices(item['card_prices']),
       );
