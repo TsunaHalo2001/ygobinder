@@ -114,7 +114,11 @@ class BanlistInfo {
 }
 
 class TypeLine {
-  static List<String> genTypeLines(List<dynamic> data) {
+  static List<String>? genTypeLines(List<dynamic>? data) {
+    if (data == null) {
+      return null;
+    }
+
     var typeLines = <String>[];
 
     for (var item in data) {
@@ -126,7 +130,11 @@ class TypeLine {
 }
 
 class LinkMarker {
-  static List<String> genLinkMarkers(List<dynamic> data) {
+  static List<String>? genLinkMarkers(List<dynamic>? data) {
+    if (data == null) {
+      return null;
+    }
+
     var linkMarkers = <String>[];
 
     for (var item in data) {
@@ -188,4 +196,45 @@ class Card {
     required this.cardImages,
     required this.cardPrices,
   });
+
+  static Map<int, Card> genCards(List<dynamic> data) {
+    var cards = <int, Card>{};
+
+    for (var item in data) {
+      final Card card = new Card(
+        id: int.parse(item['id']),
+        name: item['name'],
+        typeLine: TypeLine.genTypeLines(item['type_line']),
+        type: item['type'],
+        humanReadableCardType: item['human_readable_card_type'],
+        frameType: item['frame_type'],
+        desc: item['desc'],
+        race: item['race'],
+        pendDesc: item['pend_desc'],
+        monsterDesc: item['monster_desc'],
+        atk: item['atk'],
+        def: item['def'],
+        level: item['level'],
+        attribute: item['attribute'],
+        archetype: item['archetype'],
+        scale: item['scale'],
+        linkVal: item['linkval'],
+        linkMarkers: LinkMarker.genLinkMarkers(item['linkmarkers']),
+        ygoProDeckUrl: item['ygo_pro_deck_url'],
+        cardSets: CardSet.genCardSets(item['card_sets']),
+        banlistInfo: item['banlist_info'] == null ? null :
+        BanlistInfo(
+          banTCG: item['banlist_info']['ban_tcg'],
+          banOCG: item['banlist_info']['ban_ocg'],
+          banGoat: item['banlist_info']['ban_goat'],
+        ),
+        cardImages: CardImage.genCardImages(item['card_images']),
+        cardPrices: CardPrices.genCardPrices(item['card_prices']),
+      );
+
+      cards[item['id']] = card;
+    }
+
+    return cards;
+  }
 }
