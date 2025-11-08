@@ -6,7 +6,8 @@ class YGOBinderState extends ChangeNotifier {
   static final String _lastUpdateKey = 'last_api_update_date';
   String actualDate = '';
 
-  Map<String, dynamic> cards = {};
+  Map<String, dynamic> cardsAPI = {};
+  Map<int, Card> cards = {};
 
   bool cacheValid = false;
   bool apiCalled = false;
@@ -48,17 +49,19 @@ class YGOBinderState extends ChangeNotifier {
 
   Future<void> loadFromCache() async {
     final data = await cacheFileHelper.readData();
-    if (data != null) cards = jsonDecode(data);
-    print(cards["data"][2]["card_prices"]);
+    if (data != null) cardsAPI = jsonDecode(data);
+    print(cardsAPI['data'][2]['card_prices']);
+    cards = Card.genCards(cardsAPI['data']);
+    print(cards[64163367]?.cardPrices);
 
     notifyListeners();
   }
 
   Future<void> fetchAndCache() async {
     try {
-      cards = await _apiService.fetchData('');
+      cardsAPI = await _apiService.fetchData('');
 
-      await cacheFileHelper.writeData(jsonEncode(cards));
+      await cacheFileHelper.writeData(jsonEncode(cardsAPI));
 
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_lastUpdateKey, DateTime.now().toIso8601String());
@@ -70,6 +73,10 @@ class YGOBinderState extends ChangeNotifier {
     }
     catch (error) {
       print(error);
+
+      await loadFromCache();
+
+      notifyListeners();
     }
   }
 }
