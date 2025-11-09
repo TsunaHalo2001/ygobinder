@@ -53,7 +53,6 @@ class YGOBinderState extends ChangeNotifier {
       cardsAPI = jsonDecode(data);
 
       cards = await Card.genCards(cardsAPI['data']);
-      print(cards[64163367]?.cardPrices);
 
       notifyListeners();
     }

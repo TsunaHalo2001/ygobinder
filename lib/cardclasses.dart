@@ -82,7 +82,11 @@ class CardSet {
     this.setPrice,
   });
 
-  static Map<String, CardSet> genCardSets(List<dynamic> data) {
+  static Map<String, CardSet>? genCardSets(List<dynamic>? data) {
+    if (data == null) {
+      return null;
+    }
+
     var cardSets = <String, CardSet>{};
 
     for (var item in data) {
@@ -166,7 +170,7 @@ class Card {
   final List<String>? linkMarkers;
   final String ygoProDeckUrl;
 
-  final Map<String, CardSet> cardSets;
+  final Map<String, CardSet>? cardSets;
   final BanlistInfo? banlistInfo;
   final Map<int, CardImage> cardImages;
   final Map<int, CardPrices> cardPrices;
@@ -186,12 +190,12 @@ class Card {
     this.def,
     this.level,
     this.attribute,
-    required this.archetype,
+    this.archetype,
     this.scale,
     this.linkVal,
     this.linkMarkers,
     required this.ygoProDeckUrl,
-    required this.cardSets,
+    this.cardSets,
     this.banlistInfo,
     required this.cardImages,
     required this.cardPrices,
@@ -243,7 +247,6 @@ class Card {
 
         cards[item['id']] = card;
       }
-      print('Todas las cartas');
       return cards;
     });
   }
