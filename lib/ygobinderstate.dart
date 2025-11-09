@@ -7,7 +7,7 @@ class YGOBinderState extends ChangeNotifier {
   String actualDate = '';
 
   Map<String, dynamic> cardsAPI = {};
-  Map<int, Card> cards = {};
+  Map<int, YGOCard> cards = {};
 
   Map<String, dynamic> cardInventoryFile = {};
   Map<String, CardInventory> cardInventory = {};
@@ -63,7 +63,7 @@ class YGOBinderState extends ChangeNotifier {
     if (data != null) {
       cardsAPI = jsonDecode(data);
 
-      cards = await Card.genCards(cardsAPI['data']);
+      cards = await YGOCard.genCards(cardsAPI['data']);
 
       notifyListeners();
     }

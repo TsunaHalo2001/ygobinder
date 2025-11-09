@@ -4,10 +4,10 @@ class LoadingApp extends StatefulWidget {
   const LoadingApp({super.key});
 
   @override
-  _LoadingAppState createState() => _LoadingAppState();
+  LoadingAppState createState() => LoadingAppState();
 }
 
-class _LoadingAppState extends State<LoadingApp> {
+class LoadingAppState extends State<LoadingApp> {
   late Future<void> _initFuture;
 
   @override

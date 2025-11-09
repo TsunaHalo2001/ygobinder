@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
         page = LoadingApp();
         break;
       case 1:
-        page = Placeholder();
+        page = HomePage();
         break;
       default:
         throw UnimplementedError('No widget for $appState.state');
@@ -22,7 +22,20 @@ class MyApp extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
-          body: page,
+          body: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 1000),
+            transitionBuilder: (
+                Widget child,
+                Animation<double> animation,
+                ){
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+
+            child: page
+          ),
         );
       }
     );

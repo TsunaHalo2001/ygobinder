@@ -17,6 +17,8 @@ part 'ygobinder.dart';
 part 'ygobinderstate.dart';
 part 'myapp.dart';
 part 'loadingapp.dart';
+part 'homepage.dart';
+part 'cardlistapp.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
