@@ -25,7 +25,7 @@ class YGOBinderState extends ChangeNotifier {
   }
 
   Future<void> loadInitialData() async {
-    if (await isCacheValid()) {
+    if (await isCacheValid() || !(await _checkInternetConnection())) {
       print('fetched from cache');
       await loadFromCache();
     } else {
@@ -109,5 +109,15 @@ class YGOBinderState extends ChangeNotifier {
     await fileHelper.writeDataInventory(jsonEncode(cardInventoryFile));
 
     notifyListeners();
+  }
+
+  Future<bool> _checkInternetConnection() async {
+    final List<ConnectivityResult> connectivityResult = await Connectivity().checkConnectivity();
+
+    if (connectivityResult.contains(ConnectivityResult.none)) {
+      return false;
+    }
+
+    return true;
   }
 }

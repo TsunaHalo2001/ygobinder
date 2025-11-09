@@ -252,48 +252,18 @@ class Card {
   }
 }
 
-class CardInventory {
-  final int id;
-  Map<String, CardSet>? cardSets;
+class CardSetInventory {
+  final CardSet cardSet;
   int possesed;
   int notMine;
   int iBorrowed;
 
-  CardInventory({
-    required this.id,
-    this.cardSets,
+  CardSetInventory({
+    required this.cardSet,
     required this.possesed,
     required this.notMine,
     required this.iBorrowed,
   });
-
-  void setCardSets(Map<String, CardSet> cardSets) {
-    this.cardSets = cardSets;
-  }
-
-  void addCardSet(String key, CardSet cardSet) {
-    cardSets ??= <String, CardSet>{};
-
-    cardSets![key] = cardSet;
-  }
-
-  static Map<String,Map<String, String>>? cardSetToJSONSet(Map<String, CardSet>? infoMap) {
-    if (infoMap == null) {
-      return null;
-    }
-
-    var json = <String, Map<String, String>>{};
-
-    for (var info in infoMap.values) {
-      json['set_name']?['set_name'] = info.setName;
-      json['set_name']?['set_code'] = info.setCode;
-      json['set_name']?['set_rarity'] = info.setRarity;
-      json['set_name']?['set_rarity_code'] = info.setRarityCode;
-      json['set_name']?['set_price'] = info.setPrice.toString();
-    }
-
-    return json;
-  }
 
   void setPossesed(int possesed) {
     this.possesed = possesed;
@@ -307,19 +277,80 @@ class CardInventory {
     this.iBorrowed = iBorrowed;
   }
 
+  static Map<String, CardSetInventory> genCardSetInventory(Map<String, dynamic> data) {
+    var cardSetInventories = <String, CardSetInventory>{};
+
+    for (var item in data.values) {
+      final CardSetInventory cardSetInventory = CardSetInventory(
+        cardSet: CardSet(
+          setName: item['set_name'],
+          setCode: item['set_code'],
+          setRarity: item['set_rarity'],
+          setRarityCode: item['set_rarity_code'],
+          setPrice: double.tryParse(item['set_price']),
+        ),
+        possesed: item['possesed'],
+        notMine: item['not_mine'],
+        iBorrowed: item['i_borrowed'],
+      );
+
+      cardSetInventories[item['set_code']] = cardSetInventory;
+    }
+
+    return cardSetInventories;
+  }
+}
+
+class CardInventory {
+  final int id;
+  Map<String, CardSetInventory>? cardSets;
+
+  CardInventory({
+    required this.id,
+    this.cardSets,
+  });
+
+  void setCardSets(Map<String, CardSetInventory> cardSets) {
+    this.cardSets = cardSets;
+  }
+
+  void addCardSet(String key, CardSetInventory cardSet) {
+    cardSets ??= <String, CardSetInventory>{};
+
+    cardSets![key] = cardSet;
+  }
+
+  static Map<String,Map<String, dynamic>>? cardSetToJSONSet(Map<String, CardSetInventory>? infoMap) {
+    if (infoMap == null) {
+      return null;
+    }
+
+    var json = <String, Map<String, dynamic>>{};
+
+    for (var info in infoMap.values) {
+      json['set_name']?['set_name'] = info.cardSet.setName;
+      json['set_name']?['set_code'] = info.cardSet.setCode;
+      json['set_name']?['set_rarity'] = info.cardSet.setRarity;
+      json['set_name']?['set_rarity_code'] = info.cardSet.setRarityCode;
+      json['set_name']?['set_price'] = info.cardSet.setPrice.toString();
+      json['set_name']?['possesed'] = info.possesed;
+      json['set_name']?['not_mine'] = info.notMine;
+      json['set_name']?['i_borrowed'] = info.iBorrowed;
+    }
+
+    return json;
+  }
+
   static Future<Map<String, CardInventory>> genCardInventory(Map<String, dynamic> data) async {
     return Isolate.run(() {
       var cardInventories = <String, CardInventory>{};
 
       for (var item in data.values) {
-        final tempCardSets = CardSet.genCardSets(item['card_sets']);
+        final tempCardSets = CardSetInventory.genCardSetInventory(item['card_sets']);
 
         final CardInventory cardInventory = CardInventory(
           id: item['id'],
           cardSets: tempCardSets,
-          possesed: item['possesed'],
-          notMine: item['not_mine'],
-          iBorrowed: item['i_borrowed'],
         );
         cardInventories[item['id']] = cardInventory;
       }
@@ -334,9 +365,6 @@ class CardInventory {
       cardInventoryData[item.id.toString()] = {
         'id': cardInventory[item.id.toString()]?.id,
         'card_sets': cardSetToJSONSet(cardInventory[item.id.toString()]?.cardSets),
-        'possesed': cardInventory[item.id.toString()]?.possesed,
-        'not_mine': cardInventory[item.id.toString()]?.notMine,
-        'i_borrowed': cardInventory[item.id.toString()]?.iBorrowed,
       };
     }
 
