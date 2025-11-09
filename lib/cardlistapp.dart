@@ -94,7 +94,7 @@ class CardListAppState extends State<CardListApp> {
       height: screenSize.height < screenSize.width ? null :
         screenSize.height * 0.05,
       width: screenSize.width < screenSize.height ? null :
-        screenSize.width * 0.05,
+        screenSize.width * 0.07,
       child: ListView.builder(
         scrollDirection: screenSize.height > screenSize.width ?
           Axis.horizontal : Axis.vertical,
@@ -103,16 +103,13 @@ class CardListAppState extends State<CardListApp> {
           final pageN = index + 1;
           final isSelected = index == _selectedChunk;
 
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 1.0),
-            child: ActionChip(
-              onPressed: () => _updateSelectedChunk(index),
-              backgroundColor: isSelected ? Colors.black : Colors.white,
-              label: Text(
-                pageN.toString(),
-                style: TextStyle(
-                  color: isSelected ? Colors.white : Colors.black,
-                ),
+          return ActionChip(
+            onPressed: () => _updateSelectedChunk(index),
+            backgroundColor: isSelected ? Colors.black : Colors.white,
+            label: Text(
+              pageN.toString(),
+              style: TextStyle(
+                color: isSelected ? Colors.white : Colors.black,
               ),
             ),
           );
