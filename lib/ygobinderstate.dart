@@ -16,10 +16,17 @@ class YGOBinderState extends ChangeNotifier {
 
   final ApiService _apiService = ApiService();
 
+  void setState(int newState) {
+    state = newState;
+    notifyListeners();
+  }
+
   Future<void> loadInitialData() async {
     if (await isCacheValid()) {
+      print('fetched from cache');
       await loadFromCache();
     } else {
+      print('fetched from api');
       await fetchAndCache();
     }
 

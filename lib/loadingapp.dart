@@ -29,6 +29,14 @@ class _LoadingAppState extends State<LoadingApp> {
     return FutureBuilder(
         future: _initFuture,
         builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (context.mounted) {
+                appState.setState(1);
+              }
+            });
+          }
+
           return Scaffold(
             backgroundColor: Color(0xFF4D2C6F),
             body: SafeArea(

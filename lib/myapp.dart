@@ -12,6 +12,9 @@ class MyApp extends StatelessWidget {
       case 0:
         page = LoadingApp();
         break;
+      case 1:
+        page = Placeholder();
+        break;
       default:
         throw UnimplementedError('No widget for $appState.state');
     }
