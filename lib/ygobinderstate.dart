@@ -9,10 +9,13 @@ class YGOBinderState extends ChangeNotifier {
   Map<String, dynamic> cardsAPI = {};
   Map<int, Card> cards = {};
 
+  Map<String, dynamic> cardInventoryFile = {};
+  Map<String, CardInventory> cardInventory = {};
+
   bool cacheValid = false;
   bool apiCalled = false;
 
-  final CacheFileHelper cacheFileHelper = CacheFileHelper();
+  final FileHelper fileHelper = FileHelper();
 
   final ApiService _apiService = ApiService();
 
@@ -29,6 +32,7 @@ class YGOBinderState extends ChangeNotifier {
       print('fetched from api');
       await fetchAndCache();
     }
+    await loadCardInventory();
 
     notifyListeners();
   }
@@ -37,7 +41,7 @@ class YGOBinderState extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final lastUpdate = prefs.getString(_lastUpdateKey);
 
-    if (lastUpdate == null || await cacheFileHelper.readData() == null) return false;
+    if (lastUpdate == null || await fileHelper.readDataCache() == null) return false;
 
     final lastUpdateDateTime = DateTime.parse(lastUpdate);
     final now = DateTime.now();
@@ -55,7 +59,7 @@ class YGOBinderState extends ChangeNotifier {
   }
 
   Future<void> loadFromCache() async {
-    final data = await cacheFileHelper.readData();
+    final data = await fileHelper.readDataCache();
     if (data != null) {
       cardsAPI = jsonDecode(data);
 
@@ -65,11 +69,22 @@ class YGOBinderState extends ChangeNotifier {
     }
   }
 
+  Future<void> loadCardInventory() async {
+    final data = await fileHelper.readDataInventory();
+    if (data != null) {
+      cardInventoryFile = jsonDecode(data);
+
+      cardInventory = await CardInventory.genCardInventory(cardInventoryFile);
+
+      notifyListeners();
+    }
+  }
+
   Future<void> fetchAndCache() async {
     try {
       cardsAPI = await _apiService.fetchData('');
 
-      await cacheFileHelper.writeData(jsonEncode(cardsAPI));
+      await fileHelper.writeDataCache(jsonEncode(cardsAPI));
 
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_lastUpdateKey, DateTime.now().toIso8601String());
@@ -86,5 +101,13 @@ class YGOBinderState extends ChangeNotifier {
 
       notifyListeners();
     }
+  }
+
+  Future<void> saveInventory() async {
+    cardInventoryFile = await CardInventory.genCardInventory(cardInventory);
+
+    await fileHelper.writeDataInventory(jsonEncode(cardInventoryFile));
+
+    notifyListeners();
   }
 }
