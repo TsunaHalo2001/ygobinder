@@ -37,13 +37,13 @@ class CardPrices {
 }
 
 class CardImage {
-  final int? id;
+  final int id;
   final String imageUrl;
   final String imageUrlSmall;
   final String imageUrlCropped;
 
   CardImage ({
-    this.id,
+    required this.id,
     required this.imageUrl,
     required this.imageUrlSmall,
     required this.imageUrlCropped,
@@ -54,15 +54,13 @@ class CardImage {
 
     for (var item in data) {
       final CardImage cardImage = CardImage(
-        id: int.tryParse(item['id']),
+        id: item['id'],
         imageUrl: item['image_url'],
         imageUrlSmall: item['image_url_small'],
         imageUrlCropped: item['image_url_cropped'],
       );
 
-      if (cardImage.id != null) {
-        cardImages[int.parse(item['id'])] = cardImage;
-      }
+      cardImages[item['id']] = cardImage;
     }
 
     return cardImages;
@@ -148,12 +146,12 @@ class LinkMarker {
 }
 
 class Card {
-  final int? id;
+  final int id;
   final String name;
   final List<String>? typeLine;
   final String type;
   final String? humanReadableCardType;
-  final String frameType;
+  final String? frameType;//
   final String desc;
   final String race;
   final String? pendDesc;
@@ -162,7 +160,7 @@ class Card {
   final int? def;
   final int? level;
   final String? attribute;
-  final String archetype;
+  final String? archetype;
   final int? scale;
   final int? linkVal;
   final List<String>? linkMarkers;
@@ -174,7 +172,7 @@ class Card {
   final Map<int, CardPrices> cardPrices;
 
   Card({
-    this.id,
+    required this.id,
     required this.name,
     this.typeLine,
     required this.type,
@@ -199,47 +197,54 @@ class Card {
     required this.cardPrices,
   });
 
-  static Map<int, Card> genCards(List<dynamic> data) {
-    var cards = <int, Card>{};
+  static Future<Map<int, Card>> genCards(List<dynamic> data) async {
+    return Isolate.run(() {
+      var cards = <int, Card>{};
 
-    for (var item in data) {
-      final Card card = Card(
-        id: int.tryParse(item['id']),
-        name: item['name'],
-        typeLine: TypeLine.genTypeLines(item['type_line']),
-        type: item['type'],
-        humanReadableCardType: item['human_readable_card_type'],
-        frameType: item['frame_type'],
-        desc: item['desc'],
-        race: item['race'],
-        pendDesc: item['pend_desc'],
-        monsterDesc: item['monster_desc'],
-        atk: int.tryParse(item['atk']),
-        def: int.tryParse(item['def']),
-        level: int.tryParse(item['level']),
-        attribute: item['attribute'],
-        archetype: item['archetype'],
-        scale: int.tryParse(item['scale']),
-        linkVal: int.tryParse(item['linkval']),
-        linkMarkers: LinkMarker.genLinkMarkers(item['linkmarkers']),
-        ygoProDeckUrl: item['ygo_pro_deck_url'],
-        cardSets: CardSet.genCardSets(item['card_sets']),
-        banlistInfo: item['banlist_info'] == null ?
-          null :
-          BanlistInfo(
-            banTCG: item['banlist_info']['ban_tcg'],
-            banOCG: item['banlist_info']['ban_ocg'],
-            banGoat: item['banlist_info']['ban_goat'],
-          ),
-        cardImages: CardImage.genCardImages(item['card_images']),
-        cardPrices: CardPrices.genCardPrices(item['card_prices']),
-      );
+      for (var item in data) {
+        final tempTypeLine = TypeLine.genTypeLines(item['typeline']);
+        final tempLinkMarker = LinkMarker.genLinkMarkers(item['linkmarkers']);
+        final tempCardSets = CardSet.genCardSets(item['card_sets']);
+        final tempBanlistInfo = item['banlist_info'] == null ?
+        null :
+        BanlistInfo(
+          banTCG: item['banlist_info']['ban_tcg'],
+          banOCG: item['banlist_info']['ban_ocg'],
+          banGoat: item['banlist_info']['ban_goat'],
+        );
+        final tempCardImages = CardImage.genCardImages(item['card_images']);
+        final tempCardPrices = CardPrices.genCardPrices(item['card_prices']);
 
-      if (card.id != null) {
-        cards[int.parse(item['id'])] = card;
+        final Card card = Card(
+          id: item['id'],
+          name: item['name'],
+          typeLine: tempTypeLine,
+          type: item['type'],
+          humanReadableCardType: item['humanReadableCardType'],
+          frameType: item['frameType'],
+          desc: item['desc'],
+          race: item['race'],
+          pendDesc: item['pend_desc'],
+          monsterDesc: item['monster_desc'],
+          atk: item['atk'],
+          def: item['def'],
+          level: item['level'],
+          attribute: item['attribute'],
+          archetype: item['archetype'],
+          scale: item['scale'],
+          linkVal: item['linkval'],
+          linkMarkers: tempLinkMarker,
+          ygoProDeckUrl: item['ygoprodeck_url'],
+          cardSets: tempCardSets,
+          banlistInfo: tempBanlistInfo,
+          cardImages: tempCardImages,
+          cardPrices: tempCardPrices,
+        );
+
+        cards[item['id']] = card;
       }
-    }
-
-    return cards;
+      print('Todas las cartas');
+      return cards;
+    });
   }
 }
