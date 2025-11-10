@@ -21,4 +21,21 @@ class ApiService {
       throw Exception('Error de conexión o de red: $e');
     }
   }
+
+  Future<Uint8List> fetchImage(String imageUrl) async {
+    try {
+      final response = await http.get(Uri.parse(imageUrl));
+
+      if (response.statusCode == 200) {
+        return response.bodyBytes;
+      } else {
+        throw Exception(
+            'Fallo al cargar la imagen: Código ${response.statusCode}'
+        );
+      }
+    } catch (e) {
+      throw Exception('Error de conexión o de red: $e');
+      }
+
+  }
 }

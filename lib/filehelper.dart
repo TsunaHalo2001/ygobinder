@@ -20,6 +20,11 @@ class FileHelper {
     return File('$path/ygo_inventory.json');
   }
 
+  Future<File> _localImage(int id) async {
+    final path = await _localPath;
+    return File('$path/images/cards_cropped/$id.jpg');
+  }
+
   Future<File> writeDataCache(String data) async {
     final file = await _localCache;
     return file.writeAsString(data);
@@ -28,6 +33,11 @@ class FileHelper {
   Future<File> writeDataInventory(String data) async {
     final file = await _localInventory;
     return file.writeAsString(data);
+  }
+
+  Future<File> writeImage(int id, Uint8List data) async {
+    final file = await _localImage(id);
+    return file.writeAsBytes(data);
   }
 
   Future<String?> readDataCache() async {
@@ -50,6 +60,19 @@ class FileHelper {
       if (!await file.exists()) return null;
 
       final contents = await file.readAsString();
+      return contents;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<Uint8List?> readImage(int id) async {
+    try {
+      final file = await _localImage(id);
+
+      if (!await file.exists()) return null;
+
+      final contents = await file.readAsBytes();
       return contents;
     } catch (e) {
       return null;

@@ -19,6 +19,7 @@ part 'myapp.dart';
 part 'loadingapp.dart';
 part 'homepage.dart';
 part 'cardlistapp.dart';
+part 'carddetailpageapp.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

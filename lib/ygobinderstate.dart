@@ -12,6 +12,8 @@ class YGOBinderState extends ChangeNotifier {
   Map<String, dynamic> cardInventoryFile = {};
   Map<String, CardInventory> cardInventory = {};
 
+  Map<int,Uint8List?> images = {};
+
   bool cacheValid = false;
   bool apiCalled = false;
 
@@ -80,6 +82,14 @@ class YGOBinderState extends ChangeNotifier {
     }
   }
 
+  Future<void> loadImg() async {
+    for (final card in cards.values) {
+      images[card.id] = await fileHelper.readImage(card.id);
+    }
+
+    notifyListeners();
+  }
+
   Future<void> fetchAndCache() async {
     try {
       cardsAPI = await _apiService.fetchData('');
@@ -89,18 +99,25 @@ class YGOBinderState extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_lastUpdateKey, DateTime.now().toIso8601String());
       actualDate = DateTime.now().toIso8601String();
-
-      await loadFromCache();
-
-      notifyListeners();
     }
     catch (error) {
       print(error);
-
-      await loadFromCache();
-
-      notifyListeners();
     }
+    await loadFromCache();
+    notifyListeners();
+  }
+
+  Future<void> fetchImage(YGOCard card) async {
+    try {
+      final image = await _apiService.fetchImage(card.cardImages[2]!.imageUrlCropped);
+
+      await fileHelper.writeImage(card.id, image);
+    } catch (error) {
+      print(error);
+    }
+
+    await loadImg();
+    notifyListeners();
   }
 
   Future<void> saveInventory() async {

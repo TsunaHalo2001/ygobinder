@@ -69,17 +69,27 @@ class CardListAppState extends State<CardListApp> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: cardGradient,
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Text(
-          card.name,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 15.0,
-            fontWeight: FontWeight.bold,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CardDetailPageApp(card: card),
+            ),
+          );
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: cardGradient,
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          child: Text(
+            card.name,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 15.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
