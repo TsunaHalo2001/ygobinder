@@ -47,12 +47,12 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                     fontFamily: 'Matrix',
                     shadows: [
                       Shadow(
-                        color: Colors.black.withOpacity(0.8),
-                        offset: const Offset(1.0, 1.0),
+                        color: Colors.black.withAlpha(95),
+                        offset: const Offset(2.0, 2.0),
                         blurRadius: 3.0,
                       ),
                       Shadow(
-                        color: Colors.white.withOpacity(0.2),
+                        color: Colors.white.withAlpha(5),
                         offset: const Offset(1.0, 1.0),
                         blurRadius: 1.0,
                       ),
