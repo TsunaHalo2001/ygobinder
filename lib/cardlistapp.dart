@@ -137,7 +137,7 @@ class CardListAppState extends State<CardListApp> {
                       blurRadius: 3.0,
                     ),
                     Shadow(
-                      color: Colors.white.withAlpha(20),
+                      color: Colors.white.withAlpha(5),
                       offset: const Offset(1.0, 1.0),
                       blurRadius: 1.0,
                     ),
