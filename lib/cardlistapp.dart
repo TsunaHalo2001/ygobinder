@@ -107,10 +107,10 @@ class CardListAppState extends State<CardListApp> {
               SizedBox(
                 height: screenSize.height > screenSize.width ?
                   screenSize.width * 0.48 :
-                  screenSize.height * 0.4,
+                  screenSize.width * 0.18,
                 width: screenSize.height > screenSize.width ?
                   screenSize.width * 0.48 :
-                  screenSize.height * 0.4,
+                  screenSize.width * 0.18,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5.0),
                   child: Image.memory(
@@ -121,10 +121,27 @@ class CardListAppState extends State<CardListApp> {
               ),
               Text(
                 card.name,
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 15.0,
+                  fontSize: screenSize.width > screenSize.height ?
+                    screenSize.width * 0.18 * 0.1 :
+                    screenSize.width * 0.48 * 0.1,
                   fontWeight: FontWeight.bold,
+                  fontFamily: 'Matrix',
+                  height: 1.0,
+                  shadows: [
+                    Shadow(
+                      color: Colors.black.withOpacity(0.8),
+                      offset: const Offset(1.0, 1.0),
+                      blurRadius: 3.0,
+                    ),
+                    Shadow(
+                      color: Colors.white.withOpacity(0.2),
+                      offset: const Offset(1.0, 1.0),
+                      blurRadius: 1.0,
+                    ),
+                  ],
                 ),
               ),
             ],

@@ -31,12 +31,11 @@ class FileHelper {
         final _ = await Directory(path).create(recursive: true);
       }
 
-      final deskPath = await _localPath;
-      return File('$deskPath/images/$id.jpg');
+      return File('$path/$id.jpg');
     }
 
-    final path = await _localPath;
-    return File('$path/images/$id.jpg');
+    final deskPath = await _localPath;
+    return File('$deskPath/images/$id.jpg');
   }
 
   Future<File> writeDataCache(String data) async {
