@@ -1,10 +1,10 @@
 part of 'main.dart';
 
 class ApiService {
-  final String _baseUrl = 'https://raw.githubusercontent.com/TsunaHalo2001/ygobinder/refs/heads/master/assets/json/ygo_api_cache.json';
+  final String _baseUrl = 'https://raw.githubusercontent.com/TsunaHalo2001/ygobinder/master/assets/json/ygo_api_cache.json';
 
   Future<Map<String, dynamic>> fetchData(String endpoint) async {
-    final uri = Uri.parse('$_baseUrl?$endpoint');
+    final uri = Uri.parse('$_baseUrl$endpoint');
 
     try {
       final response = await http.get(uri);

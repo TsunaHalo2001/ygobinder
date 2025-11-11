@@ -9,7 +9,7 @@ class CardDetailPageApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final appState = context.watch<YGOBinderState>();
 
-    final voidMethod = appState.fetchImage(card);
+    final voidMethod = appState.loadImg(card);
 
     String auxAttribute = '';
     String auxArchetype = '';
@@ -30,10 +30,10 @@ class CardDetailPageApp extends StatelessWidget {
                 child: FutureBuilder<void>(
                   future: voidMethod,
                   builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    } else {
+                    if (snapshot.connectionState == ConnectionState.done && snapshot.hasError) {
                       return Container();
+                    } else {
+                      return const CircularProgressIndicator();
                     }
                   }
                 ),

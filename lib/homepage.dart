@@ -26,8 +26,6 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
-    print(screenSize.width);
-    print(screenSize.height);
 
     return Scaffold(
       backgroundColor: Color(0xFF4D2C6F),

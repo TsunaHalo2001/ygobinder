@@ -1,11 +1,11 @@
 part of 'main.dart';
 
 class FileHelper {
-  String localPath = '';
+  final String _kPackageName = 'com.tsuna2001.ygobinder';
+  final String _kImagesSubdir = 'images';
 
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
-    localPath = directory.path;
     return directory.path;
   }
 
@@ -21,8 +21,13 @@ class FileHelper {
   }
 
   Future<File> _localImage(int id) async {
+    if(Platform.isAndroid) {
+      final path = '/storage/emulated/0/Android/media/com.tsuna2001.ygobinder/files/images';
+      return File('$path/$id.jpg');
+    }
+
     final path = await _localPath;
-    return File('$path/images/cards_cropped/$id.jpg');
+    return File('$path/images/$id.jpg');
   }
 
   Future<File> writeDataCache(String data) async {
@@ -66,16 +71,16 @@ class FileHelper {
     }
   }
 
-  Future<Uint8List?> readImage(int id) async {
+  Future<Uint8List> readImage(int id) async {
     try {
       final file = await _localImage(id);
 
-      if (!await file.exists()) return null;
+      if (!await file.exists()) throw new Exception('No se pudo leer la imagen');
 
       final contents = await file.readAsBytes();
       return contents;
     } catch (e) {
-      return null;
+      throw new Exception('No se pudo leer la imagen');
     }
   }
 }
