@@ -60,9 +60,7 @@ class CardListAppState extends State<CardListApp> {
           padding: EdgeInsets.all(1.0),
 
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: screenSize.height > screenSize.width ?
-              screenSize.height > 200 ? 200 : screenSize.height :
-              screenSize.width > 200 ? 200 : screenSize.width,
+            maxCrossAxisExtent: screenSize.width > 200 ? 200 : screenSize.width,
             crossAxisSpacing: 1,
             mainAxisSpacing: 1,
             childAspectRatio: 0.8,
@@ -104,19 +102,11 @@ class CardListAppState extends State<CardListApp> {
             children: [
               image == null ?
               Container() :
-              SizedBox(
-                height: screenSize.height > screenSize.width ?
-                  screenSize.width * 0.48 :
-                  screenSize.width * 0.19,
-                width: screenSize.height > screenSize.width ?
-                  screenSize.width * 0.48 :
-                  screenSize.width * 0.19,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(5.0),
-                  child: Image.memory(
-                    image,
-                    fit: BoxFit.cover,
-                  ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(5.0),
+                child: Image.memory(
+                  image,
+                  fit: BoxFit.cover,
                 ),
               ),
               Text(
@@ -125,7 +115,7 @@ class CardListAppState extends State<CardListApp> {
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: screenSize.width > screenSize.height ?
-                    screenSize.width * 0.18 * 0.1 :
+                    screenSize.width * 0.12 * 0.1 :
                     screenSize.width * 0.46 * 0.1,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Matrix',
