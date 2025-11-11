@@ -82,11 +82,8 @@ class YGOBinderState extends ChangeNotifier {
     }
   }
 
-  Future<void> loadImg() async {
-    for (final card in cards.values) {
-      images[card.id] = await fileHelper.readImage(card.id);
-    }
-
+  Future<void> loadImg(YGOCard card) async {
+    images[card.id] = await fileHelper.readImage(card.id);
     notifyListeners();
   }
 
@@ -104,19 +101,6 @@ class YGOBinderState extends ChangeNotifier {
       print(error);
     }
     await loadFromCache();
-    notifyListeners();
-  }
-
-  Future<void> fetchImage(YGOCard card) async {
-    try {
-      final image = await _apiService.fetchImage(card.cardImages[2]!.imageUrlCropped);
-
-      await fileHelper.writeImage(card.id, image);
-    } catch (error) {
-      print(error);
-    }
-
-    await loadImg();
     notifyListeners();
   }
 
