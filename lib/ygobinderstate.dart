@@ -83,7 +83,17 @@ class YGOBinderState extends ChangeNotifier {
   }
 
   Future<void> loadImg(YGOCard card) async {
-    images[card.id] = await fileHelper.readImage(card.id);
+    if (images[card.id] == null) {
+      images[card.id] = await fileHelper.readImage(card.id);
+    }
+  }
+
+  Future<void> updateSelectedChunk(List<YGOCard> chunkedCard) async {
+    images.clear();
+    for (YGOCard card in chunkedCard) {
+      await loadImg(card);
+    }
+
     notifyListeners();
   }
 

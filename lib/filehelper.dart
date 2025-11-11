@@ -22,8 +22,17 @@ class FileHelper {
 
   Future<File> _localImage(int id) async {
     if(Platform.isAndroid) {
-      final path = '/storage/emulated/0/Android/media/com.tsuna2001.ygobinder/files/images';
-      return File('$path/$id.jpg');
+      final path = '/storage/emulated/0/Android/media/$_kPackageName/files/$_kImagesSubdir';
+
+      try {
+        final _ = Directory(path);
+      }
+      catch (e) {
+        final _ = await Directory(path).create(recursive: true);
+      }
+
+      final deskPath = await _localPath;
+      return File('$deskPath/images/$id.jpg');
     }
 
     final path = await _localPath;
@@ -75,12 +84,12 @@ class FileHelper {
     try {
       final file = await _localImage(id);
 
-      if (!await file.exists()) throw new Exception('No se pudo leer la imagen');
+      if (!await file.exists()) throw Exception('No se pudo leer la imagen');
 
       final contents = await file.readAsBytes();
       return contents;
     } catch (e) {
-      throw new Exception('No se pudo leer la imagen');
+      throw Exception('No se pudo leer la imagen');
     }
   }
 }

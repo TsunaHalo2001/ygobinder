@@ -1,23 +1,28 @@
 part of 'main.dart';
 
-class CardDetailPageApp extends StatelessWidget {
+class CardDetailPageApp extends StatefulWidget {
   final YGOCard card;
 
   const CardDetailPageApp({super.key, required this.card});
 
   @override
+  State<CardDetailPageApp> createState() => _CardDetailPageAppState();
+}
+
+class _CardDetailPageAppState extends State<CardDetailPageApp> {
+  @override
   Widget build(BuildContext context) {
     final appState = context.watch<YGOBinderState>();
 
-    final voidMethod = appState.loadImg(card);
+    final imageByte = appState.images[widget.card.id];
 
     String auxAttribute = '';
     String auxArchetype = '';
-    if (card.attribute != null) {
-      auxAttribute = card.attribute!;
+    if (widget.card.attribute != null) {
+      auxAttribute = widget.card.attribute!;
     }
-    if (card.archetype != null) {
-      auxArchetype = card.archetype!;
+    if (widget.card.archetype != null) {
+      auxArchetype = widget.card.archetype!;
     }
 
     return Scaffold(
@@ -25,27 +30,27 @@ class CardDetailPageApp extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Text(card.name),
+              Text(widget.card.name),
               Center(
-                child: FutureBuilder<void>(
-                  future: voidMethod,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done && snapshot.hasError) {
-                      return Container();
-                    } else {
-                      return const CircularProgressIndicator();
-                    }
-                  }
-                ),
+                child: imageByte == null ?
+                  Container() :
+                  SizedBox(
+                      width: 200,
+                      height: 200,
+                      child: Image.memory(
+                        appState.images[widget.card.id]!,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
               ),
-              Text(card.type),
-              Text(card.desc),
-              card.atk == null ? Container() : Text(card.atk.toString()),
-              card.def == null ? Container() : Text(card.def.toString()),
-              card.level == null ? Container() : Text(card.level.toString()),
-              card.race == "null" ? Container() : Text(card.race),
-              card.attribute == null ? Container() : Text(auxAttribute),
-              card.archetype == null ? Container() : Text(auxArchetype),
+              Text(widget.card.type),
+              Text(widget.card.desc),
+              widget.card.atk == null ? Container() : Text(widget.card.atk.toString()),
+              widget.card.def == null ? Container() : Text(widget.card.def.toString()),
+              widget.card.level == null ? Container() : Text(widget.card.level.toString()),
+              widget.card.race == "null" ? Container() : Text(widget.card.race),
+              widget.card.attribute == null ? Container() : Text(auxAttribute),
+              widget.card.archetype == null ? Container() : Text(auxArchetype),
             ],
         ),
       ),

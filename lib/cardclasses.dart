@@ -251,7 +251,7 @@ class YGOCard {
     });
   }
 
-  static List<List<YGOCard>> chunkList (Map<int, YGOCard> cardMap, int chunkSize) {
+  static List<List<YGOCard>> chunkList (Map<int, YGOCard> cardMap, int chunkSize, YGOBinderState appState) {
     final allCards = cardMap.values.toList();
     final chunks = <List<YGOCard>>[];
 
