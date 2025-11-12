@@ -14,6 +14,76 @@ class YGOBinderState extends ChangeNotifier {
   Map<String, CardInventory> cardInventory = {};
 
   Map<int,Uint8List?> images = {};
+  Map<String, Image> attributeImages = {
+    'DARK' :Image.asset(
+      'assets/images/attributes/dark.webp',
+      fit: BoxFit.cover,
+    ),
+    'EARTH' :Image.asset(
+      'assets/images/attributes/earth.png',
+      fit: BoxFit.cover,
+    ),
+    'FIRE' :Image.asset(
+      'assets/images/attributes/fire.webp',
+      fit: BoxFit.cover,
+    ),
+    'LIGHT' :Image.asset(
+      'assets/images/attributes/light.png',
+      fit: BoxFit.cover,
+    ),
+    'WATER' :Image.asset(
+      'assets/images/attributes/water.png',
+      fit: BoxFit.cover,
+    ),
+    'WIND' :Image.asset(
+      'assets/images/attributes/wind.webp',
+      fit: BoxFit.cover,
+    ),
+    'DIVINE' :Image.asset(
+      'assets/images/attributes/divine.webp',
+      fit: BoxFit.cover,
+    ),
+    'spell' :Image.asset(
+      'assets/images/attributes/spell.webp',
+      fit: BoxFit.cover,
+    ),
+    'trap' :Image.asset(
+      'assets/images/attributes/trap.png',
+      fit: BoxFit.cover,
+    ),
+    'level' :Image.asset(
+      'assets/images/attributes/level.png',
+      fit: BoxFit.cover,
+    ),
+    'rank' :Image.asset(
+      'assets/images/attributes/rank.png',
+      fit: BoxFit.cover,
+    ),
+    'Continuous' :Image.asset(
+      'assets/images/attributes/continuous.png',
+      fit: BoxFit.cover,
+    ),
+    'Equip' :Image.asset(
+      'assets/images/attributes/equip.webp',
+      fit: BoxFit.cover,
+    ),
+    'Field' :Image.asset(
+      'assets/images/attributes/field.png',
+      fit: BoxFit.cover,
+    ),
+    'Quick-Play' :Image.asset(
+      'assets/images/attributes/quickplay.webp',
+      fit: BoxFit.cover,
+    ),
+    'Ritual' :Image.asset(
+      'assets/images/attributes/ritual.webp',
+      fit: BoxFit.cover,
+    ),
+    'Counter' :Image.asset(
+      'assets/images/attributes/counter.webp',
+      fit: BoxFit.cover,
+    ),
+  };
 
   bool cacheValid = false;
   bool apiCalled = false;

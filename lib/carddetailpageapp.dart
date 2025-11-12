@@ -17,6 +17,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
     final cardGradient = CardColor.getCardGradient(widget.card.frameType);
 
     final imageByte = appState.images[widget.card.id];
+    final cardType = widget.card.type;
 
     String auxAttribute = '';
     String auxArchetype = '';
@@ -36,27 +37,94 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Text(
-                  widget.card.name,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: screenSize.width > screenSize.height ?
-                      screenSize.width * 0.35 * 0.1 :
-                      screenSize.width * 0.8 * 0.1,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Matrix',
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withAlpha(95),
-                        offset: const Offset(2.0, 2.0),
-                        blurRadius: 3.0,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        widget.card.name,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: screenSize.width > screenSize.height ?
+                            screenSize.width * 0.35 * 0.1 :
+                            screenSize.width * 0.8 * 0.1,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Matrix',
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withAlpha(95),
+                              offset: const Offset(2.0, 2.0),
+                              blurRadius: 3.0,
+                            ),
+                            Shadow(
+                              color: Colors.white.withAlpha(5),
+                              offset: const Offset(1.0, 1.0),
+                              blurRadius: 1.0,
+                            ),
+                          ],
+                        ),
                       ),
-                      Shadow(
-                        color: Colors.white.withAlpha(5),
-                        offset: const Offset(1.0, 1.0),
-                        blurRadius: 1.0,
+                    ),
+                    SizedBox(
+                      width: 32,
+                      height: 32,
+                      child: widget.card.attribute == null ?
+                        appState.attributeImages[widget.card.frameType] :
+                        appState.attributeImages[widget.card.attribute],
+                    ),
+                  ],
+                ),
+                widget.card.frameType == 'link' ? Container() :
+                widget.card.level == null ?
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      "[$cardType]",
+                      textAlign: TextAlign.end,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: screenSize.width > screenSize.height ?
+                        screenSize.width * 0.35 * 0.1 :
+                        screenSize.width * 0.8 * 0.1,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Matrix',
+                        shadows: [
+                          Shadow(
+                            color: Colors.black.withAlpha(95),
+                            offset: const Offset(2.0, 2.0),
+                            blurRadius: 3.0,
+                          ),
+                          Shadow(
+                            color: Colors.white.withAlpha(5),
+                            offset: const Offset(1.0, 1.0),
+                            blurRadius: 1.0,
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
+                    SizedBox(
+                      width: 32,
+                      height: 32,
+                      child: appState.attributeImages[widget.card.race],
+                    ),
+                  ],
+                )
+                    :
+                Row(
+                  mainAxisAlignment: widget.card.frameType!.contains('xyz') ?
+                    MainAxisAlignment.start :
+                    MainAxisAlignment.end,
+                  children: List.generate(widget.card.level!,
+                      (index) => SizedBox(
+                        width: 32,
+                        height: 32,
+                        child: widget.card.frameType!.contains('xyz') ?
+                          appState.attributeImages['rank']! :
+                          appState.attributeImages['level']!,
+                      ),
                   ),
                 ),
                 Center(
