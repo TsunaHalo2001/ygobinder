@@ -151,8 +151,7 @@ class CardListAppState extends State<CardListApp> {
     if (nPages <= 1) return const SizedBox.shrink();
 
     final Color selectedColor = Colors.amber.shade700;
-    final Color unselectedColor = Colors.grey.shade800;
-    final Color borderColor = Colors.black;
+    final Color unselectedColor = Color(0xFF4D2C6F);
 
     return SizedBox(
       height: isPortrait ? screenSize.height * 0.05 : null,
@@ -177,10 +176,6 @@ class CardListAppState extends State<CardListApp> {
               decoration: BoxDecoration(
                 color: isSelected ? selectedColor : unselectedColor,
                 borderRadius: BorderRadius.circular(5),
-                border: Border.all(
-                  color: borderColor,
-                  width: isSelected ? 2 : 1,
-                ),
                 boxShadow: isSelected
                     ? [
                   BoxShadow(
@@ -196,7 +191,7 @@ class CardListAppState extends State<CardListApp> {
                 child: Text(
                   pageN.toString(),
                   style: TextStyle(
-                    color: isSelected ? Colors.white : Colors.black,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Matrix',
                   ),
