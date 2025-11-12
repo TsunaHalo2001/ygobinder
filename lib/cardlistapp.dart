@@ -8,14 +8,12 @@ class CardListApp extends StatefulWidget {
 }
 
 class CardListAppState extends State<CardListApp> {
-  int _selectedChunk = 0;
-
   void _updateSelectedChunk(int index, List<List<YGOCard>> chunkedCards,YGOBinderState appState) {
     setState(() {
-      _selectedChunk = index;
+      appState.setSelectedIndexCardList(index);
     });
     
-    appState.updateSelectedChunk(chunkedCards[_selectedChunk]);
+    appState.updateSelectedChunk(chunkedCards[appState.selectedIndexCardList]);
   }
 
   @override
@@ -24,7 +22,7 @@ class CardListAppState extends State<CardListApp> {
     final appState = context.read<YGOBinderState>();
 
     final chunkedCards = YGOCard.chunkList(appState.cards, 20, appState);
-    appState.updateSelectedChunk(chunkedCards.first);
+    appState.updateSelectedChunk(chunkedCards[appState.selectedIndexCardList]);
   }
 
   @override
@@ -66,10 +64,10 @@ class CardListAppState extends State<CardListApp> {
             childAspectRatio: 0.8,
           ),
 
-          itemCount: chunkedCards[_selectedChunk].length,
+          itemCount: chunkedCards[appState.selectedIndexCardList].length,
 
           itemBuilder: (context, index) {
-            final card = chunkedCards[_selectedChunk].elementAt(index);
+            final card = chunkedCards[appState.selectedIndexCardList].elementAt(index);
             return _buildCardCard(context, card, appState.images[card.id]);
           }
       ),
@@ -161,7 +159,7 @@ class CardListAppState extends State<CardListApp> {
         itemCount: nPages,
         itemBuilder: (context, index) {
           final pageN = index + 1;
-          final isSelected = index == _selectedChunk;
+          final isSelected = index == appState.selectedIndexCardList;
 
           return GestureDetector(
             onTap: () => _updateSelectedChunk(index, chunkedCards, appState),

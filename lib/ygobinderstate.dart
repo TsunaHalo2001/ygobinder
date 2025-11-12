@@ -2,6 +2,7 @@ part of 'main.dart';
 
 class YGOBinderState extends ChangeNotifier {
   int state = 0;
+  int selectedIndexCardList = 0;
 
   static final String _lastUpdateKey = 'last_api_update_date';
   String actualDate = '';
@@ -23,6 +24,11 @@ class YGOBinderState extends ChangeNotifier {
 
   void setState(int newState) {
     state = newState;
+    notifyListeners();
+  }
+
+  void setSelectedIndexCardList(int newIndex) {
+    selectedIndexCardList = newIndex;
     notifyListeners();
   }
 
