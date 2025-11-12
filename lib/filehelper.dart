@@ -79,7 +79,7 @@ class FileHelper {
     }
   }
 
-  Future<Uint8List> readImage(int id) async {
+  Future<Uint8List?> readImage(int id) async {
     try {
       final file = await _localImage(id);
 
@@ -88,7 +88,7 @@ class FileHelper {
       final contents = await file.readAsBytes();
       return contents;
     } catch (e) {
-      throw Exception('No se pudo leer la imagen');
+      return null;
     }
   }
 }

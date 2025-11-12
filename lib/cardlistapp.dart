@@ -77,7 +77,6 @@ class CardListAppState extends State<CardListApp> {
   }
 
   Widget _buildCardCard(BuildContext context, YGOCard card, Uint8List? image) {
-    final screenSize = MediaQuery.of(context).size;
     final cardGradient = CardColor.getCardGradient(card.frameType);
 
     return Card(
@@ -102,21 +101,24 @@ class CardListAppState extends State<CardListApp> {
             children: [
               image == null ?
               Container() :
-              ClipRRect(
-                borderRadius: BorderRadius.circular(5.0),
-                child: Image.memory(
-                  image,
-                  fit: BoxFit.cover,
+              AspectRatio(
+                aspectRatio: 1,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5.0),
+                  child: Image.memory(
+                    image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-              Text(
+              AutoSizeText(
                 card.name,
+                maxLines: 3,
+                minFontSize: 15,
+                maxFontSize: 17,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: screenSize.width > screenSize.height ?
-                    screenSize.width * 0.12 * 0.1 :
-                    screenSize.width * 0.46 * 0.1,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Matrix',
                   height: 1.0,
