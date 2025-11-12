@@ -146,29 +146,61 @@ class CardListAppState extends State<CardListApp> {
   Widget _paginationBuilder(BuildContext context, int nPages, List<List<YGOCard>> chunkedCards) {
     var screenSize = MediaQuery.of(context).size;
     var appState = context.watch<YGOBinderState>();
+    final isPortrait = screenSize.height > screenSize.width;
 
     if (nPages <= 1) return const SizedBox.shrink();
 
+    final Color selectedColor = Colors.amber.shade700;
+    final Color unselectedColor = Colors.grey.shade800;
+    final Color borderColor = Colors.black;
+
     return SizedBox(
-      height: screenSize.height < screenSize.width ? null :
-        screenSize.height * 0.05,
-      width: screenSize.width < screenSize.height ? null :
-        screenSize.width * 0.07,
+      height: isPortrait ? screenSize.height * 0.05 : null,
+      width: isPortrait ? null : screenSize.width * 0.05,
       child: ListView.builder(
-        scrollDirection: screenSize.height > screenSize.width ?
-          Axis.horizontal : Axis.vertical,
+        scrollDirection: isPortrait ? Axis.horizontal : Axis.vertical,
         itemCount: nPages,
         itemBuilder: (context, index) {
           final pageN = index + 1;
           final isSelected = index == _selectedChunk;
 
-          return ActionChip(
-            onPressed: () => _updateSelectedChunk(index, chunkedCards, appState),
-            backgroundColor: isSelected ? Colors.black : Colors.white,
-            label: Text(
-              pageN.toString(),
-              style: TextStyle(
-                color: isSelected ? Colors.white : Colors.black,
+          return GestureDetector(
+            onTap: () => _updateSelectedChunk(index, chunkedCards, appState),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              width: 32,
+              height: 32,
+              margin: EdgeInsets.symmetric(
+                horizontal: isPortrait ? 4.0 : 0,
+                vertical: isPortrait ? 0 : 4.0,
+              ),
+              decoration: BoxDecoration(
+                color: isSelected ? selectedColor : unselectedColor,
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(
+                  color: borderColor,
+                  width: isSelected ? 2 : 1,
+                ),
+                boxShadow: isSelected
+                    ? [
+                  BoxShadow(
+                    color: selectedColor.withAlpha(70),
+                    blurRadius: 4,
+                    offset: const Offset(0, 1),
+                  )
+                ]
+                    : [],
+
+              ),
+              child: Center(
+                child: Text(
+                  pageN.toString(),
+                  style: TextStyle(
+                    color: isSelected ? Colors.white : Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Matrix',
+                  ),
+                ),
               ),
             ),
           );
