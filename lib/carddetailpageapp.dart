@@ -19,6 +19,17 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
     final imageByte = appState.images[widget.card.id];
     final cardType = widget.card.type;
 
+    final List<bool> validMarkers = widget.card.frameType == 'link' ? [
+      widget.card.linkMarkers!.contains('Bottom-Left'),
+      widget.card.linkMarkers!.contains('Left'),
+      widget.card.linkMarkers!.contains('Top-Left'),
+      widget.card.linkMarkers!.contains('Top'),
+      widget.card.linkMarkers!.contains('Top-Right'),
+      widget.card.linkMarkers!.contains('Right'),
+      widget.card.linkMarkers!.contains('Bottom-Right'),
+      widget.card.linkMarkers!.contains('Bottom'),
+    ] : List.filled(8, false);
+
     String auxAttribute = '';
     String auxArchetype = '';
     if (widget.card.attribute != null) {
@@ -128,8 +139,80 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                   ),
                 ),
                 Center(
-                  child: imageByte == null ?
-                    Container() :
+                  child: imageByte == null ? Container() :
+                    widget.card.frameType == 'link' ?
+                    SizedBox(
+                      width: screenSize.height > screenSize.width ? screenSize.width : 200,
+                      height: screenSize.height > screenSize.width ? screenSize.width : 200,
+                      child: Stack(
+                        children: [
+                          Image.memory(
+                          appState.images[widget.card.id]!,
+                          fit: BoxFit.cover,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildLinkArrow(
+                                      direction: 2,
+                                      isSolid: validMarkers[2],
+                                      saiz: screenSize.width * 0.1,
+                                    ),
+                                    buildLinkArrow(
+                                      direction: 3,
+                                      isSolid: validMarkers[3],
+                                      saiz: screenSize.width * 0.1,
+                                    ),
+                                    buildLinkArrow(
+                                      direction: 4,
+                                      isSolid: validMarkers[4],
+                                      saiz: screenSize.width * 0.1,
+                                    ),
+                                  ]
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  buildLinkArrow(
+                                    direction: 1,
+                                    isSolid: validMarkers[1],
+                                    saiz: screenSize.width * 0.1,
+                                  ),
+                                  buildLinkArrow(
+                                    direction: 5,
+                                    isSolid: validMarkers[5],
+                                    saiz: screenSize.width * 0.1,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  buildLinkArrow(
+                                    direction: 0,
+                                    isSolid: validMarkers[0],
+                                    saiz: screenSize.width * 0.1,
+                                  ),
+                                  buildLinkArrow(
+                                    direction: 7,
+                                    isSolid: validMarkers[7],
+                                    saiz: screenSize.width * 0.1,
+                                  ),
+                                  buildLinkArrow(
+                                    direction: 6,
+                                    isSolid: validMarkers[6],
+                                    saiz: screenSize.width * 0.1,
+                                  ),
+                                ]
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ) :
                     SizedBox(
                         width: screenSize.height > screenSize.width ? screenSize.width : 200,
                         height: screenSize.height > screenSize.width ? screenSize.width : 200,
@@ -154,4 +237,62 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
       ),
     );
   }
+
+  Widget buildLinkArrow({
+    required int direction,
+    required bool isSolid,
+    required double saiz,
+  }) {
+    return SizedBox(
+      width: saiz,
+      height: saiz,
+      child: Transform.rotate(
+        angle: direction * pi / 4,
+        alignment: Alignment.center,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(5),
+          child: CustomPaint(
+            painter: LinkArrowPainter(
+              isSolid: isSolid,
+              saiz: saiz,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LinkArrowPainter extends CustomPainter {
+  final bool isSolid;
+  final double saiz;
+
+  LinkArrowPainter({
+    this.isSolid = false,
+    required this.saiz,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final path = Path();
+    path.moveTo(saiz * 0.95, saiz * 0.95);
+    path.lineTo(saiz * 0.05, saiz * 0.95);
+    path.lineTo(saiz * 0.05, saiz * 0.05);
+    path.close();
+
+    final strokePaint = Paint()
+      ..color = Colors.grey
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = saiz * 0.1;
+
+    final fillPaint = Paint()
+      ..color = isSolid ? Colors.redAccent : Colors.black
+      ..style = PaintingStyle.fill;
+
+    canvas.drawPath(path, fillPaint);
+    canvas.drawPath(path, strokePaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
