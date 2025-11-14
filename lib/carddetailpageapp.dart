@@ -539,36 +539,63 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              widget.card.desc,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: isPortrait ?
-                                  screenSize.height * 0.7 * 0.1 :
-                                  screenSize.width * 0.7 * 0.1,
-                                fontWeight: FontWeight.normal,
-                                fontFamily: 'Matrix',
-                                height: 1,
-                                shadows: [
-                                  Shadow(
-                                    color: Colors.black.withAlpha(95),
-                                    offset: const Offset(2.0, 2.0),
-                                    blurRadius: 3.0,
+                            child: Column(
+                              children: [
+                                typeLineWriter(
+                                  widget.card.typeLine,
+                                  isPortrait ?
+                                    screenSize.height * 0.7 * 0.1 :
+                                    screenSize.width * 0.7 * 0.1
+                                ),
+                                Text(
+                                  widget.card.desc,
+                                  textAlign: TextAlign.justify,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: isPortrait ?
+                                      screenSize.height * 0.7 * 0.1 :
+                                      screenSize.width * 0.7 * 0.1,
+                                    fontWeight: FontWeight.normal,
+                                    fontFamily: 'Matrix',
+                                    height: 1,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black.withAlpha(95),
+                                        offset: const Offset(2.0, 2.0),
+                                        blurRadius: 3.0,
+                                      ),
+                                      Shadow(
+                                        color: Colors.white.withAlpha(5),
+                                        offset: const Offset(1.0, 1.0),
+                                        blurRadius: 1.0,
+                                      ),
+                                    ],
                                   ),
-                                  Shadow(
-                                    color: Colors.white.withAlpha(5),
-                                    offset: const Offset(1.0, 1.0),
-                                    blurRadius: 1.0,
-                                  ),
-                                ],
-                              ),
+                                ),
+                                widget.card.atk == null ? Container() :
+                                const Divider(
+                                  color: Colors.black,
+                                  thickness: 1,
+                                ),
+                                widget.card.atk == null ? Container() :
+                                Row(
+                                  children: [
+                                    Expanded(child: Container()),
+                                    atkDefLinkWriter(
+                                      widget.card.atk,
+                                      widget.card.def,
+                                      widget.card.linkVal,
+                                        isPortrait ?
+                                        screenSize.height * 0.7 * 0.1 :
+                                        screenSize.width * 0.7 * 0.1
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                         ),
                       ),
-                      widget.card.atk == null ? Container() : Text(widget.card.atk.toString()),
-                      widget.card.def == null ? Container() : Text(widget.card.def.toString()),
                       widget.card.level == null ? Container() : Text(widget.card.level.toString()),
                       widget.card.race == "null" ? Container() : Text(widget.card.race),
                       widget.card.attribute == null ? Container() : Text(auxAttribute),
@@ -604,6 +631,82 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget typeLineWriter(List<String>? types, double fontSize) {
+    if (types == null) {
+      return Container();
+    }
+
+    var text = '[${types[0]}';
+    for (var i = 1; i < types.length; i++) {
+      text += '/';
+      text += types[i];
+    }
+    text += ']';
+
+    return Text(
+      text.toUpperCase(),
+      textAlign: TextAlign.right,
+      style: TextStyle(
+        color: Colors.black,
+        fontSize: fontSize * 1.1,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'Matrix',
+        height: 1,
+        shadows: [
+          Shadow(
+            color: Colors.black.withAlpha(95),
+            offset: const Offset(2.0, 2.0),
+            blurRadius: 3.0,
+          ),
+          Shadow(
+            color: Colors.white.withAlpha(5),
+            offset: const Offset(1.0, 1.0),
+            blurRadius: 1.0,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget atkDefLinkWriter(int? atk, int? def, int? linkval, double fontSize) {
+    if (atk == null && def == null) {
+      return Container();
+    }
+
+    var text = atk! > -1 ? 'ATK/$atk' : 'ATK/   ?';
+
+    if (def == null) {
+      text += ' LINK-$linkval';
+    }
+    else {
+      text += def > -1 ? ' DEF/$def' : ' DEF/   ?';
+    }
+
+    return Text(
+      text,
+      textAlign: TextAlign.right,
+      style: TextStyle(
+        color: Colors.black,
+        fontSize: fontSize * 1.1,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'Matrix',
+        height: 1,
+        shadows: [
+          Shadow(
+            color: Colors.black.withAlpha(95),
+            offset: const Offset(2.0, 2.0),
+            blurRadius: 3.0,
+          ),
+          Shadow(
+            color: Colors.white.withAlpha(5),
+            offset: const Offset(1.0, 1.0),
+            blurRadius: 1.0,
+          ),
+        ],
       ),
     );
   }
