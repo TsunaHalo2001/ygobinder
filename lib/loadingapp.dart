@@ -64,14 +64,26 @@ class LoadingAppState extends State<LoadingApp> {
                   ),
                   Center(
                     child: Text(
-                      appState.apiCalled ?
-                      "Obteniendo datos de API" :
-                      "Cargando datos de cache",
+                      "Iniciando",
                       style: TextStyle(
                         color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Matrix',
                         fontSize: screenSize.width > screenSize.height ?
                           screenSize.height * 0.025 :
                           screenSize.width * 0.05,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black.withAlpha(95),
+                            offset: const Offset(2.0, 2.0),
+                            blurRadius: 3.0,
+                          ),
+                          Shadow(
+                            color: Colors.white.withAlpha(5),
+                            offset: const Offset(1.0, 1.0),
+                            blurRadius: 1.0,
+                          ),
+                        ],
                       ),
                     ),
                   )

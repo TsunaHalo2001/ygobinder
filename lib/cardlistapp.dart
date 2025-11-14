@@ -9,6 +9,7 @@ class CardListApp extends StatefulWidget {
 
 class CardListAppState extends State<CardListApp> {
   void _updateSelectedChunk(int index, List<List<YGOCard>> chunkedCards,YGOBinderState appState) {
+    if (index == appState.selectedIndexCardList) return;
     setState(() {
       appState.setSelectedIndexCardList(index);
     });
@@ -109,29 +110,37 @@ class CardListAppState extends State<CardListApp> {
                   ),
                 ),
               ),
-              AutoSizeText(
-                card.name,
-                maxLines: 3,
-                minFontSize: 15,
-                maxFontSize: 17,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Matrix',
-                  height: 1.0,
-                  shadows: [
-                    Shadow(
-                      color: Colors.black.withAlpha(95),
-                      offset: const Offset(2.0, 2.0),
-                      blurRadius: 3.0,
+              Expanded(
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 8.0),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Text(
+                        card.name,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Matrix',
+                          height: 1.0,
+                          fontSize: 21,
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withAlpha(95),
+                              offset: const Offset(2.0, 2.0),
+                              blurRadius: 3.0,
+                            ),
+                            Shadow(
+                              color: Colors.white.withAlpha(5),
+                              offset: const Offset(1.0, 1.0),
+                              blurRadius: 1.0,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                    Shadow(
-                      color: Colors.white.withAlpha(5),
-                      offset: const Offset(1.0, 1.0),
-                      blurRadius: 1.0,
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ],
