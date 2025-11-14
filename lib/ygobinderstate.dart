@@ -3,6 +3,7 @@ part of 'main.dart';
 class YGOBinderState extends ChangeNotifier {
   int state = 0;
   int selectedIndexCardList = 0;
+  int selectedImage = 0;
 
   static final String _lastUpdateKey = 'last_api_update_date';
   String actualDate = '';
@@ -158,16 +159,18 @@ class YGOBinderState extends ChangeNotifier {
     }
   }
 
-  Future<void> loadImg(YGOCard card) async {
-    if (images[card.id] == null) {
-      images[card.id] = await fileHelper.readImage(card.id);
+  Future<void> loadImg(int card) async {
+    if (images[card] == null) {
+      images[card] = await fileHelper.readImage(card);
     }
   }
 
   Future<void> updateSelectedChunk(List<YGOCard> chunkedCard) async {
     images.clear();
     for (YGOCard card in chunkedCard) {
-      await loadImg(card);
+      for (var image in card.cardImages.values) {
+        await loadImg(image.id);
+      }
     }
 
     notifyListeners();
