@@ -82,12 +82,12 @@ class CardSet {
     this.setPrice,
   });
 
-  static Map<String, CardSet>? genCardSets(List<dynamic>? data) {
+  static Map<String, List<CardSet>>? genCardSets(List<dynamic>? data) {
     if (data == null) {
       return null;
     }
 
-    var cardSets = <String, CardSet>{};
+    var cardSets = <String, List<CardSet>>{};
 
     for (var item in data) {
       final CardSet cardSet = CardSet(
@@ -98,9 +98,10 @@ class CardSet {
         setPrice: double.tryParse(item['set_price']),
       );
 
-      cardSets[item['set_code']] = cardSet;
+      final setCode = item['set_code'];
+      cardSets[setCode] ??= [];
+      cardSets[setCode]!.add(cardSet);
     }
-
     return cardSets;
   }
 }
@@ -170,7 +171,7 @@ class YGOCard {
   final List<String>? linkMarkers;
   final String ygoProDeckUrl;
 
-  final Map<String, CardSet>? cardSets;
+  final Map<String, List<CardSet>>? cardSets;
   final BanlistInfo? banlistInfo;
   final Map<int, CardImage> cardImages;
   final Map<int, CardPrices> cardPrices;
@@ -218,7 +219,6 @@ class YGOCard {
         );
         final tempCardImages = CardImage.genCardImages(item['card_images']);
         final tempCardPrices = CardPrices.genCardPrices(item['card_prices']);
-
         final YGOCard card = YGOCard(
           id: item['id'],
           name: item['name'],

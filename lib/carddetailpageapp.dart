@@ -45,7 +45,6 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
         }
       });
     }
-
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -460,9 +459,13 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                 height: screenSize.width,
                                 child: Stack(
                                   children: [
-                                    Image.memory(
-                                    imageByte!,
-                                    fit: BoxFit.cover,
+                                    SizedBox(
+                                      width: screenSize.width,
+                                      height: screenSize.width,
+                                      child: Image.memory(
+                                      imageByte!,
+                                      fit: BoxFit.cover,
+                                      ),
                                     ),
                                     Column(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -688,6 +691,14 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                           ],
                         ),
                       ),
+                      widget.card.cardSets == null ? Container() :
+                      cardSetWriter(
+                        widget.card.cardSets!.values.first.first.setCode,
+                        widget.card.cardSets!.values.first,
+                        isPortrait ?
+                        screenSize.height * 0.5 * 0.1 :
+                        screenSize.width * 0.5 * 0.1,
+                      ),
                     ],
                 ),
                         ),
@@ -795,6 +806,89 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
             offset: const Offset(1.0, 1.0),
             blurRadius: 1.0,
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget cardSetWriter(String set, List<CardSet>? sets, double fontSize) {
+    if (sets == null) {
+      return Container();
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: fontSize * 0.6),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(9),
+                border: Border.all(
+                  color: Colors.black,
+                  width: 5,
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: List.generate(
+                    sets.length,
+                    (index) => Text(
+                      sets[index].setRarity,
+                      textAlign: TextAlign.right,
+                      maxLines: 1,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: fontSize,
+                        fontWeight: FontWeight.normal,
+                        fontFamily: 'Matrix',
+                        height: 1,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black.withAlpha(95),
+                            offset: const Offset(2.0, 2.0),
+                            blurRadius: 3.0,
+                          ),
+                          Shadow(
+                            color: Colors.white.withAlpha(5),
+                            offset: const Offset(1.0, 1.0),
+                            blurRadius: 1.0,
+                          ),
+                        ],
+                      ),
+                    )
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Text(
+            set,
+            textAlign: TextAlign.right,
+            maxLines: 1,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: fontSize,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Matrix',
+              height: 1,
+              shadows: [
+                Shadow(
+                  color: Colors.black.withAlpha(95),
+                  offset: const Offset(2.0, 2.0),
+                  blurRadius: 3.0,
+                ),
+                Shadow(
+                  color: Colors.white.withAlpha(5),
+                  offset: const Offset(1.0, 1.0),
+                  blurRadius: 1.0,
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
