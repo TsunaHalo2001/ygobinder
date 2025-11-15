@@ -403,7 +403,7 @@ class CardColor {
 
     // Monstruos de Invocación Extra (Extra Deck)
     'fusion': Color(0xFF9900FF), // Púrpura (Fusión)
-    'synchro': Color(0xFFCCCCCC), // Blanco/Gris claro (Sincronía)
+    'synchro': Color(0xFF808080), // Blanco/Gris claro (Sincronía)
     'xyz': Color(0xFF333333), // Negro oscuro (Xyz)
     'link': Color(0xFF000080), // Azul Oscuro (Link)
 
@@ -415,7 +415,7 @@ class CardColor {
     'trap': Color(0xFFB01762), // Rojo Ladrillo (Trampa/Trap)
 
     // Fichas (Token) y otros
-    'token': Color(0xFF999999), // Gris (Token)
+    'token': Color(0xFF4E4E4E), // Gris (Token)
     'skill': Color(0xFF007A8A), // Cian (Skill)
 
     // Valor por defecto si no se encuentra el tipo

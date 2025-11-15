@@ -580,7 +580,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                 shadows: [
                                   Shadow(
                                     color: Colors.black.withAlpha(95),
-                                    offset: const Offset(2.0, 2.0),
+                                    offset: const Offset(1.0, 1.0),
                                     blurRadius: 3.0,
                                   ),
                                   Shadow(
@@ -629,7 +629,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                     shadows: [
                                       Shadow(
                                         color: Colors.black.withAlpha(95),
-                                        offset: const Offset(2.0, 2.0),
+                                        offset: const Offset(1.0, 1.0),
                                         blurRadius: 3.0,
                                       ),
                                       Shadow(
@@ -710,9 +710,26 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                           cardGradient,
                         ),
                       )),
-                    ],
-                ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: BackButton()
+                              ),
+                            ),
+                          ],
                         ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
@@ -831,7 +848,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.transparent,
+          color: Colors.black.withAlpha(80),
           borderRadius: BorderRadius.circular(9),
           border: Border.all(
             color: Colors.black.withAlpha(180),
