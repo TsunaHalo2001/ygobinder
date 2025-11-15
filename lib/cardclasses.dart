@@ -262,16 +262,12 @@ class YGOCard {
     int i = 0;
 
     while (i < allCards.length) {
-      // 5. Calcular el índice final del chunk (asegurándose de no exceder el tamaño total de la lista)
       final end = (i + chunkSize < allCards.length) ? i + chunkSize : allCards.length;
 
-      // 6. Extraer la sublista usando .sublist(inicio, fin)
       final chunk = allCards.sublist(i, end);
 
-      // 7. Añadir el chunk a la lista principal
       chunks.add(chunk);
 
-      // 8. Mover el índice al inicio del siguiente chunk
       i += chunkSize;
     }
 
@@ -281,27 +277,27 @@ class YGOCard {
 
 class CardSetInventory {
   final CardSet cardSet;
-  int possesed;
-  int notMine;
-  int iBorrowed;
+  int have;
+  int lent;
+  int borrowed;
 
   CardSetInventory({
     required this.cardSet,
-    required this.possesed,
-    required this.notMine,
-    required this.iBorrowed,
+    required this.have,
+    required this.lent,
+    required this.borrowed,
   });
 
-  void setPossesed(int possesed) {
-    this.possesed = possesed;
+  void setHave(int have) {
+    this.have = have;
   }
 
-  void setNotMine(int notMine) {
-    this.notMine = notMine;
+  void setLent(int lent) {
+    this.lent = lent;
   }
 
-  void setIBorrowed(int iBorrowed) {
-    this.iBorrowed = iBorrowed;
+  void setBorrowed(int borrowed) {
+    this.borrowed = borrowed;
   }
 
   static Map<String, CardSetInventory> genCardSetInventory(Map<String, dynamic> data) {
@@ -316,9 +312,9 @@ class CardSetInventory {
           setRarityCode: item['set_rarity_code'],
           setPrice: double.tryParse(item['set_price']),
         ),
-        possesed: item['possesed'],
-        notMine: item['not_mine'],
-        iBorrowed: item['i_borrowed'],
+        have: item['have'],
+        lent: item['lent'],
+        borrowed: item['borrowed'],
       );
 
       cardSetInventories[item['set_code']] = cardSetInventory;
@@ -360,9 +356,9 @@ class CardInventory {
       json['set_name']?['set_rarity'] = info.cardSet.setRarity;
       json['set_name']?['set_rarity_code'] = info.cardSet.setRarityCode;
       json['set_name']?['set_price'] = info.cardSet.setPrice.toString();
-      json['set_name']?['possesed'] = info.possesed;
-      json['set_name']?['not_mine'] = info.notMine;
-      json['set_name']?['i_borrowed'] = info.iBorrowed;
+      json['set_name']?['have'] = info.have;
+      json['set_name']?['lent'] = info.lent;
+      json['set_name']?['borrowed'] = info.borrowed;
     }
 
     return json;
