@@ -863,6 +863,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
               ),
             ),
             child: ExpansionTile(
+              collapsedBackgroundColor: appState.cardInventory[sets[0].setCode] == null ? Colors.red : null,
               title: Text(
                 set,
                 textAlign: TextAlign.right,
@@ -925,6 +926,9 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                             thickness: 3,
                           ),
                           ExpansionTile(
+                            collapsedBackgroundColor: appState.cardInventory[sets[0].setCode] == null ? Colors.red :
+                                                      appState.cardInventory[sets[0].setCode]?[sets[index].setRarity] == null ? Colors.red :
+                                                      appState.cardInventory[sets[0].setCode]?[sets[index].setRarity]!.have == 0 ? Colors.red : Colors.green,
                             title: Text(
                               sets[index].setRarity,
                               textAlign: TextAlign.right,
