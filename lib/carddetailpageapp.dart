@@ -35,6 +35,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
     appState.selectedImage = appState.selectedImage > imageIds.length - 1 ? 0 : appState.selectedImage;
     Uint8List? imageByte = appState.images[imageIds[appState.selectedImage]]!;
     final cardType = widget.card.type;
+    Map<String, bool> isSelectedForInventory = {};
 
     final List<bool> validMarkers = widget.card.frameType == 'link' ? [
       widget.card.linkMarkers!.contains('Bottom-Left'),
@@ -708,6 +709,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                           widget.card.cardSets!.values.toList()[index],
                           fontDesc,
                           cardGradient,
+                          isSelectedForInventory,
                         ),
                       )),
                       Padding(
@@ -839,250 +841,309 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
     );
   }
 
-  Widget cardSetWriter(String set, List<CardSet>? sets, double fontSize, LinearGradient cardGradient) {
+  Widget cardSetWriter(String set, List<CardSet>? sets, double fontSize, LinearGradient cardGradient, Map<String, bool> isSelectedForInventory) {
     if (sets == null) {
       return Container();
     }
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.black.withAlpha(80),
-          borderRadius: BorderRadius.circular(9),
-          border: Border.all(
-            color: Colors.black.withAlpha(180),
-            width: 5,
-          ),
-        ),
-        child: ExpansionTile(
-          title: Text(
-            set,
-            textAlign: TextAlign.right,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: fontSize * 1.1,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Matrix',
-              height: 1,
-              shadows: [
-                Shadow(
-                  color: Colors.black.withAlpha(95),
-                  offset: const Offset(2.0, 2.0),
-                  blurRadius: 3.0,
-                ),
-                Shadow(
-                  color: Colors.white.withAlpha(5),
-                  offset: const Offset(1.0, 1.0),
-                  blurRadius: 1.0,
-                ),
-              ],
+    return StatefulBuilder(
+      builder: (context, setState) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.black.withAlpha(80),
+              borderRadius: BorderRadius.circular(9),
+              border: Border.all(
+                color: Colors.black.withAlpha(180),
+                width: 5,
+              ),
             ),
-          ),
-          controlAffinity: ListTileControlAffinity.leading,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Text(
-                    sets[0].setName,
-                    textAlign: TextAlign.right,
-                    maxLines: 1,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: fontSize,
-                      fontWeight: FontWeight.normal,
-                      fontFamily: 'Matrix',
-                      height: 1,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black.withAlpha(95),
-                          offset: const Offset(2.0, 2.0),
-                          blurRadius: 3.0,
-                        ),
-                        Shadow(
-                          color: Colors.white.withAlpha(5),
-                          offset: const Offset(1.0, 1.0),
-                          blurRadius: 1.0,
-                        ),
-                      ],
+            child: ExpansionTile(
+              title: Text(
+                set,
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: fontSize * 1.1,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Matrix',
+                  height: 1,
+                  shadows: [
+                    Shadow(
+                      color: Colors.black.withAlpha(95),
+                      offset: const Offset(2.0, 2.0),
+                      blurRadius: 3.0,
                     ),
-                  ),
-                ...List.generate(
-                  sets.length,
-                  (index) => Column(
+                    Shadow(
+                      color: Colors.white.withAlpha(5),
+                      offset: const Offset(1.0, 1.0),
+                      blurRadius: 1.0,
+                    ),
+                  ],
+                ),
+              ),
+              controlAffinity: ListTileControlAffinity.leading,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
                     children: [
-                      Divider(
-                        color: Colors.black.withAlpha(180),
-                        thickness: 3,
-                      ),
-                      ExpansionTile(
-                        title: Text(
-                          sets[index].setRarity,
-                          textAlign: TextAlign.right,
-                          maxLines: 1,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: fontSize * 0.8,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: 'Matrix',
-                            height: 1,
-                            shadows: [
-                              Shadow(
-                                color: Colors.black.withAlpha(95),
-                                offset: const Offset(2.0, 2.0),
-                                blurRadius: 3.0,
-                              ),
-                              Shadow(
-                                color: Colors.white.withAlpha(5),
-                                offset: const Offset(1.0, 1.0),
-                                blurRadius: 1.0,
-                              ),
-                            ],
-                          ),
+                      Text(
+                        sets[0].setName,
+                        textAlign: TextAlign.right,
+                        maxLines: 1,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: fontSize,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: 'Matrix',
+                          height: 1,
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withAlpha(95),
+                              offset: const Offset(2.0, 2.0),
+                              blurRadius: 3.0,
+                            ),
+                            Shadow(
+                              color: Colors.white.withAlpha(5),
+                              offset: const Offset(1.0, 1.0),
+                              blurRadius: 1.0,
+                            ),
+                          ],
                         ),
+                      ),
+                    ...List.generate(
+                      sets.length,
+                      (index) => Column(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          Divider(
+                            color: Colors.black.withAlpha(180),
+                            thickness: 3,
+                          ),
+                          ExpansionTile(
+                            title: Text(
+                              sets[index].setRarity,
+                              textAlign: TextAlign.right,
+                              maxLines: 1,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: fontSize * 0.8,
+                                fontWeight: FontWeight.normal,
+                                fontFamily: 'Matrix',
+                                height: 1,
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.black.withAlpha(95),
+                                    offset: const Offset(2.0, 2.0),
+                                    blurRadius: 3.0,
+                                  ),
+                                  Shadow(
+                                    color: Colors.white.withAlpha(5),
+                                    offset: const Offset(1.0, 1.0),
+                                    blurRadius: 1.0,
+                                  ),
+                                ],
+                              ),
+                            ),
                             children: [
-                              GestureDetector(
-                                onTap:(){},
-                                child: Text(
-                                  'Have',
-                                  textAlign: TextAlign.right,
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: fontSize * 0.8,
-                                    fontWeight: FontWeight.normal,
-                                    fontFamily: 'Matrix',
-                                    height: 1,
-                                    shadows: [
-                                      Shadow(
-                                        color: Colors.black.withAlpha(95),
-                                        offset: const Offset(2.0, 2.0),
-                                        blurRadius: 3.0,
-                                      ),
-                                      Shadow(
-                                        color: Colors.white.withAlpha(5),
-                                        offset: const Offset(1.0, 1.0),
-                                        blurRadius: 1.0,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap:(){},
-                                child: Text(
-                                  'Lent',
-                                  textAlign: TextAlign.right,
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: fontSize * 0.8,
-                                    fontWeight: FontWeight.normal,
-                                    fontFamily: 'Matrix',
-                                    height: 1,
-                                    shadows: [
-                                      Shadow(
-                                        color: Colors.black.withAlpha(95),
-                                        offset: const Offset(2.0, 2.0),
-                                        blurRadius: 3.0,
-                                      ),
-                                      Shadow(
-                                        color: Colors.white.withAlpha(5),
-                                        offset: const Offset(1.0, 1.0),
-                                        blurRadius: 1.0,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap:(){},
-                                child: Text(
-                                  'Borrowed',
-                                  textAlign: TextAlign.right,
-                                  maxLines: 1,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: fontSize * 0.8,
-                                    fontWeight: FontWeight.normal,
-                                    fontFamily: 'Matrix',
-                                    height: 1,
-                                    shadows: [
-                                      Shadow(
-                                        color: Colors.black.withAlpha(95),
-                                        offset: const Offset(2.0, 2.0),
-                                        blurRadius: 3.0,
-                                      ),
-                                      Shadow(
-                                        color: Colors.white.withAlpha(5),
-                                        offset: const Offset(1.0, 1.0),
-                                        blurRadius: 1.0,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: GestureDetector(
-                                      onTap:(){},
-                                      child: Container(
-                                        width: fontSize * 1.3,
-                                        height: fontSize * 1.3,
-                                        decoration: BoxDecoration(
-                                          color: Colors.green,
-                                          borderRadius: BorderRadius.circular(9),
-                                        ),
-                                        child: Icon(
-                                          Icons.plus_one,
-                                          color: Colors.white,
-                                          size: fontSize * 0.7,
-                                        ),
+                                  GestureDetector(
+                                    onTap:(){
+                                      setState(() {
+                                        if(isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] == null) {
+                                          isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] = true;
+                                          isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] = false;
+                                          isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] = false;
+                                        }
+                                        else {
+                                          if(isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] == false) {
+                                            isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] = true;
+                                            isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] = false;
+                                            isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] = false;
+                                          }
+                                          else {
+                                            isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] = false;
+                                          }}
+                                      });
+                                    },
+                                    child: Text(
+                                      'Have',
+                                      textAlign: TextAlign.right,
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                        color:
+                                          isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] == true ?
+                                          Colors.black : Colors.white,
+                                        fontSize: fontSize * 0.8,
+                                        fontWeight: FontWeight.normal,
+                                        fontFamily: 'Matrix',
+                                        height: 1,
+                                        shadows: [
+                                          Shadow(
+                                            color: Colors.black.withAlpha(95),
+                                            offset: const Offset(2.0, 2.0),
+                                            blurRadius: 3.0,
+                                          ),
+                                          Shadow(
+                                            color: Colors.white.withAlpha(5),
+                                            offset: const Offset(1.0, 1.0),
+                                            blurRadius: 1.0,
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                    child: GestureDetector(
-                                      onTap:(){},
-                                      child: Container(
-                                        width: fontSize * 1.3,
-                                        height: fontSize * 1.3,
-                                        decoration: BoxDecoration(
-                                          color: Colors.red,
-                                          borderRadius: BorderRadius.circular(9),
-                                        ),
-                                        child: Icon(
-                                          Icons.exposure_minus_1,
-                                          color: Colors.white,
-                                          size: fontSize * 0.7,
-                                        ),
+                                  GestureDetector(
+                                    onTap:(){
+                                      setState(() {
+                                        if(isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] == null) {
+                                          isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] = false;
+                                          isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] = true;
+                                          isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] = false;
+                                        }
+                                        else {
+                                          if(isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] == false) {
+                                            isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] = false;
+                                            isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] = true;
+                                            isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] = false;
+                                          }
+                                          else {
+                                            isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] = false;
+                                          }}
+                                      });
+                                    },
+                                    child: Text(
+                                      'Lent',
+                                      textAlign: TextAlign.right,
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                        color: isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] == true ?
+                                          Colors.black : Colors.white,
+                                        fontSize: fontSize * 0.8,
+                                        fontWeight: FontWeight.normal,
+                                        fontFamily: 'Matrix',
+                                        height: 1,
+                                        shadows: [
+                                          Shadow(
+                                            color: Colors.black.withAlpha(95),
+                                            offset: const Offset(2.0, 2.0),
+                                            blurRadius: 3.0,
+                                          ),
+                                          Shadow(
+                                            color: Colors.white.withAlpha(5),
+                                            offset: const Offset(1.0, 1.0),
+                                            blurRadius: 1.0,
+                                          ),
+                                        ],
                                       ),
                                     ),
+                                  ),
+                                  GestureDetector(
+                                    onTap:(){
+                                      setState(() {
+                                        if(isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] == null) {
+                                          isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] = false;
+                                          isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] = false;
+                                          isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] = true;
+                                        }
+                                        else {
+                                          if(isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] == false) {
+                                            isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] = false;
+                                            isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] = false;
+                                            isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] = true;
+                                          }
+                                          else {
+                                            isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] = false;
+                                          }}
+                                      });
+                                    },
+                                    child: Text(
+                                      'Borrowed',
+                                      textAlign: TextAlign.right,
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                        color: isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] == true ?
+                                          Colors.black : Colors.white,
+                                        fontSize: fontSize * 0.8,
+                                        fontWeight: FontWeight.normal,
+                                        fontFamily: 'Matrix',
+                                        height: 1,
+                                        shadows: [
+                                          Shadow(
+                                            color: Colors.black.withAlpha(95),
+                                            offset: const Offset(2.0, 2.0),
+                                            blurRadius: 3.0,
+                                          ),
+                                          Shadow(
+                                            color: Colors.white.withAlpha(5),
+                                            offset: const Offset(1.0, 1.0),
+                                            blurRadius: 1.0,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: GestureDetector(
+                                          onTap:(){},
+                                          child: Container(
+                                            width: fontSize * 1.3,
+                                            height: fontSize * 1.3,
+                                            decoration: BoxDecoration(
+                                              color: Colors.green,
+                                              borderRadius: BorderRadius.circular(9),
+                                            ),
+                                            child: Icon(
+                                              Icons.plus_one,
+                                              color: Colors.white,
+                                              size: fontSize * 0.7,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                        child: GestureDetector(
+                                          onTap:(){},
+                                          child: Container(
+                                            width: fontSize * 1.3,
+                                            height: fontSize * 1.3,
+                                            decoration: BoxDecoration(
+                                              color: Colors.red,
+                                              borderRadius: BorderRadius.circular(9),
+                                            ),
+                                            child: Icon(
+                                              Icons.exposure_minus_1,
+                                              color: Colors.white,
+                                              size: fontSize * 0.7,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
                             ],
                           ),
                         ],
-                      ),
+                      )
+                    ),
                     ],
-                  )
+                  ),
                 ),
-                ],
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
 }
