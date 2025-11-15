@@ -917,31 +917,160 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                         color: Colors.black.withAlpha(180),
                         thickness: 3,
                       ),
-                      Row(
+                      ExpansionTile(
+                        title: Text(
+                          sets[index].setRarity,
+                          textAlign: TextAlign.right,
+                          maxLines: 1,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: fontSize * 0.8,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: 'Matrix',
+                            height: 1,
+                            shadows: [
+                              Shadow(
+                                color: Colors.black.withAlpha(95),
+                                offset: const Offset(2.0, 2.0),
+                                blurRadius: 3.0,
+                              ),
+                              Shadow(
+                                color: Colors.white.withAlpha(5),
+                                offset: const Offset(1.0, 1.0),
+                                blurRadius: 1.0,
+                              ),
+                            ],
+                          ),
+                        ),
                         children: [
-                          Text(
-                            sets[index].setRarity,
-                            textAlign: TextAlign.right,
-                            maxLines: 1,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: fontSize * 0.8,
-                              fontWeight: FontWeight.normal,
-                              fontFamily: 'Matrix',
-                              height: 1,
-                              shadows: [
-                                Shadow(
-                                  color: Colors.black.withAlpha(95),
-                                  offset: const Offset(2.0, 2.0),
-                                  blurRadius: 3.0,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              GestureDetector(
+                                onTap:(){},
+                                child: Text(
+                                  'Have',
+                                  textAlign: TextAlign.right,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: fontSize * 0.8,
+                                    fontWeight: FontWeight.normal,
+                                    fontFamily: 'Matrix',
+                                    height: 1,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black.withAlpha(95),
+                                        offset: const Offset(2.0, 2.0),
+                                        blurRadius: 3.0,
+                                      ),
+                                      Shadow(
+                                        color: Colors.white.withAlpha(5),
+                                        offset: const Offset(1.0, 1.0),
+                                        blurRadius: 1.0,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                Shadow(
-                                  color: Colors.white.withAlpha(5),
-                                  offset: const Offset(1.0, 1.0),
-                                  blurRadius: 1.0,
+                              ),
+                              GestureDetector(
+                                onTap:(){},
+                                child: Text(
+                                  'Lent',
+                                  textAlign: TextAlign.right,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: fontSize * 0.8,
+                                    fontWeight: FontWeight.normal,
+                                    fontFamily: 'Matrix',
+                                    height: 1,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black.withAlpha(95),
+                                        offset: const Offset(2.0, 2.0),
+                                        blurRadius: 3.0,
+                                      ),
+                                      Shadow(
+                                        color: Colors.white.withAlpha(5),
+                                        offset: const Offset(1.0, 1.0),
+                                        blurRadius: 1.0,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              GestureDetector(
+                                onTap:(){},
+                                child: Text(
+                                  'Borrowed',
+                                  textAlign: TextAlign.right,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: fontSize * 0.8,
+                                    fontWeight: FontWeight.normal,
+                                    fontFamily: 'Matrix',
+                                    height: 1,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black.withAlpha(95),
+                                        offset: const Offset(2.0, 2.0),
+                                        blurRadius: 3.0,
+                                      ),
+                                      Shadow(
+                                        color: Colors.white.withAlpha(5),
+                                        offset: const Offset(1.0, 1.0),
+                                        blurRadius: 1.0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: GestureDetector(
+                                      onTap:(){},
+                                      child: Container(
+                                        width: fontSize * 1.3,
+                                        height: fontSize * 1.3,
+                                        decoration: BoxDecoration(
+                                          color: Colors.green,
+                                          borderRadius: BorderRadius.circular(9),
+                                        ),
+                                        child: Icon(
+                                          Icons.plus_one,
+                                          color: Colors.white,
+                                          size: fontSize * 0.7,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: GestureDetector(
+                                      onTap:(){},
+                                      child: Container(
+                                        width: fontSize * 1.3,
+                                        height: fontSize * 1.3,
+                                        decoration: BoxDecoration(
+                                          color: Colors.red,
+                                          borderRadius: BorderRadius.circular(9),
+                                        ),
+                                        child: Icon(
+                                          Icons.exposure_minus_1,
+                                          color: Colors.white,
+                                          size: fontSize * 0.7,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ],
                       ),

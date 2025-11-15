@@ -207,6 +207,10 @@ class YGOCard {
       var cards = <int, YGOCard>{};
 
       for (var item in data) {
+        if (item['type'] == 'Skill Card') {
+          continue;
+        }
+
         final tempTypeLine = TypeLine.genTypeLines(item['typeline']);
         final tempLinkMarker = LinkMarker.genLinkMarkers(item['linkmarkers']);
         final tempCardSets = CardSet.genCardSets(item['card_sets']);
