@@ -667,13 +667,12 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                           ),
                         ),
                       ),
-                      widget.card.archetype == null ? Container() :
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Row(
                           children: [
                             Expanded(
-                              child: Text(
+                              child: widget.card.archetype == null ? Container() : Text(
                                 'Archetype: ${widget.card.archetype!}',
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
@@ -697,6 +696,266 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                 ),
                               ),
                             ),
+                            widget.card.banlistInfo == null ? Container() :
+                            widget.card.banlistInfo!.banTCG == null ? Container() :
+                            widget.card.banlistInfo!.banTCG!.contains('Forbidden') ? Stack(
+                              children: [
+                                Icon(Icons.block, size: fontTitles, color: Colors.red,),
+                                Text(
+                                  'TCG',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Matrix',
+                                    height: 1.0,
+                                    fontSize: fontDesc,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black.withAlpha(95),
+                                        offset: const Offset(2.0, 2.0),
+                                        blurRadius: 3.0,
+                                      ),
+                                      Shadow(
+                                        color: Colors.white.withAlpha(5),
+                                        offset: const Offset(1.0, 1.0),
+                                        blurRadius: 1.0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ) :
+                            widget.card.banlistInfo!.banTCG!.contains('Limited') ? Stack(
+                              children: [
+                                Icon(Icons.filter_1, size: fontTitles, color: Colors.red,),
+                                Text(
+                                  'TCG',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Matrix',
+                                    height: 1.0,
+                                    fontSize: fontDesc,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black.withAlpha(95),
+                                        offset: const Offset(2.0, 2.0),
+                                        blurRadius: 3.0,
+                                      ),
+                                      Shadow(
+                                        color: Colors.white.withAlpha(5),
+                                        offset: const Offset(1.0, 1.0),
+                                        blurRadius: 1.0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ) :
+                            widget.card.banlistInfo!.banTCG!.contains('Semi-Limited') ? Stack(
+                              children: [
+                                Icon(Icons.filter_2, size: fontTitles, color: Colors.red,),
+                                Text(
+                                  'TCG',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Matrix',
+                                    height: 1.0,
+                                    fontSize: fontDesc,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black.withAlpha(95),
+                                        offset: const Offset(2.0, 2.0),
+                                        blurRadius: 3.0,
+                                      ),
+                                      Shadow(
+                                        color: Colors.white.withAlpha(5),
+                                        offset: const Offset(1.0, 1.0),
+                                        blurRadius: 1.0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )
+                                : Container(),
+                            widget.card.banlistInfo == null ? Container() :
+                            widget.card.banlistInfo!.banOCG == null ? Container() :
+                            widget.card.banlistInfo!.banOCG!.contains('Forbidden') ? Stack(
+                              children: [
+                                Icon(Icons.block, size: fontTitles, color: Colors.red,),
+                                Text(
+                                  'OCG',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Matrix',
+                                    height: 1.0,
+                                    fontSize: fontDesc,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black.withAlpha(95),
+                                        offset: const Offset(2.0, 2.0),
+                                        blurRadius: 3.0,
+                                      ),
+                                      Shadow(
+                                        color: Colors.white.withAlpha(5),
+                                        offset: const Offset(1.0, 1.0),
+                                        blurRadius: 1.0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ) :
+                            widget.card.banlistInfo!.banOCG!.contains('Limited') ? Stack(
+                              children: [
+                                Icon(Icons.filter_1, size: fontTitles, color: Colors.red,),
+                                Text(
+                                  'OCG',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Matrix',
+                                    height: 1.0,
+                                    fontSize: fontDesc,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black.withAlpha(95),
+                                        offset: const Offset(2.0, 2.0),
+                                        blurRadius: 3.0,
+                                      ),
+                                      Shadow(
+                                        color: Colors.white.withAlpha(5),
+                                        offset: const Offset(1.0, 1.0),
+                                        blurRadius: 1.0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ) :
+                            widget.card.banlistInfo!.banOCG!.contains('Semi-Limited') ? Stack(
+                              children: [
+                                Icon(Icons.filter_2, size: fontTitles, color: Colors.red,),
+                                Text(
+                                  'OCG',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Matrix',
+                                    height: 1.0,
+                                    fontSize: fontDesc,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black.withAlpha(95),
+                                        offset: const Offset(2.0, 2.0),
+                                        blurRadius: 3.0,
+                                      ),
+                                      Shadow(
+                                        color: Colors.white.withAlpha(5),
+                                        offset: const Offset(1.0, 1.0),
+                                        blurRadius: 1.0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ) : Container(),
+                            widget.card.banlistInfo == null ? Container() :
+                            widget.card.banlistInfo!.banGoat == null ? Container() :
+                            widget.card.banlistInfo!.banGoat!.contains('Forbidden') ? Stack(
+                              children: [
+                                Icon(Icons.block, size: fontTitles, color: Colors.red,),
+                                Text(
+                                  'GOAT',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Matrix',
+                                    height: 1.0,
+                                    fontSize: fontDesc,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black.withAlpha(95),
+                                        offset: const Offset(2.0, 2.0),
+                                        blurRadius: 3.0,
+                                      ),
+                                      Shadow(
+                                        color: Colors.white.withAlpha(5),
+                                        offset: const Offset(1.0, 1.0),
+                                        blurRadius: 1.0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ) :
+                            widget.card.banlistInfo!.banGoat!.contains('Limited') ? Stack(
+                              children: [
+                                Icon(Icons.filter_1, size: fontTitles, color: Colors.red,),
+                                Text(
+                                  'GOAT',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Matrix',
+                                    height: 1.0,
+                                    fontSize: fontDesc,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black.withAlpha(95),
+                                        offset: const Offset(2.0, 2.0),
+                                        blurRadius: 3.0,
+                                      ),
+                                      Shadow(
+                                        color: Colors.white.withAlpha(5),
+                                        offset: const Offset(1.0, 1.0),
+                                        blurRadius: 1.0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ) :
+                            widget.card.banlistInfo!.banGoat!.contains('Semi-Limited') ? Stack(
+                              children: [
+                                Icon(Icons.filter_2, size: fontTitles, color: Colors.red,),
+                                Text(
+                                  'GOAT',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Matrix',
+                                    height: 1.0,
+                                    fontSize: fontDesc,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black.withAlpha(95),
+                                        offset: const Offset(2.0, 2.0),
+                                        blurRadius: 3.0,
+                                      ),
+                                      Shadow(
+                                        color: Colors.white.withAlpha(5),
+                                        offset: const Offset(1.0, 1.0),
+                                        blurRadius: 1.0,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )
+                                : Container()
                           ],
                         ),
                       ),
