@@ -15,9 +15,9 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
     final appState = context.watch<YGOBinderState>();
     final screenSize = MediaQuery.of(context).size;
     final cardGradient = CardColor.getCardGradient(widget.card.frameType);
-    final isPortrait = screenSize.width > screenSize.height * 1.5;
-    final fontTitles = isPortrait ? screenSize.height * 0.08 : screenSize.width * 0.8 * 0.1;
-    final fontDesc = isPortrait ?
+    final isLandscape = screenSize.width > screenSize.height * 1.5;
+    final fontTitles = isLandscape ? screenSize.height * 0.08 : screenSize.width * 0.8 * 0.1;
+    final fontDesc = isLandscape ?
       screenSize.height > 400 ?
         30.0 :
         screenSize.height * 0.7 * 0.1
@@ -26,14 +26,14 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
         30.0 :
         screenSize.width * 0.7 * 0.1;
     final fontBold = fontDesc * 1.5;
-    final attribSize = isPortrait ?
+    final attribSize = isLandscape ?
       screenSize.height * 0.08 :
       screenSize.width * 0.8 * 0.1;
 
     final imageIds = widget.card.cardImages.entries.map((e) => e.key).toList();
     final hasAltArt = imageIds.length > 1;
     appState.selectedImage = appState.selectedImage > imageIds.length - 1 ? 0 : appState.selectedImage;
-    Uint8List? imageByte = appState.images[imageIds[appState.selectedImage]]!;
+    Uint8List? imageByte = appState.images[imageIds[appState.selectedImage]];
     final cardType = widget.card.type;
     Map<String, bool> isSelectedForInventory = {};
 
@@ -68,7 +68,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
         child: SafeArea(
           child: Row(
             children: [
-              !isPortrait ? Container() :
+              !isLandscape ? Container() :
               SizedBox(
                 height: screenSize.height,
                 width: screenSize.height,
@@ -221,7 +221,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                     ),
                     GestureDetector(
                       onTap: handleImageTap,
-                      child: !isPortrait ? Container() :
+                      child: !isLandscape ? Container() :
                       Center(
                         child: imageByte == null ? Container() :
                         widget.card.frameType == 'link' ?
@@ -300,12 +300,8 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: SizedBox(
-                            width: widget.card.type == 'Spell Card' || widget.card.type == 'Trap Card' ?
-                              screenSize.height * 0.67 :
-                              screenSize.height * 0.67,
-                            height: widget.card.type == 'Spell Card' || widget.card.type == 'Trap Card' ?
-                              screenSize.height * 0.67 :
-                              screenSize.height * 0.67,
+                            width: screenSize.height * 0.67,
+                            height: screenSize.height * 0.67,
                             child: Image.memory(
                               imageByte!,
                               fit: BoxFit.cover,
@@ -322,7 +318,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      isPortrait ? Container() : Padding(
+                      isLandscape ? Container() : Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
@@ -389,7 +385,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                           ),
                         ),
                       ),
-                      isPortrait ? Container() :
+                      isLandscape ? Container() :
                       widget.card.frameType == 'link' ? Container() :
                       widget.card.level == null ?
                       Row(
@@ -463,7 +459,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                       ),
                       GestureDetector(
                         onTap: handleImageTap,
-                        child: isPortrait ? Container() :
+                        child: isLandscape ? Container() :
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5.0),
                           child: Center(
@@ -613,7 +609,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                               children: [
                                 typeLineWriter(
                                   widget.card.typeLine,
-                                  isPortrait ?
+                                  isLandscape ?
                                     screenSize.height * 0.7 * 0.1 :
                                     screenSize.width * 0.7 * 0.1
                                 ),
@@ -655,7 +651,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                         widget.card.atk,
                                         widget.card.def,
                                         widget.card.linkVal,
-                                          isPortrait ?
+                                          isLandscape ?
                                           screenSize.height * 0.7 * 0.1 :
                                           screenSize.width * 0.7 * 0.1
                                       ),
@@ -1018,7 +1014,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
           child: CustomPaint(
             painter: LinkArrowPainter(
               isSolid: isSolid,
-              saiz: saiz,
+              sizeOf: saiz,
             ),
           ),
         ),
@@ -1534,25 +1530,25 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
 
 class LinkArrowPainter extends CustomPainter {
   final bool isSolid;
-  final double saiz;
+  final double sizeOf;
 
   LinkArrowPainter({
     this.isSolid = false,
-    required this.saiz,
+    required this.sizeOf,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
     final path = Path();
-    path.moveTo(saiz * 0.95, saiz * 0.95);
-    path.lineTo(saiz * 0.05, saiz * 0.95);
-    path.lineTo(saiz * 0.05, saiz * 0.05);
+    path.moveTo(sizeOf * 0.95, sizeOf * 0.95);
+    path.lineTo(sizeOf * 0.05, sizeOf * 0.95);
+    path.lineTo(sizeOf * 0.05, sizeOf * 0.05);
     path.close();
 
     final strokePaint = Paint()
       ..color = Colors.grey
       ..style = PaintingStyle.stroke
-      ..strokeWidth = saiz * 0.1;
+      ..strokeWidth = sizeOf * 0.1;
 
     final fillPaint = Paint()
       ..color = isSolid ? Colors.redAccent : Colors.black
