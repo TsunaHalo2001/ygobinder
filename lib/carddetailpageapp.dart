@@ -16,6 +16,19 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
     final screenSize = MediaQuery.of(context).size;
     final cardGradient = CardColor.getCardGradient(widget.card.frameType);
     final isPortrait = screenSize.width > screenSize.height * 1.5;
+    final fontTitles = isPortrait ? screenSize.height * 0.08 : screenSize.width * 0.8 * 0.1;
+    final fontDesc = isPortrait ?
+      screenSize.height > 400 ?
+        30.0 :
+        screenSize.height * 0.7 * 0.1
+        :
+      screenSize.width > 400 ?
+        30.0 :
+        screenSize.width * 0.7 * 0.1;
+    final fontBold = fontDesc * 1.5;
+    final attribSize = isPortrait ?
+      screenSize.height * 0.08 :
+      screenSize.width * 0.8 * 0.1;
 
     final imageIds = widget.card.cardImages.entries.map((e) => e.key).toList();
     final hasAltArt = imageIds.length > 1;
@@ -86,7 +99,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: screenSize.height * 0.08,
+                                          fontSize: fontTitles,
                                           fontWeight: FontWeight.bold,
                                           fontFamily: 'Matrix',
                                           height: 1,
@@ -108,8 +121,8 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 32,
-                                  height: 32,
+                                  width: attribSize,
+                                  height: attribSize,
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.transparent,
@@ -142,7 +155,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                             textAlign: TextAlign.end,
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: screenSize.height * 0.08,
+                              fontSize: fontBold,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Matrix',
                               height: 0,
@@ -332,7 +345,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: screenSize.width * 0.8 * 0.1,
+                                        fontSize: fontTitles,
                                         fontWeight: FontWeight.bold,
                                         fontFamily: 'Matrix',
                                         height: 1,
@@ -353,8 +366,8 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 32,
-                                  height: 32,
+                                  width: attribSize,
+                                  height: attribSize,
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.transparent,
@@ -385,7 +398,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                             textAlign: TextAlign.end,
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: screenSize.width * 0.8 * 0.1,
+                              fontSize: fontBold,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Matrix',
                               height: 1,
@@ -560,9 +573,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                               textAlign: TextAlign.justify,
                               style: TextStyle(
                                 color: Colors.black,
-                                fontSize: isPortrait ?
-                                screenSize.height * 0.7 * 0.1 :
-                                screenSize.width * 0.7 * 0.1,
+                                fontSize: fontDesc,
                                 fontWeight: FontWeight.normal,
                                 fontFamily: 'Matrix',
                                 height: 1,
@@ -611,9 +622,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: isPortrait ?
-                                      screenSize.height * 0.7 * 0.1 :
-                                      screenSize.width * 0.7 * 0.1,
+                                    fontSize: fontDesc,
                                     fontWeight: FontWeight.normal,
                                     fontFamily: 'Matrix',
                                     height: 1,
@@ -667,9 +676,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: isPortrait ?
-                                  screenSize.height * 0.7 * 0.1 :
-                                  screenSize.width * 0.7 * 0.1,
+                                  fontSize: fontDesc,
                                   fontWeight: FontWeight.normal,
                                   fontFamily: 'Matrix',
                                   height: 1,
@@ -691,14 +698,18 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                           ],
                         ),
                       ),
-                      widget.card.cardSets == null ? Container() :
-                      cardSetWriter(
-                        widget.card.cardSets!.values.first.first.setCode,
-                        widget.card.cardSets!.values.first,
-                        isPortrait ?
-                        screenSize.height * 0.5 * 0.1 :
-                        screenSize.width * 0.5 * 0.1,
-                      ),
+                      ...(widget.card.cardSets == null ?
+                      List.generate(0, (index) => Container())
+                        :
+                      List.generate(
+                        widget.card.cardSets!.length,
+                        (index) => cardSetWriter(
+                          widget.card.cardSets!.keys.toList()[index],
+                          widget.card.cardSets!.values.toList()[index],
+                          fontDesc,
+                          cardGradient,
+                        ),
+                      )),
                     ],
                 ),
                         ),
@@ -811,67 +822,29 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
     );
   }
 
-  Widget cardSetWriter(String set, List<CardSet>? sets, double fontSize) {
+  Widget cardSetWriter(String set, List<CardSet>? sets, double fontSize, LinearGradient cardGradient) {
     if (sets == null) {
       return Container();
     }
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Stack(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: fontSize * 0.6),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(9),
-                border: Border.all(
-                  color: Colors.black,
-                  width: 5,
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: List.generate(
-                    sets.length,
-                    (index) => Text(
-                      sets[index].setRarity,
-                      textAlign: TextAlign.right,
-                      maxLines: 1,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: fontSize,
-                        fontWeight: FontWeight.normal,
-                        fontFamily: 'Matrix',
-                        height: 1,
-                        shadows: [
-                          Shadow(
-                            color: Colors.black.withAlpha(95),
-                            offset: const Offset(2.0, 2.0),
-                            blurRadius: 3.0,
-                          ),
-                          Shadow(
-                            color: Colors.white.withAlpha(5),
-                            offset: const Offset(1.0, 1.0),
-                            blurRadius: 1.0,
-                          ),
-                        ],
-                      ),
-                    )
-                  ),
-                ),
-              ),
-            ),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(9),
+          border: Border.all(
+            color: Colors.black.withAlpha(180),
+            width: 5,
           ),
-          Text(
+        ),
+        child: ExpansionTile(
+          title: Text(
             set,
             textAlign: TextAlign.right,
-            maxLines: 1,
             style: TextStyle(
               color: Colors.white,
-              fontSize: fontSize,
+              fontSize: fontSize * 1.1,
               fontWeight: FontWeight.bold,
               fontFamily: 'Matrix',
               height: 1,
@@ -888,8 +861,81 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                 ),
               ],
             ),
-          )
-        ],
+          ),
+          controlAffinity: ListTileControlAffinity.leading,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Text(
+                    sets[0].setName,
+                    textAlign: TextAlign.right,
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: fontSize,
+                      fontWeight: FontWeight.normal,
+                      fontFamily: 'Matrix',
+                      height: 1,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black.withAlpha(95),
+                          offset: const Offset(2.0, 2.0),
+                          blurRadius: 3.0,
+                        ),
+                        Shadow(
+                          color: Colors.white.withAlpha(5),
+                          offset: const Offset(1.0, 1.0),
+                          blurRadius: 1.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                ...List.generate(
+                  sets.length,
+                  (index) => Column(
+                    children: [
+                      Divider(
+                        color: Colors.black.withAlpha(180),
+                        thickness: 3,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            sets[index].setRarity,
+                            textAlign: TextAlign.right,
+                            maxLines: 1,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: fontSize * 0.8,
+                              fontWeight: FontWeight.normal,
+                              fontFamily: 'Matrix',
+                              height: 1,
+                              shadows: [
+                                Shadow(
+                                  color: Colors.black.withAlpha(95),
+                                  offset: const Offset(2.0, 2.0),
+                                  blurRadius: 3.0,
+                                ),
+                                Shadow(
+                                  color: Colors.white.withAlpha(5),
+                                  offset: const Offset(1.0, 1.0),
+                                  blurRadius: 1.0,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
