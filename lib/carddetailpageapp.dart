@@ -863,7 +863,8 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
               ),
             ),
             child: ExpansionTile(
-              collapsedBackgroundColor: appState.cardInventory[sets[0].setCode] == null ? Colors.red : null,
+              collapsedBackgroundColor: appState.cardInventory[sets[0].setCode] == null ? Colors.red : 
+              appState.cardInventory[sets[0].setCode]!.values.any((item) => item.have == 0) ? Colors.red : Colors.green,
               title: Text(
                 set,
                 textAlign: TextAlign.right,
