@@ -301,9 +301,8 @@ class CardInventory {
           );
 
           cardInventory[item['set_rarity']] = cardInventoryItem;
+          cardInventories[item['card_set']] = cardInventory;
         }
-
-        cardInventories[set['card_set']] = cardInventory;
       }
 
       return cardInventories;

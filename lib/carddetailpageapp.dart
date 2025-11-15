@@ -972,31 +972,62 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                           }}
                                       });
                                     },
-                                    child: Text(
-                                      'Have',
-                                      textAlign: TextAlign.right,
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                        color:
-                                          isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] == true ?
-                                          Colors.black : Colors.white,
-                                        fontSize: fontSize * 0.8,
-                                        fontWeight: FontWeight.normal,
-                                        fontFamily: 'Matrix',
-                                        height: 1,
-                                        shadows: [
-                                          Shadow(
-                                            color: Colors.black.withAlpha(95),
-                                            offset: const Offset(2.0, 2.0),
-                                            blurRadius: 3.0,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'Have',
+                                          textAlign: TextAlign.right,
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            color:
+                                              isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] == true ?
+                                              Colors.black : Colors.white,
+                                            fontSize: fontSize * 0.8,
+                                            fontWeight: FontWeight.normal,
+                                            fontFamily: 'Matrix',
+                                            height: 1,
+                                            shadows: [
+                                              Shadow(
+                                                color: Colors.black.withAlpha(95),
+                                                offset: const Offset(2.0, 2.0),
+                                                blurRadius: 3.0,
+                                              ),
+                                              Shadow(
+                                                color: Colors.white.withAlpha(5),
+                                                offset: const Offset(1.0, 1.0),
+                                                blurRadius: 1.0,
+                                              ),
+                                            ],
                                           ),
-                                          Shadow(
-                                            color: Colors.white.withAlpha(5),
-                                            offset: const Offset(1.0, 1.0),
-                                            blurRadius: 1.0,
+                                        ),
+                                        appState.cardInventory[sets[0].setCode] == null ? Container() :
+                                        appState.cardInventory[sets[0].setCode]?[sets[index].setRarity] == null ? Container() :
+                                        Text(
+                                          appState.cardInventory[sets[0].setCode]![sets[index].setRarity]!.have.toString(),
+                                          textAlign: TextAlign.right,
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            color: isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] == true ?
+                                            Colors.black : Colors.white,
+                                            fontSize: fontSize * 0.8,
+                                            fontWeight: FontWeight.normal,
+                                            fontFamily: 'Matrix',
+                                            height: 1,
+                                            shadows: [
+                                              Shadow(
+                                                color: Colors.black.withAlpha(95),
+                                                offset: const Offset(2.0, 2.0),
+                                                blurRadius: 3.0,
+                                              ),
+                                              Shadow(
+                                                color: Colors.white.withAlpha(5),
+                                                offset: const Offset(1.0, 1.0),
+                                                blurRadius: 1.0,
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   GestureDetector(
@@ -1018,30 +1049,61 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                           }}
                                       });
                                     },
-                                    child: Text(
-                                      'Lent',
-                                      textAlign: TextAlign.right,
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                        color: isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] == true ?
-                                          Colors.black : Colors.white,
-                                        fontSize: fontSize * 0.8,
-                                        fontWeight: FontWeight.normal,
-                                        fontFamily: 'Matrix',
-                                        height: 1,
-                                        shadows: [
-                                          Shadow(
-                                            color: Colors.black.withAlpha(95),
-                                            offset: const Offset(2.0, 2.0),
-                                            blurRadius: 3.0,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'Lent',
+                                          textAlign: TextAlign.right,
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            color: isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] == true ?
+                                              Colors.black : Colors.white,
+                                            fontSize: fontSize * 0.8,
+                                            fontWeight: FontWeight.normal,
+                                            fontFamily: 'Matrix',
+                                            height: 1,
+                                            shadows: [
+                                              Shadow(
+                                                color: Colors.black.withAlpha(95),
+                                                offset: const Offset(2.0, 2.0),
+                                                blurRadius: 3.0,
+                                              ),
+                                              Shadow(
+                                                color: Colors.white.withAlpha(5),
+                                                offset: const Offset(1.0, 1.0),
+                                                blurRadius: 1.0,
+                                              ),
+                                            ],
                                           ),
-                                          Shadow(
-                                            color: Colors.white.withAlpha(5),
-                                            offset: const Offset(1.0, 1.0),
-                                            blurRadius: 1.0,
+                                        ),
+                                        appState.cardInventory[sets[0].setCode] == null ? Container() :
+                                        appState.cardInventory[sets[0].setCode]?[sets[index].setRarity] == null ? Container() :
+                                        Text(
+                                          appState.cardInventory[sets[0].setCode]![sets[index].setRarity]!.lent.toString(),
+                                          textAlign: TextAlign.right,
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            color: isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] == true ?
+                                            Colors.black : Colors.white,
+                                            fontSize: fontSize * 0.8,
+                                            fontWeight: FontWeight.normal,
+                                            fontFamily: 'Matrix',
+                                            height: 1,
+                                            shadows: [
+                                              Shadow(
+                                                color: Colors.black.withAlpha(95),
+                                                offset: const Offset(2.0, 2.0),
+                                                blurRadius: 3.0,
+                                              ),
+                                              Shadow(
+                                                color: Colors.white.withAlpha(5),
+                                                offset: const Offset(1.0, 1.0),
+                                                blurRadius: 1.0,
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   GestureDetector(
@@ -1063,30 +1125,61 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                           }}
                                       });
                                     },
-                                    child: Text(
-                                      'Borrowed',
-                                      textAlign: TextAlign.right,
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                        color: isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] == true ?
-                                          Colors.black : Colors.white,
-                                        fontSize: fontSize * 0.8,
-                                        fontWeight: FontWeight.normal,
-                                        fontFamily: 'Matrix',
-                                        height: 1,
-                                        shadows: [
-                                          Shadow(
-                                            color: Colors.black.withAlpha(95),
-                                            offset: const Offset(2.0, 2.0),
-                                            blurRadius: 3.0,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          'Borrowed',
+                                          textAlign: TextAlign.right,
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            color: isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] == true ?
+                                              Colors.black : Colors.white,
+                                            fontSize: fontSize * 0.8,
+                                            fontWeight: FontWeight.normal,
+                                            fontFamily: 'Matrix',
+                                            height: 1,
+                                            shadows: [
+                                              Shadow(
+                                                color: Colors.black.withAlpha(95),
+                                                offset: const Offset(2.0, 2.0),
+                                                blurRadius: 3.0,
+                                              ),
+                                              Shadow(
+                                                color: Colors.white.withAlpha(5),
+                                                offset: const Offset(1.0, 1.0),
+                                                blurRadius: 1.0,
+                                              ),
+                                            ],
                                           ),
-                                          Shadow(
-                                            color: Colors.white.withAlpha(5),
-                                            offset: const Offset(1.0, 1.0),
-                                            blurRadius: 1.0,
+                                        ),
+                                        appState.cardInventory[sets[0].setCode] == null ? Container() :
+                                        appState.cardInventory[sets[0].setCode]?[sets[index].setRarity] == null ? Container() :
+                                        Text(
+                                          appState.cardInventory[sets[0].setCode]![sets[index].setRarity]!.borrowed.toString(),
+                                          textAlign: TextAlign.right,
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            color: isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] == true ?
+                                            Colors.black : Colors.white,
+                                            fontSize: fontSize * 0.8,
+                                            fontWeight: FontWeight.normal,
+                                            fontFamily: 'Matrix',
+                                            height: 1,
+                                            shadows: [
+                                              Shadow(
+                                                color: Colors.black.withAlpha(95),
+                                                offset: const Offset(2.0, 2.0),
+                                                blurRadius: 3.0,
+                                              ),
+                                              Shadow(
+                                                color: Colors.white.withAlpha(5),
+                                                offset: const Offset(1.0, 1.0),
+                                                blurRadius: 1.0,
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   Row(
@@ -1127,7 +1220,17 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: GestureDetector(
                                           onTap:(){
-
+                                            setState(() {
+                                              if (isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] == true) {
+                                                appState.deleteCard(sets[0].setCode, id, sets[index].setRarity, sets[0], 0);
+                                              }
+                                              if (isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] == true) {
+                                                appState.deleteCard(sets[0].setCode, id, sets[index].setRarity, sets[0], 1);
+                                              }
+                                              if (isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] == true) {
+                                                appState.deleteCard(sets[0].setCode, id, sets[index].setRarity, sets[0], 2);
+                                              }
+                                            });
                                           },
                                           child: Container(
                                             width: fontSize * 1.3,

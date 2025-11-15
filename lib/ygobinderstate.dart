@@ -218,7 +218,7 @@ class YGOBinderState extends ChangeNotifier {
         break;
       case 1:
         if (cardInventory[set] == null || cardInventory[set]?[rarity] == null) {
-          cardInventory[set] = {};
+          cardInventory[set] ??= {};
           cardInventory[set]?[rarity] = CardInventory(
               id: id,
               setRarity: rarity,
@@ -234,7 +234,7 @@ class YGOBinderState extends ChangeNotifier {
         break;
       case 2:
         if (cardInventory[set] == null || cardInventory[set]?[rarity] == null) {
-          cardInventory[set] = {};
+          cardInventory[set] ??= {};
           cardInventory[set]?[rarity] = CardInventory(
               id: id,
               setRarity: rarity,
@@ -258,8 +258,8 @@ class YGOBinderState extends ChangeNotifier {
   Future<void> deleteCard(String set, int id, String rarity, CardSet cardSet, int state) async {
     switch (state) {
       case 0:
-        if (cardInventory[set] == null) {
-          cardInventory[set] = {};
+        if (cardInventory[set] == null || cardInventory[set]?[rarity] == null) {
+          cardInventory[set] ??= {};
           cardInventory[set]?[rarity] = CardInventory(
               id: id,
               setRarity: rarity,
@@ -277,8 +277,8 @@ class YGOBinderState extends ChangeNotifier {
         }
         break;
       case 1:
-        if (cardInventory[set] == null) {
-          cardInventory[set] = {};
+        if (cardInventory[set] == null || cardInventory[set]?[rarity] == null) {
+          cardInventory[set] ??= {};
           cardInventory[set]?[rarity] = CardInventory(
               id: id,
               setRarity: rarity,
@@ -296,8 +296,8 @@ class YGOBinderState extends ChangeNotifier {
         }
         break;
       case 2:
-        if (cardInventory[set] == null) {
-          cardInventory[set] = {};
+        if (cardInventory[set] == null || cardInventory[set]?[rarity] == null) {
+          cardInventory[set] ??= {};
           cardInventory[set]?[rarity] = CardInventory(
               id: id,
               setRarity: rarity,
