@@ -59,6 +59,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
         }
       });
     }
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -705,11 +706,13 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                       List.generate(
                         widget.card.cardSets!.length,
                         (index) => cardSetWriter(
+                          widget.card.id,
                           widget.card.cardSets!.keys.toList()[index],
                           widget.card.cardSets!.values.toList()[index],
                           fontDesc,
                           cardGradient,
                           isSelectedForInventory,
+                          appState,
                         ),
                       )),
                       Padding(
@@ -841,7 +844,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
     );
   }
 
-  Widget cardSetWriter(String set, List<CardSet>? sets, double fontSize, LinearGradient cardGradient, Map<String, bool> isSelectedForInventory) {
+  Widget cardSetWriter(int id, String set, List<CardSet>? sets, double fontSize, LinearGradient cardGradient, Map<String, bool> isSelectedForInventory, YGOBinderState appState) {
     if (sets == null) {
       return Container();
     }
@@ -1092,7 +1095,19 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                       Padding(
                                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: GestureDetector(
-                                          onTap:(){},
+                                          onTap:(){
+                                            setState(() {
+                                              if (isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] == true) {
+                                                appState.saveCard(sets[0].setCode, id, sets[index].setRarity, sets[0], 0);
+                                              }
+                                              if (isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] == true) {
+                                                appState.saveCard(sets[0].setCode, id, sets[index].setRarity, sets[0], 1);
+                                              }
+                                              if (isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] == true) {
+                                                appState.saveCard(sets[0].setCode, id, sets[index].setRarity, sets[0], 2);
+                                              }
+                                            });
+                                          },
                                           child: Container(
                                             width: fontSize * 1.3,
                                             height: fontSize * 1.3,
@@ -1111,7 +1126,9 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                       Padding(
                                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                         child: GestureDetector(
-                                          onTap:(){},
+                                          onTap:(){
+
+                                          },
                                           child: Container(
                                             width: fontSize * 1.3,
                                             height: fontSize * 1.3,

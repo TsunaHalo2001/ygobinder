@@ -12,7 +12,7 @@ class YGOBinderState extends ChangeNotifier {
   Map<int, YGOCard> cards = {};
 
   Map<String, dynamic> cardInventoryFile = {};
-  Map<String, CardInventory> cardInventory = {};
+  Map<String, Map<String, CardInventory>> cardInventory = {};
 
   Map<int,Uint8List?> images = {};
   Map<String, Image> attributeImages = {
@@ -105,10 +105,8 @@ class YGOBinderState extends ChangeNotifier {
 
   Future<void> loadInitialData() async {
     if (await isCacheValid() || !(await _checkInternetConnection())) {
-      print('fetched from cache');
       await loadFromCache();
     } else {
-      print('fetched from api');
       await fetchAndCache();
     }
     await loadCardInventory();
@@ -194,11 +192,133 @@ class YGOBinderState extends ChangeNotifier {
   }
 
   Future<void> saveInventory() async {
-    cardInventoryFile = await CardInventory.genCardInventory(cardInventory);
+    cardInventoryFile = CardInventory.saveCardInventory(cardInventory);
 
     await fileHelper.writeDataInventory(jsonEncode(cardInventoryFile));
+  }
 
-    notifyListeners();
+  Future<void> saveCard(String set, int id, String rarity, CardSet cardSet, int state) async {
+    switch (state) {
+      case 0:
+        if (cardInventory[set] == null || cardInventory[set]?[rarity] == null) {
+          cardInventory[set] ??= {};
+
+          cardInventory[set]?[rarity] = CardInventory(
+            id: id,
+            setRarity: rarity,
+            setCode: set,
+            have: 1,
+            lent: 0,
+            borrowed: 0
+          );
+        }
+        else {
+          cardInventory[set]?[rarity]?.have += 1;
+        }
+        break;
+      case 1:
+        if (cardInventory[set] == null || cardInventory[set]?[rarity] == null) {
+          cardInventory[set] = {};
+          cardInventory[set]?[rarity] = CardInventory(
+              id: id,
+              setRarity: rarity,
+              setCode: set,
+              have: 0,
+              lent: 1,
+              borrowed: 0
+          );
+        }
+        else {
+          cardInventory[set]?[rarity]?.lent += 1;
+        }
+        break;
+      case 2:
+        if (cardInventory[set] == null || cardInventory[set]?[rarity] == null) {
+          cardInventory[set] = {};
+          cardInventory[set]?[rarity] = CardInventory(
+              id: id,
+              setRarity: rarity,
+              setCode: set,
+              have: 0,
+              lent: 0,
+              borrowed: 1
+          );
+        }
+        else {
+          cardInventory[set]?[rarity]?.borrowed += 1;
+        }
+        break;
+      default:
+        break;
+    }
+
+    await saveInventory();
+  }
+
+  Future<void> deleteCard(String set, int id, String rarity, CardSet cardSet, int state) async {
+    switch (state) {
+      case 0:
+        if (cardInventory[set] == null) {
+          cardInventory[set] = {};
+          cardInventory[set]?[rarity] = CardInventory(
+              id: id,
+              setRarity: rarity,
+              setCode: set,
+              have: 0,
+              lent: 0,
+              borrowed: 0
+          );
+        }
+        else {
+          if (cardInventory[set]![rarity]!.have == 0) {
+            break;
+          }
+          cardInventory[set]?[rarity]?.have -= 1;
+        }
+        break;
+      case 1:
+        if (cardInventory[set] == null) {
+          cardInventory[set] = {};
+          cardInventory[set]?[rarity] = CardInventory(
+              id: id,
+              setRarity: rarity,
+              setCode: set,
+              have: 0,
+              lent: 0,
+              borrowed: 0
+          );
+        }
+        else {
+          if (cardInventory[set]![rarity]!.lent == 0) {
+            break;
+          }
+          cardInventory[set]?[rarity]?.lent -= 1;
+        }
+        break;
+      case 2:
+        if (cardInventory[set] == null) {
+          cardInventory[set] = {};
+          cardInventory[set]?[rarity] = CardInventory(
+              id: id,
+              setRarity: rarity,
+              setCode: set,
+              have: 0,
+              lent: 0,
+              borrowed: 0
+          );
+        }
+        else {
+          if (cardInventory[set]![rarity]!.borrowed == 0) {
+            break;
+          }
+          cardInventory[set]?[rarity]?.borrowed -= 1;
+        }
+        break;
+      default:
+        break;
+    }
+
+    await saveInventory();
   }
 
   Future<bool> _checkInternetConnection() async {

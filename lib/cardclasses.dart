@@ -120,17 +120,7 @@ class BanlistInfo {
 
 class TypeLine {
   static List<String>? genTypeLines(List<dynamic>? data) {
-    if (data == null) {
-      return null;
-    }
-
-    var typeLines = <String>[];
-
-    for (var item in data) {
-      typeLines.add(item);
-    }
-
-    return typeLines;
+    return data?.map((item) => item as String).toList();
   }
 }
 
@@ -275,120 +265,66 @@ class YGOCard {
   }
 }
 
-class CardSetInventory {
-  final CardSet cardSet;
+class CardInventory {
+  final int id;
+  final String setCode;
+  final String setRarity;
   int have;
   int lent;
   int borrowed;
 
-  CardSetInventory({
-    required this.cardSet,
+  CardInventory({
+    required this.id,
+    required this.setCode,
+    required this.setRarity,
     required this.have,
     required this.lent,
     required this.borrowed,
   });
 
-  void setHave(int have) {
-    this.have = have;
-  }
-
-  void setLent(int lent) {
-    this.lent = lent;
-  }
-
-  void setBorrowed(int borrowed) {
-    this.borrowed = borrowed;
-  }
-
-  static Map<String, CardSetInventory> genCardSetInventory(Map<String, dynamic> data) {
-    var cardSetInventories = <String, CardSetInventory>{};
-
-    for (var item in data.values) {
-      final CardSetInventory cardSetInventory = CardSetInventory(
-        cardSet: CardSet(
-          setName: item['set_name'],
-          setCode: item['set_code'],
-          setRarity: item['set_rarity'],
-          setRarityCode: item['set_rarity_code'],
-          setPrice: double.tryParse(item['set_price']),
-        ),
-        have: item['have'],
-        lent: item['lent'],
-        borrowed: item['borrowed'],
-      );
-
-      cardSetInventories[item['set_code']] = cardSetInventory;
-    }
-
-    return cardSetInventories;
-  }
-}
-
-class CardInventory {
-  final int id;
-  Map<String, CardSetInventory>? cardSets;
-
-  CardInventory({
-    required this.id,
-    this.cardSets,
-  });
-
-  void setCardSets(Map<String, CardSetInventory> cardSets) {
-    this.cardSets = cardSets;
-  }
-
-  void addCardSet(String key, CardSetInventory cardSet) {
-    cardSets ??= <String, CardSetInventory>{};
-
-    cardSets![key] = cardSet;
-  }
-
-  static Map<String,Map<String, dynamic>>? cardSetToJSONSet(Map<String, CardSetInventory>? infoMap) {
-    if (infoMap == null) {
-      return null;
-    }
-
-    var json = <String, Map<String, dynamic>>{};
-
-    for (var info in infoMap.values) {
-      json['set_name']?['set_name'] = info.cardSet.setName;
-      json['set_name']?['set_code'] = info.cardSet.setCode;
-      json['set_name']?['set_rarity'] = info.cardSet.setRarity;
-      json['set_name']?['set_rarity_code'] = info.cardSet.setRarityCode;
-      json['set_name']?['set_price'] = info.cardSet.setPrice.toString();
-      json['set_name']?['have'] = info.have;
-      json['set_name']?['lent'] = info.lent;
-      json['set_name']?['borrowed'] = info.borrowed;
-    }
-
-    return json;
-  }
-
-  static Future<Map<String, CardInventory>> genCardInventory(Map<String, dynamic> data) async {
+  static Future<Map<String, Map<String, CardInventory>>> genCardInventory(
+      Map<String, dynamic> data) async {
     return Isolate.run(() {
-      var cardInventories = <String, CardInventory>{};
+      var cardInventories = <String, Map<String, CardInventory>>{};
 
-      for (var item in data.values) {
-        final tempCardSets = CardSetInventory.genCardSetInventory(item['card_sets']);
+      for(var set in data.values) {
+        final cardInventory = <String, CardInventory>{};
 
-        final CardInventory cardInventory = CardInventory(
-          id: item['id'],
-          cardSets: tempCardSets,
-        );
-        cardInventories[item['id']] = cardInventory;
+        for (var item in set.values) {
+          final CardInventory cardInventoryItem = CardInventory(
+            id: item['id'],
+            setCode: item['card_set'],
+            setRarity: item['set_rarity'],
+            have: item['have'],
+            lent: item['lent'],
+            borrowed: item['borrowed'],
+          );
+
+          cardInventory[item['set_rarity']] = cardInventoryItem;
+        }
+
+        cardInventories[set['card_set']] = cardInventory;
       }
+
       return cardInventories;
     });
   }
 
-  static Map<String, dynamic> saveCardInventory(Map<String, CardInventory> cardInventory) {
-    var cardInventoryData = <String, dynamic>{};
+  static Map<String, dynamic> saveCardInventory(
+      Map<String, Map<String, CardInventory>> cardInventory) {
+    var cardInventoryData = <String, Map<String, dynamic>>{};
 
-    for (var item in cardInventory.values) {
-      cardInventoryData[item.id.toString()] = {
-        'id': cardInventory[item.id.toString()]?.id,
-        'card_sets': cardSetToJSONSet(cardInventory[item.id.toString()]?.cardSets),
-      };
+    for (var set in cardInventory.values) {
+      for (var rarity in set.values) {
+        cardInventoryData[rarity.setCode] ??= {};
+        cardInventoryData[rarity.setCode]?[rarity.setRarity] ??= {};
+        cardInventoryData[rarity.setCode]?[rarity.setRarity]['id'] = rarity.id;
+        cardInventoryData[rarity.setCode]?[rarity.setRarity]['card_set'] = rarity.setCode;
+        cardInventoryData[rarity.setCode]?[rarity.setRarity]['set_rarity'] = rarity.setRarity;
+        cardInventoryData[rarity.setCode]?[rarity.setRarity]['have'] = rarity.have;
+        cardInventoryData[rarity.setCode]?[rarity.setRarity]['lent'] = rarity.lent;
+        cardInventoryData[rarity.setCode]?[rarity.setRarity]['borrowed'] = rarity.borrowed;
+      }
     }
 
     return cardInventoryData;
