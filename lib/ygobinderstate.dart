@@ -378,4 +378,10 @@ class YGOBinderState extends ChangeNotifier {
 
     return chunks;
   }
+
+  Future<void> exportarInventario() async {
+    final datajson = CardInventory.saveCardInventory(cardInventory);
+
+    await fileHelper.exportInventory(jsonEncode(datajson));
+  }
 }

@@ -38,6 +38,24 @@ class FileHelper {
     return File('$deskPath/images/$id.jpg');
   }
 
+  Future<File> _exportableInventory() async {
+    if(Platform.isAndroid) {
+      final path = '/storage/emulated/0/Android/media/$_kPackageName/files/';
+
+      try {
+        final _ = Directory(path);
+      }
+      catch (e) {
+        final _ = await Directory(path).create(recursive: true);
+      }
+
+      return File('$path/exported.json');
+    }
+
+    final deskPath = await _localPath;
+    return File('$deskPath/exported.json');
+  }
+
   Future<File> writeDataCache(String data) async {
     final file = await _localCache;
     return file.writeAsString(data);
@@ -45,6 +63,11 @@ class FileHelper {
 
   Future<File> writeDataInventory(String data) async {
     final file = await _localInventory;
+    return file.writeAsString(data);
+  }
+
+  Future<File> exportInventory(String data) async {
+    final file = await _exportableInventory();
     return file.writeAsString(data);
   }
 

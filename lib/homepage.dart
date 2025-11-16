@@ -14,7 +14,7 @@ class HomePageState extends State<HomePage> {
     CardListApp(),
     Placeholder(),//BarajaApp(),
     Placeholder(),//EstadisticasApp(),
-    Placeholder(),//AjustesApp(),
+    AjustesApp(),
     ];
 
   void _onItemTapped(int index) {
