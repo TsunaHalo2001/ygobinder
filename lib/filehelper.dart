@@ -1,6 +1,8 @@
 part of 'main.dart';
 
 class FileHelper {
+  final androidExportPath = '/storage/emulated/0/Android/media/com.tsuna2001.ygobinder/files';
+
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
     return directory.path;
@@ -11,7 +13,7 @@ class FileHelper {
     if (Platform.isAndroid) {
       // Using getExternalStorageDirectory is the correct way to get the app-specific files directory
       // on external storage. It doesn't require special permissions.
-      return '/storage/emulated/0/Android/media/com.tsuna2001.ygobinder/files/images/';
+      return androidExportPath;
     }
     // Fallback for non-Android platforms or if external storage is not available.
     return _localPath;
@@ -31,7 +33,7 @@ class FileHelper {
     final path = await _appStoragePath;
     // This correctly creates the directory if it doesn't exist.
     await Directory(path).create(recursive: true);
-    return File('$path/$id.jpg');
+    return File('$path/images/$id.jpg');
   }
 
   Future<File> _exportableInventory() async {

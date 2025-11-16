@@ -42,6 +42,10 @@ class CardListAppState extends State<CardListApp> {
               decoration: InputDecoration(
                 hintText: 'Search',
                 prefixIcon: Icon(Icons.search),
+                iconColor: Colors.white,
+                hintStyle: TextStyle(
+                  color: Colors.white,
+                ),
               ),
               onChanged: (value) {
                 if (value.contains('ñ')) return;

@@ -13,6 +13,10 @@ class AjustesApp extends StatelessWidget {
       },
       child: Text(
         'Exportar inventario',
+        style: TextStyle(
+          fontSize: 20,
+          color: Colors.white,
+        ),
     ));
   }
 }
