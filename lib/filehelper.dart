@@ -1,7 +1,6 @@
 part of 'main.dart';
 
 class FileHelper {
-  final String _kPackageName = 'com.tsuna2001.ygobinder';
   final String _kImagesSubdir = 'images';
 
   Future<String> get _localPath async {
@@ -9,7 +8,17 @@ class FileHelper {
     return directory.path;
   }
 
-  // Obtener la referencia
+  // Gets the app-specific external files directory for Android, or the app documents directory for others.
+  Future<String> get _appStoragePath async {
+    if (Platform.isAndroid) {
+      // Using getExternalStorageDirectory is the correct way to get the app-specific files directory
+      // on external storage. It doesn't require special permissions.
+      return '/storage/emulated/0/Android/media/com.tsuna2001.ygobinder/files/images';
+    }
+    // Fallback for non-Android platforms or if external storage is not available.
+    return _localPath;
+  }
+
   Future<File> get _localCache async {
     final path = await _localPath;
     return File('$path/ygo_api_cache.json');
@@ -21,39 +30,18 @@ class FileHelper {
   }
 
   Future<File> _localImage(int id) async {
-    if(Platform.isAndroid) {
-      final path = '/storage/emulated/0/Android/media/$_kPackageName/files/$_kImagesSubdir';
-
-      try {
-        final _ = Directory(path);
-      }
-      catch (e) {
-        final _ = await Directory(path).create(recursive: true);
-      }
-
-      return File('$path/$id.jpg');
-    }
-
-    final deskPath = await _localPath;
-    return File('$deskPath/images/$id.jpg');
+    final path = await _appStoragePath;
+    final imageDirPath = '$path/$_kImagesSubdir';
+    // This correctly creates the directory if it doesn't exist.
+    await Directory(imageDirPath).create(recursive: true);
+    return File('$imageDirPath/$id.jpg');
   }
 
   Future<File> _exportableInventory() async {
-    if(Platform.isAndroid) {
-      final path = '/storage/emulated/0/Android/media/$_kPackageName/files/';
-
-      try {
-        final _ = Directory(path);
-      }
-      catch (e) {
-        final _ = await Directory(path).create(recursive: true);
-      }
-
-      return File('$path/exported.json');
-    }
-
-    final deskPath = await _localPath;
-    return File('$deskPath/exported.json');
+    final path = await _appStoragePath;
+    // This correctly creates the directory if it doesn't exist.
+    await Directory(path).create(recursive: true);
+    return File('$path/exported.json');
   }
 
   Future<File> writeDataCache(String data) async {
