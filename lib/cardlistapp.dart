@@ -51,6 +51,7 @@ class CardListAppState extends State<CardListApp> {
               },
             ),
           ),
+          chunkedCards.isEmpty ? Container() :
           Expanded(
             child: screenSize.height > screenSize.width ?
             Column(
