@@ -330,4 +330,52 @@ class YGOBinderState extends ChangeNotifier {
 
     return true;
   }
+
+  List<List<YGOCard>> updateChunk(Map<int, YGOCard> cards, int chunkSize, YGOBinderState appState, String search) {
+    var allCards = cards.values.toList();
+
+    final filteredCards = allCards.where((card) {
+      final archetype = card.archetype;
+
+      bool isCardSet = false;
+
+      if (card.cardSets != null) {
+        for (var cardset in card.cardSets!.values) {
+          for (var sets in cardset) {
+            if (sets.setCode.toLowerCase().contains(search.toLowerCase())) {
+              isCardSet = true;
+              break;
+            }
+          }
+        }
+      }
+      if (archetype != null) {
+        return archetype.toLowerCase().contains(search.toLowerCase()) ||
+            card.name.toLowerCase().contains(search.toLowerCase()) ||
+            card.desc.toLowerCase().contains(search.toLowerCase()) ||
+            card.race.toLowerCase().contains(search.toLowerCase()) || isCardSet;
+      }
+
+      return card.name.toLowerCase().contains(search.toLowerCase()) ||
+          card.desc.toLowerCase().contains(search.toLowerCase()) ||
+          card.race.toLowerCase().contains(search.toLowerCase()) || isCardSet;
+    }).toList();
+
+
+    final chunks = <List<YGOCard>>[];
+    int i = 0;
+
+    while (i < filteredCards.length) {
+      final end = (i + chunkSize < filteredCards.length) ? i + chunkSize : filteredCards.length;
+
+      // Usamos filteredCards en lugar de allCards
+      final chunk = filteredCards.sublist(i, end);
+
+      chunks.add(chunk);
+
+      i += chunkSize;
+    }
+
+    return chunks;
+  }
 }

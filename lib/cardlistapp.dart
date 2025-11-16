@@ -8,6 +8,8 @@ class CardListApp extends StatefulWidget {
 }
 
 class CardListAppState extends State<CardListApp> {
+  late List<List<YGOCard>> chunkedCards;
+
   void _updateSelectedChunk(int index, List<List<YGOCard>> chunkedCards,YGOBinderState appState) {
     if (index == appState.selectedIndexCardList) return;
     setState(() {
@@ -22,7 +24,7 @@ class CardListAppState extends State<CardListApp> {
     super.initState();
     final appState = context.read<YGOBinderState>();
 
-    final chunkedCards = YGOCard.chunkList(appState.cards, 20, appState);
+    chunkedCards = YGOCard.chunkList(appState.cards, 20, appState);
     appState.updateSelectedChunk(chunkedCards[appState.selectedIndexCardList]);
   }
 
@@ -30,21 +32,40 @@ class CardListAppState extends State<CardListApp> {
   Widget build(BuildContext context) {
     final appState = context.watch<YGOBinderState>();
     final Size screenSize = MediaQuery.of(context).size;
-    final chunkedCards = YGOCard.chunkList(appState.cards, 20, appState);
-
     return Scaffold(
       backgroundColor: Color(0xFF4D2C6F),
-      body: screenSize.height > screenSize.width ?
-      Column(
+      body: Column(
         children: [
-          _buildCardShower(context, chunkedCards),
-          _paginationBuilder(context, chunkedCards.length, chunkedCards),
-        ],
-      ) :
-      Row(
-        children: [
-          _buildCardShower(context, chunkedCards),
-          _paginationBuilder(context, chunkedCards.length, chunkedCards),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Search',
+                prefixIcon: Icon(Icons.search),
+              ),
+              onChanged: (value) {
+                setState(() {
+                  chunkedCards = appState.updateChunk(appState.cards, 20, appState, value);
+                  appState.updateSelectedChunk(chunkedCards[appState.selectedIndexCardList]);
+                });
+              },
+            ),
+          ),
+          Expanded(
+            child: screenSize.height > screenSize.width ?
+            Column(
+              children: [
+                _buildCardShower(context, chunkedCards),
+                _paginationBuilder(context, chunkedCards.length, chunkedCards),
+              ],
+            ) :
+            Row(
+              children: [
+                _buildCardShower(context, chunkedCards),
+                _paginationBuilder(context, chunkedCards.length, chunkedCards),
+              ],
+            ),
+          ),
         ],
       ),
     );
