@@ -80,7 +80,11 @@ class FileHelper {
     try {
       final file = await _localCache;
 
-      if (!await file.exists()) return null;
+      if (!await file.exists()) {
+        await file.writeAsString('{}');
+
+        return '{}';
+      }
 
       final contents = await file.readAsString();
       return contents;
@@ -93,7 +97,11 @@ class FileHelper {
     try {
       final file = await _localInventory;
 
-      if (!await file.exists()) return null;
+      if (!await file.exists()) {
+        await file.writeAsString('{}');
+
+        return '{}';
+      }
 
       final contents = await file.readAsString();
       return contents;
