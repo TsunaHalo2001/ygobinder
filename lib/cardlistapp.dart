@@ -44,6 +44,7 @@ class CardListAppState extends State<CardListApp> {
                 prefixIcon: Icon(Icons.search),
               ),
               onChanged: (value) {
+                if (value.contains('ñ')) return;
                 setState(() {
                   chunkedCards = appState.updateChunk(appState.cards, 20, appState, value);
                   appState.updateSelectedChunk(chunkedCards[appState.selectedIndexCardList]);

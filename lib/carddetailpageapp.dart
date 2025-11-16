@@ -575,18 +575,6 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                 fontWeight: FontWeight.normal,
                                 fontFamily: 'Matrix',
                                 height: 1,
-                                shadows: [
-                                  Shadow(
-                                    color: Colors.black.withAlpha(95),
-                                    offset: const Offset(1.0, 1.0),
-                                    blurRadius: 3.0,
-                                  ),
-                                  Shadow(
-                                    color: Colors.white.withAlpha(5),
-                                    offset: const Offset(1.0, 1.0),
-                                    blurRadius: 1.0,
-                                  ),
-                                ],
                               ),
                             ),
                           ),
@@ -624,18 +612,6 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                     fontWeight: FontWeight.normal,
                                     fontFamily: 'Matrix',
                                     height: 1,
-                                    shadows: [
-                                      Shadow(
-                                        color: Colors.black.withAlpha(95),
-                                        offset: const Offset(1.0, 1.0),
-                                        blurRadius: 3.0,
-                                      ),
-                                      Shadow(
-                                        color: Colors.white.withAlpha(5),
-                                        offset: const Offset(1.0, 1.0),
-                                        blurRadius: 1.0,
-                                      ),
-                                    ],
                                   ),
                                 ),
                                 widget.card.atk == null ? Container() :
@@ -1129,18 +1105,6 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Matrix',
                   height: 1,
-                  shadows: [
-                    Shadow(
-                      color: Colors.black.withAlpha(95),
-                      offset: const Offset(2.0, 2.0),
-                      blurRadius: 3.0,
-                    ),
-                    Shadow(
-                      color: Colors.white.withAlpha(5),
-                      offset: const Offset(1.0, 1.0),
-                      blurRadius: 1.0,
-                    ),
-                  ],
                 ),
               ),
               controlAffinity: ListTileControlAffinity.leading,
@@ -1159,18 +1123,6 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                           fontWeight: FontWeight.normal,
                           fontFamily: 'Matrix',
                           height: 1,
-                          shadows: [
-                            Shadow(
-                              color: Colors.black.withAlpha(95),
-                              offset: const Offset(2.0, 2.0),
-                              blurRadius: 3.0,
-                            ),
-                            Shadow(
-                              color: Colors.white.withAlpha(5),
-                              offset: const Offset(1.0, 1.0),
-                              blurRadius: 1.0,
-                            ),
-                          ],
                         ),
                       ),
                     ...List.generate(
@@ -1195,18 +1147,6 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                 fontWeight: FontWeight.normal,
                                 fontFamily: 'Matrix',
                                 height: 1,
-                                shadows: [
-                                  Shadow(
-                                    color: Colors.black.withAlpha(95),
-                                    offset: const Offset(2.0, 2.0),
-                                    blurRadius: 3.0,
-                                  ),
-                                  Shadow(
-                                    color: Colors.white.withAlpha(5),
-                                    offset: const Offset(1.0, 1.0),
-                                    blurRadius: 1.0,
-                                  ),
-                                ],
                               ),
                             ),
                             children: [
@@ -1246,18 +1186,6 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                             fontWeight: FontWeight.normal,
                                             fontFamily: 'Matrix',
                                             height: 1,
-                                            shadows: [
-                                              Shadow(
-                                                color: Colors.black.withAlpha(95),
-                                                offset: const Offset(2.0, 2.0),
-                                                blurRadius: 3.0,
-                                              ),
-                                              Shadow(
-                                                color: Colors.white.withAlpha(5),
-                                                offset: const Offset(1.0, 1.0),
-                                                blurRadius: 1.0,
-                                              ),
-                                            ],
                                           ),
                                         ),
                                         appState.cardInventory[sets[0].setCode] == null ? Container() :
@@ -1273,18 +1201,6 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                             fontWeight: FontWeight.normal,
                                             fontFamily: 'Matrix',
                                             height: 1,
-                                            shadows: [
-                                              Shadow(
-                                                color: Colors.black.withAlpha(95),
-                                                offset: const Offset(2.0, 2.0),
-                                                blurRadius: 3.0,
-                                              ),
-                                              Shadow(
-                                                color: Colors.white.withAlpha(5),
-                                                offset: const Offset(1.0, 1.0),
-                                                blurRadius: 1.0,
-                                              ),
-                                            ],
                                           ),
                                         ),
                                       ],
@@ -1322,18 +1238,6 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                             fontWeight: FontWeight.normal,
                                             fontFamily: 'Matrix',
                                             height: 1,
-                                            shadows: [
-                                              Shadow(
-                                                color: Colors.black.withAlpha(95),
-                                                offset: const Offset(2.0, 2.0),
-                                                blurRadius: 3.0,
-                                              ),
-                                              Shadow(
-                                                color: Colors.white.withAlpha(5),
-                                                offset: const Offset(1.0, 1.0),
-                                                blurRadius: 1.0,
-                                              ),
-                                            ],
                                           ),
                                         ),
                                         appState.cardInventory[sets[0].setCode] == null ? Container() :
@@ -1349,18 +1253,6 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                             fontWeight: FontWeight.normal,
                                             fontFamily: 'Matrix',
                                             height: 1,
-                                            shadows: [
-                                              Shadow(
-                                                color: Colors.black.withAlpha(95),
-                                                offset: const Offset(2.0, 2.0),
-                                                blurRadius: 3.0,
-                                              ),
-                                              Shadow(
-                                                color: Colors.white.withAlpha(5),
-                                                offset: const Offset(1.0, 1.0),
-                                                blurRadius: 1.0,
-                                              ),
-                                            ],
                                           ),
                                         ),
                                       ],
@@ -1398,18 +1290,6 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                             fontWeight: FontWeight.normal,
                                             fontFamily: 'Matrix',
                                             height: 1,
-                                            shadows: [
-                                              Shadow(
-                                                color: Colors.black.withAlpha(95),
-                                                offset: const Offset(2.0, 2.0),
-                                                blurRadius: 3.0,
-                                              ),
-                                              Shadow(
-                                                color: Colors.white.withAlpha(5),
-                                                offset: const Offset(1.0, 1.0),
-                                                blurRadius: 1.0,
-                                              ),
-                                            ],
                                           ),
                                         ),
                                         appState.cardInventory[sets[0].setCode] == null ? Container() :
@@ -1425,18 +1305,6 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                             fontWeight: FontWeight.normal,
                                             fontFamily: 'Matrix',
                                             height: 1,
-                                            shadows: [
-                                              Shadow(
-                                                color: Colors.black.withAlpha(95),
-                                                offset: const Offset(2.0, 2.0),
-                                                blurRadius: 3.0,
-                                              ),
-                                              Shadow(
-                                                color: Colors.white.withAlpha(5),
-                                                offset: const Offset(1.0, 1.0),
-                                                blurRadius: 1.0,
-                                              ),
-                                            ],
                                           ),
                                         ),
                                       ],
