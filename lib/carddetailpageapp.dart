@@ -1181,7 +1181,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                           style: TextStyle(
                                             color:
                                               isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] == true ?
-                                              Colors.black : Colors.white,
+                                              Colors.deepOrangeAccent : Colors.white,
                                             fontSize: fontSize * 0.8,
                                             fontWeight: FontWeight.normal,
                                             fontFamily: 'Matrix',
@@ -1196,7 +1196,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                           maxLines: 1,
                                           style: TextStyle(
                                             color: isSelectedForInventory['have${sets[0].setCode}${sets[index].setRarity}'] == true ?
-                                            Colors.black : Colors.white,
+                                            Colors.deepOrangeAccent : Colors.white,
                                             fontSize: fontSize * 0.8,
                                             fontWeight: FontWeight.normal,
                                             fontFamily: 'Matrix',
@@ -1233,7 +1233,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                           maxLines: 1,
                                           style: TextStyle(
                                             color: isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] == true ?
-                                              Colors.black : Colors.white,
+                                              Colors.deepOrangeAccent : Colors.white,
                                             fontSize: fontSize * 0.8,
                                             fontWeight: FontWeight.normal,
                                             fontFamily: 'Matrix',
@@ -1248,7 +1248,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                           maxLines: 1,
                                           style: TextStyle(
                                             color: isSelectedForInventory['lent${sets[0].setCode}${sets[index].setRarity}'] == true ?
-                                            Colors.black : Colors.white,
+                                            Colors.deepOrangeAccent : Colors.white,
                                             fontSize: fontSize * 0.8,
                                             fontWeight: FontWeight.normal,
                                             fontFamily: 'Matrix',
@@ -1285,7 +1285,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                           maxLines: 1,
                                           style: TextStyle(
                                             color: isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] == true ?
-                                              Colors.black : Colors.white,
+                                              Colors.deepOrangeAccent : Colors.white,
                                             fontSize: fontSize * 0.8,
                                             fontWeight: FontWeight.normal,
                                             fontFamily: 'Matrix',
@@ -1300,7 +1300,7 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                                           maxLines: 1,
                                           style: TextStyle(
                                             color: isSelectedForInventory['borrowed${sets[0].setCode}${sets[index].setRarity}'] == true ?
-                                            Colors.black : Colors.white,
+                                            Colors.deepOrangeAccent : Colors.white,
                                             fontSize: fontSize * 0.8,
                                             fontWeight: FontWeight.normal,
                                             fontFamily: 'Matrix',
