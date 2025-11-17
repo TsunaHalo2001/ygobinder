@@ -21,6 +21,12 @@ jobs:
         run: |
           python -m pip install --upgrade requests
 
+      - name: Debug secret
+        env:
+          PH_PAT: ${{ secrets.PH_PAT }}
+        run: |
+          echo "Secret length: ${#PH_PAT}"
+
       - name: Actualizar informacion de las cartas
         run: |
           python -c "
@@ -52,8 +58,3 @@ jobs:
           else
             echo 'No hay cambios en la informacion de las cartas.'
           fi
-      - name: Debug secret
-        run: |
-          echo "Secret length: ${#PH_PAT}"
-        env:
-          PH_PAT: ${{ secrets.PH_PAT }}
