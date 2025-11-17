@@ -50,7 +50,7 @@ jobs:
           git add assets/json/ygo_api_cache.json
           if ! git diff --staged --quiet; then
             git commit -m 'chore: Actualizar informacion de las cartas desde la API de YGOProDeck'
-            git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}
+            git remote set-url origin https://x-access-token:${PH_PAT}@github.com/${{ github.repository }}
             git push
           else
             echo 'No hay cambios en la informacion de las cartas.'
