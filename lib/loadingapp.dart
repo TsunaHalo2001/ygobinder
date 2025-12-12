@@ -19,6 +19,7 @@ class LoadingAppState extends State<LoadingApp> {
   Future<void> _startAppProcess() async {
     final appState = context.read<YGOBinderState>();
     await appState.loadInitialData();
+    //await appState.initializeGoogleSignIn();
   }
 
   @override

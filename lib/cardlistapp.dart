@@ -41,11 +41,17 @@ class CardListAppState extends State<CardListApp> {
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Search',
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
                 iconColor: Colors.white,
                 hintStyle: TextStyle(
                   color: Colors.white,
                 ),
+              ),
+              style: TextStyle(
+                color: Colors.white,
               ),
               onChanged: (value) {
                 if (value.contains('ñ')) return;

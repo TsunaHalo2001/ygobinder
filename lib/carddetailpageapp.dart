@@ -60,6 +60,34 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
       });
     }
 
+    List<String>? cardSetsKeys = widget.card.cardSets?.keys.toList();
+    List<String> inventoriedCardSetsKeys = [];
+    List<String> missingCardSetsKeys = [];
+    if (cardSetsKeys != null) {
+      for (var set in cardSetsKeys) {
+        if (appState.cardInventory.containsKey(set)) {
+          inventoriedCardSetsKeys.add(set);
+        }
+        else {
+          missingCardSetsKeys.add(set);
+        }
+      }
+    }
+
+    List<String> cardSets = [...inventoriedCardSetsKeys, ...missingCardSetsKeys];
+    List<List<CardSet>> reorderedCardSets = [];
+
+    for (var setKey in inventoriedCardSetsKeys) {
+      for (var entry in widget.card.cardSets![setKey]!) {
+        reorderedCardSets.add([entry]);
+      }
+    }
+    for (var setKey in missingCardSetsKeys) {
+      for (var entry in widget.card.cardSets![setKey]!) {
+        reorderedCardSets.add([entry]);
+      }
+    }
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -938,8 +966,8 @@ class _CardDetailPageAppState extends State<CardDetailPageApp> {
                         widget.card.cardSets!.length,
                         (index) => cardSetWriter(
                           widget.card.id,
-                          widget.card.cardSets!.keys.toList()[index],
-                          widget.card.cardSets!.values.toList()[index],
+                          cardSets[index],
+                          reorderedCardSets[index],
                           fontDesc,
                           cardGradient,
                           isSelectedForInventory,

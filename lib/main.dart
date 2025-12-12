@@ -10,6 +10,8 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'filehelper.dart';
 part 'apiservice.dart';
@@ -22,6 +24,7 @@ part 'homepage.dart';
 part 'cardlistapp.dart';
 part 'carddetailpageapp.dart';
 part 'ajustesapp.dart';
+part 'estadisticasapp.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

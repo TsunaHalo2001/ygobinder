@@ -43,6 +43,15 @@ class FileHelper {
     return File('$path/exported.json');
   }
 
+  Future<File> _fixedDocDir() async {
+    final path = '/storage/emulated/0/Android/Documents/ygobinder';
+    final date = DateTime.now();
+    final formattedDate = '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}_${date.hour.toString().padLeft(2, '0')}-${date.minute.toString().padLeft(2, '0')}';
+
+    await Directory(path).create(recursive: true);
+    return File('$path/exported$formattedDate.json');
+  }
+
   Future<File> writeDataCache(String data) async {
     final file = await _localCache;
     return file.writeAsString(data);
@@ -55,6 +64,11 @@ class FileHelper {
 
   Future<File> exportInventory(String data) async {
     final file = await _exportableInventory();
+    return file.writeAsString(data);
+  }
+
+  Future<File> exportInventoryToDocs(String data) async {
+    final file = await _fixedDocDir();
     return file.writeAsString(data);
   }
 
@@ -89,6 +103,18 @@ class FileHelper {
 
         return '{}';
       }
+
+      final contents = await file.readAsString();
+      return contents;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<String?> importInventory() async {
+    try {
+      final path = await _appStoragePath;
+      final file = File('$path/import.json');
 
       final contents = await file.readAsString();
       return contents;

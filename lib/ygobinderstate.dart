@@ -5,6 +5,8 @@ class YGOBinderState extends ChangeNotifier {
   int selectedIndexCardList = 0;
   int selectedImage = 0;
 
+  GoogleSignInAccount? currentUser;
+
   static final String _lastUpdateKey = 'last_api_update_date';
   String actualDate = '';
 
@@ -383,5 +385,40 @@ class YGOBinderState extends ChangeNotifier {
     final datajson = CardInventory.saveCardInventory(cardInventory);
 
     await fileHelper.exportInventory(jsonEncode(datajson));
+    //await fileHelper.exportInventoryToDocs(jsonEncode(datajson));
+  }
+
+  Future<void> importarInventario() async {
+    final data = await fileHelper.importInventory();
+    if (data != null) {
+      cardInventoryFile = jsonDecode(data);
+
+      cardInventory = await CardInventory.genCardInventory(cardInventoryFile);
+
+      notifyListeners();
+    }
+  }
+
+  /*Future<void> initializeGoogleSignIn() async {
+    currentUser = await _apiService.initializeGoogleSignIn();
+    print(currentUser?.email);
+    notifyListeners();
+  }
+
+  Future<void> signIn() async {
+    try {
+      await _apiService.signInWithGoogle();
+      currentUser = await _apiService.initializeGoogleSignIn();
+      print(currentUser?.email);
+      notifyListeners();
+    } catch (e) {
+      print('Error al iniciar sesión con Google: $e');
+    }
+  }*/
+
+  Future<void> abrirURLGitHub() async {
+    final Uri url = Uri.parse('https://github.com/TsunaHalo2001/ygobinder');
+
+    launchUrl(url);
   }
 }

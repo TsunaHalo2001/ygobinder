@@ -12,8 +12,8 @@ class HomePageState extends State<HomePage> {
 
   final List<Widget> _pages = [
     CardListApp(),
-    Placeholder(),//BarajaApp(),
-    Placeholder(),//EstadisticasApp(),
+    //Placeholder(),//BarajaApp(),
+    Estadisticasapp(),//EstadisticasApp(),
     AjustesApp(),
     ];
 
@@ -49,10 +49,10 @@ class HomePageState extends State<HomePage> {
                   icon: Icon(Icons.filter_none),
                   label: Text('Cartas'),
                 ),
-                NavigationRailDestination(
+                /*NavigationRailDestination(
                   icon: Icon(Icons.layers),
                   label: Text('Barajas'),
-                ),
+                ),*/
                 NavigationRailDestination(
                   icon: Icon(Icons.stacked_bar_chart),
                   label: Text('Estadisticas'),
@@ -68,6 +68,7 @@ class HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: screenSize.height < screenSize.width ? null :
       BottomNavigationBar(
+        backgroundColor: Color(0xFF341340),
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.grey,
         items: [
@@ -76,11 +77,11 @@ class HomePageState extends State<HomePage> {
             icon: Icon(Icons.filter_none),
             label: 'Cartas',
           ),
-          BottomNavigationBarItem(
+          /*BottomNavigationBarItem(
             backgroundColor: Color(0xFF341340),
             icon: Icon(Icons.layers),
             label: 'Barajas',
-          ),
+          ),*/
           BottomNavigationBarItem(
             backgroundColor: Color(0xFF341340),
             icon: Icon(Icons.stacked_bar_chart),

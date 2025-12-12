@@ -7,16 +7,85 @@ class AjustesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<YGOBinderState>();
 
-    return TextButton(
-      onPressed: (){
-        appState.exportarInventario();
-      },
-      child: Text(
-        'Exportar inventario',
-        style: TextStyle(
-          fontSize: 20,
-          color: Colors.white,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                IconButton(
+                  onPressed: (){
+                    appState.exportarInventario();
+                  },
+                  icon: Icon(
+                    Icons.download,
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                ),
+                Text(
+                  'Exportar inventario',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                IconButton(
+                  onPressed: (){
+                    appState.importarInventario();
+                  },
+                  icon: Icon(
+                    Icons.upload,
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                ),
+                Text(
+                  'Importar inventario',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
-    ));
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () {
+                appState.abrirURLGitHub();
+                },
+              child: Text(
+                'Creado por Tsuna2001',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+              child: Text(
+                'Versión 0.1.7+9',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
