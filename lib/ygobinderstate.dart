@@ -16,6 +16,8 @@ class YGOBinderState extends ChangeNotifier {
   Map<String, dynamic> cardInventoryFile = {};
   Map<String, Map<String, CardInventory>> cardInventory = {};
 
+  Map<String, String> allCardSets = {};
+
   Map<int,Uint8List?> images = {};
   Map<String, Image> attributeImages = {
     'DARK' :Image.asset(
@@ -103,6 +105,27 @@ class YGOBinderState extends ChangeNotifier {
   void setSelectedIndexCardList(int newIndex) {
     selectedIndexCardList = newIndex;
     notifyListeners();
+  }
+
+  String getExpansionNameFromSetCode(String setCode) {
+    if (setCode.contains('-')) {
+      return setCode.split('-')[0];
+    } else {
+      return setCode;
+    }
+  }
+
+  void getAllCardSets() {
+    allCardSets.clear();
+    for (var card in cards.values) {
+      if (card.cardSets != null) {
+        for (var cardset in card.cardSets!.values) {
+          for (var set in cardset) {
+            allCardSets[getExpansionNameFromSetCode(set.setCode)] = set.setName;
+          }
+        }
+      }
+    }
   }
 
   Future<void> loadInitialData() async {

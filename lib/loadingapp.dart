@@ -20,6 +20,7 @@ class LoadingAppState extends State<LoadingApp> {
     final appState = context.read<YGOBinderState>();
     await appState.loadInitialData();
     //await appState.initializeGoogleSignIn();
+    appState.getAllCardSets();
   }
 
   @override

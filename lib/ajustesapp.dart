@@ -6,60 +6,74 @@ class AjustesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<YGOBinderState>();
+    final Size screenSize = MediaQuery.of(context).size;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              children: [
-                IconButton(
-                  onPressed: (){
-                    appState.exportarInventario();
-                  },
-                  icon: Icon(
-                    Icons.download,
-                    color: Colors.white,
-                    size: 40,
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: screenSize.height * 0.1),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                children: [
+                  IconButton(
+                    onPressed: (){
+                      appState.exportarInventario();
+                    },
+                    icon: Icon(
+                      Icons.download,
+                      color: Colors.white,
+                      size: 40,
+                    ),
                   ),
-                ),
-                Text(
-                  'Exportar inventario',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
+                  Text(
+                    'Exportar inventario',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                IconButton(
-                  onPressed: (){
-                    appState.importarInventario();
-                  },
-                  icon: Icon(
-                    Icons.upload,
-                    color: Colors.white,
-                    size: 40,
+                ],
+              ),
+              Column(
+                children: [
+                  IconButton(
+                    onPressed: (){
+                      appState.importarInventario();
+                    },
+                    icon: Icon(
+                      Icons.upload,
+                      color: Colors.white,
+                      size: 40,
+                    ),
                   ),
-                ),
-                Text(
-                  'Importar inventario',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
+                  Text(
+                    'Importar inventario',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/png/google.png'),
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
             TextButton(
               onPressed: () {
                 appState.abrirURLGitHub();

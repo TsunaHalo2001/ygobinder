@@ -44,6 +44,7 @@ dependencies:
   google_sign_in: ^7.2.0
   googleapis: ^15.0.0
   url_launcher: ^6.3.2
+  syncfusion_flutter_charts: ^31.2.18
 
 dev_dependencies:
   flutter_test:

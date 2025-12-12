@@ -10,12 +10,7 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [
-    CardListApp(),
-    //Placeholder(),//BarajaApp(),
-    Estadisticasapp(),//EstadisticasApp(),
-    AjustesApp(),
-    ];
+  late List<Widget> _pages;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -24,7 +19,23 @@ class HomePageState extends State<HomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    var appState = context.read<YGOBinderState>();
+    _pages = [
+      CardListApp(),
+      //Placeholder(),//BarajaApp(),
+      ?appState.cardInventory == {} ?
+        null :
+        Estadisticasapp(),//EstadisticasApp(),
+      AjustesApp(),
+    ];
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var appState = context.watch<YGOBinderState>();
     final Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -53,6 +64,7 @@ class HomePageState extends State<HomePage> {
                   icon: Icon(Icons.layers),
                   label: Text('Barajas'),
                 ),*/
+                ?appState.cardInventory == {} ? null :
                 NavigationRailDestination(
                   icon: Icon(Icons.stacked_bar_chart),
                   label: Text('Estadisticas'),
@@ -82,6 +94,7 @@ class HomePageState extends State<HomePage> {
             icon: Icon(Icons.layers),
             label: 'Barajas',
           ),*/
+          ?appState.cardInventory == {} ? null :
           BottomNavigationBarItem(
             backgroundColor: Color(0xFF341340),
             icon: Icon(Icons.stacked_bar_chart),
