@@ -82,7 +82,14 @@ MANUAL_CORRECTIONS = {
             "set_code": "JUSH-EN041",
             "set_rarity_code": "(R)"
         }
-    ]    
+    ],
+
+    79625003: [
+        {
+            "set_code": "BLMM-EN037",
+            "set_rarity_code": "(UR)"
+        }
+    ],
 }
 
 # ============================================================================
