@@ -90,6 +90,27 @@ MANUAL_CORRECTIONS = {
             "set_rarity_code": "(UR)"
         }
     ],
+
+    16110708: [
+        {
+            "set_code": "BLMM-EN038",
+            "set_rarity_code": "(UR)"
+        }
+    ],
+
+    94292987: [
+        {
+            "set_code": "BLMM-EN013",
+            "set_rarity_code": "(UR)"
+        }
+    ],
+
+    68897338: [
+        {
+            "set_code": "BLMM-EN012",
+            "set_rarity_code": "(UR)"
+        }
+    ],
 }
 
 # ============================================================================
