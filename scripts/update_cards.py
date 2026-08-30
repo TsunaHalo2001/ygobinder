@@ -72,7 +72,7 @@ MANUAL_CORRECTIONS = {
     # Add your corrections here 👇
     33744268: [
         {
-            "set_code": "MZTM",
+            "set_code": "MZTM-EN020",
             "set_rarity_code": "R"
         }
     ]
@@ -95,6 +95,20 @@ def fetch_card_data():
         print(f"❌ Failed to fetch data: {e}")
         sys.exit(1)
 
+def get_set_name(code):
+    """Resolves a set code to its full name, supporting prefix matching (e.g., MZTM-EN020 -> MZTM)."""
+    # 1. Check for exact match first
+    if code in SET_NAME_MAP:
+        return SET_NAME_MAP[code]
+    
+    # 2. Check for prefix match (e.g., "MZTM-EN020" becomes "MZTM")
+    prefix = code.split('-')[0]
+    if prefix in SET_NAME_MAP:
+        return SET_NAME_MAP[prefix]
+    
+    # 3. Fallback to the code itself if not found in the map
+    return code
+
 def apply_manual_corrections(card_data):
     """Applies manual corrections using code mappings."""
     if not MANUAL_CORRECTIONS:
@@ -109,12 +123,12 @@ def apply_manual_corrections(card_data):
     
     for card_id, corrections_list in MANUAL_CORRECTIONS.items():
         if card_id not in cards_dict:
-            print(f"  ⚠️  Warning: Card ID {card_id} not found in API data. Skipping.")
+            print(f"  ️  Warning: Card ID {card_id} not found in API data. Skipping.")
             continue
         
         card = cards_dict[card_id]
         card_name = card.get('name', 'Unknown Card')
-        card_sets = card.setdefault('card_sets', []) # Ensure card_sets exists
+        card_sets = card.setdefault('card_sets', [])
         
         correction_log = {
             'card_id': card_id, 
@@ -126,12 +140,13 @@ def apply_manual_corrections(card_data):
             target_set_code = correction.get('set_code')
             target_rarity_code = correction.get('set_rarity_code')
             
-            # Look for existing set in the card's data
-            existing_set = next((s for s in card_sets if s.get('set_code') == target_set_code), None)
-            
-            # Determine the correct full names from our maps (fallback to existing or 'Unknown')
-            correct_set_name = SET_NAME_MAP.get(target_set_code, target_set_code) # Fallback to code if not in map
+            # Resolve the full name using our new helper
+            correct_set_name = get_set_name(target_set_code)
             correct_rarity = RARITY_NAME_MAP.get(target_rarity_code, target_rarity_code)
+            
+            # FIX: Look for existing set matching EITHER the exact code OR the prefix
+            target_prefix = target_set_code.split('-')[0]
+            existing_set = next((s for s in card_sets if s.get('set_code') == target_set_code or s.get('set_code') == target_prefix), None)
             
             if existing_set:
                 # UPDATE existing set
@@ -152,7 +167,7 @@ def apply_manual_corrections(card_data):
                     existing_set['set_rarity_code'] = target_rarity_code
                     changes_made = True
                 
-                # Always enforce set_price to 0 (or 0.0) for corrected entries if desired
+                # Force set_price to 0
                 if existing_set.get('set_price') != 0:
                     correction_log['changes'].append(f"set_price: '{existing_set.get('set_price')}' → 0")
                     existing_set['set_price'] = 0
@@ -162,7 +177,7 @@ def apply_manual_corrections(card_data):
                     print(f"  ✅ Updated '{card_name}' (Set: {target_set_code})")
                     
             else:
-                # ADD new set entry (handles missing set_code scenario)
+                # ADD new set entry
                 new_set_entry = {
                     "set_name": correct_set_name,
                     "set_code": target_set_code,
