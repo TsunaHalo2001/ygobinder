@@ -75,7 +75,14 @@ MANUAL_CORRECTIONS = {
             "set_code": "MZTM-EN020",
             "set_rarity_code": "(R)"
         }
-    ]
+    ],
+
+    26585784: [
+        {
+            "set_code": "JUSH-EN041",
+            "set_rarity_code": "(R)"
+        }
+    ]    
 }
 
 # ============================================================================
