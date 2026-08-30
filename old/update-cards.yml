@@ -10,22 +10,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4 # Updated to v4 (v5 doesn't exist yet for checkout)
+        uses: actions/checkout@v5
 
       - name: Configurar Python
-        uses: actions/setup-python@v5 # Updated to v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.x'
 
       - name: Instalar dependencias
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt # <-- Installs from the new file
+          python -m pip install --upgrade requests
+
+      - name: Debug secret
+        env:
+          PH_PAT: ${{ secrets.PH_PAT }}
+        run: |
+          echo "Secret length: ${#PH_PAT}"
 
       - name: Actualizar informacion de las cartas
         run: |
-          python scripts/update_cards.py # <-- Calls the new script!
+          python -c "
+          
+          import requests
+          import json
+          import os
 
+          url = 'https://db.ygoprodeck.com/api/v7/cardinfo.php'
+          headers = {'User-Agent': 'YGOBinder/1.0 (https://github.com/TsunaHalo2001/ygobinder)'}
+          response = requests.get(url, headers=headers)
+          response.raise_for_status()
+
+          os.makedirs('assets/json', exist_ok=True)
+          with open('assets/json/ygo_api_cache.json', 'w', encoding='utf-8') as f:
+            json.dump(response.json(), f, ensure_ascii=False, indent=2)
+          "
       - name: Commit and push changes
         env:
           PH_PAT: ${{ secrets.PH_PAT }}
@@ -33,12 +51,10 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add assets/json/ygo_api_cache.json
-          
           if ! git diff --staged --quiet; then
-            echo "Changes detected. Committing and pushing..."
             git commit -m 'chore: Actualizar informacion de las cartas desde la API de YGOProDeck'
             git remote set-url origin https://x-access-token:${PH_PAT}@github.com/${{ github.repository }}
             git push
           else
-            echo '✅ No hay cambios en la informacion de las cartas. Skiping commit.'
+            echo 'No hay cambios en la informacion de las cartas.'
           fi
