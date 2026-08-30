@@ -30,21 +30,21 @@ SET_NAME_MAP = {
 
 RARITY_NAME_MAP = {
     # Standard YGO Rarity Codes
-    "C": "Common",
-    "R": "Rare",
-    "SR": "Super Rare",
-    "UR": "Ultra Rare",
-    "ScR": "Secret Rare",
-    "CR": "Collector's Rare",
-    "PR": "Prismatic Secret Rare",
-    "HR": "Holographic Rare",
-    "UtR": "Ultimate Rare",
-    "GR": "Ghost Rare",
-    "QC": "Quarter Century Secret Rare",
-    "PG": "Platinum Ghost Rare",
-    "SP": "Starlight Rare",
-    "SER": "Secret Rare", # Sometimes APIs mix up ScR and SER
-    "PSER": "Prismatic Secret Rare",
+    "(C)": "Common",
+    "(R)": "Rare",
+    "(SR)": "Super Rare",
+    "(UR)": "Ultra Rare",
+    "(ScR)": "Secret Rare",
+    "(CR)": "Collector's Rare",
+    "(PR)": "Prismatic Secret Rare",
+    "(HR)": "Holographic Rare",
+    "(UtR)": "Ultimate Rare",
+    "(GR)": "Ghost Rare",
+    "(QC)": "Quarter Century Secret Rare",
+    "(PG)": "Platinum Ghost Rare",
+    "(SP)": "Starlight Rare",
+    "(SER)": "Secret Rare", # Sometimes APIs mix up ScR and SER
+    "(PSER)": "Prismatic Secret Rare",
     # Add your missing set_rarity_code -> set_rarity mappings here 👇
 }
 
@@ -73,7 +73,7 @@ MANUAL_CORRECTIONS = {
     33744268: [
         {
             "set_code": "MZTM-EN020",
-            "set_rarity_code": "R"
+            "set_rarity_code": "(R)"
         }
     ]
 }
