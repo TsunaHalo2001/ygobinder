@@ -254,20 +254,56 @@ def save_corrections_log(corrections):
     with open(log_file, 'w', encoding='utf-8') as f:
         json.dump(log_data, f, ensure_ascii=False, indent=2)
 
+def clean_misc_info(card_data):
+    """Filters misc_info to only keep tcg_date and ocg_date to save space."""
+    print(" Cleaning misc_info data...")
+    kept_count = 0
+    
+    for card in card_data.get('data', []):
+        misc_list = card.get('misc_info')
+        
+        # Ensure misc_info exists and is a list
+        if isinstance(misc_list, list):
+            filtered_misc = []
+            
+            for info in misc_list:
+                if isinstance(info, dict):
+                    # Create a new dictionary with ONLY the fields we want
+                    cleaned_info = {
+                        k: info[k] for k in ('tcg_date', 'ocg_date') if k in info
+                    }
+                    
+                    # Only add it if it actually contains a date
+                    if cleaned_info:
+                        filtered_misc.append(cleaned_info)
+            
+            # Replace the heavy original list with our lightweight list
+            card['misc_info'] = filtered_misc
+            
+            if filtered_misc:
+                kept_count += 1
+                
+    print(f"   Kept dates for {kept_count} cards.")
+    return card_data
+
 def main():
     print(f"🚀 Starting card update process at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 70)
     
-    # 1. Fetch
+    # 1. Fetch data from API
     card_data = fetch_card_data()
     print(f"📦 Fetched {len(card_data.get('data', []))} cards from API")
     print("=" * 70)
     
-    # 2. Correct
+    # 2. Apply manual corrections (Sets/Rarities)
     card_data, corrections = apply_manual_corrections(card_data)
     print("=" * 70)
     
-    # 3. Save
+    # 3. Clean misc_info (Keep only dates)
+    card_data = clean_misc_info(card_data)
+    print("=" * 70)
+    
+    # 4. Save the corrected and cleaned data
     save_data(card_data)
     save_corrections_log(corrections)
     
