@@ -126,6 +126,122 @@ EDISON_BANLIST_OVERRIDES = {
     # 89631139: "0",  # Blue-Eyes White Dragon (Forbidden)
     
     # Add your Edison banlist overrides here 👇
+    # Prohibited
+    72989439: "0", # Black Luster Soldier - Envoy of the Beginning
+    82301904: "0", # Chaos Emperor Dragon - Envoy of the End
+    34124316: "0", # Cyber Jar
+    69015963: "0", # Cyber-Stein
+    40737112: "0", # Dark Magician of Chaos
+    56570271: "0", # Destiny HERO - Disk Commander
+    78706415: "0", # Fiber Jar
+    34206604: "0", # Magical Scientist
+    31560081: "0", # Magician of Faith
+    21593977: "0", # Makyura the Destructor
+    8131171: "0", # Sinister Serpent
+    33184167: "0", # Tribe-Infecting Virus
+    34853266: "0", # Tsukuyomi
+    44910027: "0", # Victory Dragon
+    78010363: "0", # Witch of the Black Forest
+    3078576: "0", # Yata-Garasu
+    69243953: "0", # Butterfly Dagger - Elma
+    57953380: "0", # Card Of Safe Return
+    4031928: "0", # Change of Heart
+    17375316: "0", # Confiscation
+    53129443: "0", # Dark Hole
+    44763025: "0", # Delinquent Duo
+    23557835: "0", # Dimension Fusion
+    79571449: "0", # Graceful Charity
+    18144506: "0", # Harpie's Feather Duster
+    85602018: "0", # Last Will
+    46411259: "0", # Metamorphosis
+    41482598: "0", # Mirage of Nightmare
+    83764718: "0", # Monster Reborn
+    74191942: "0", # Painful Choice
+    55144522: "0", # Pot of Greed
+    70828912: "0", # Premature Burial
+    12580477: "0", # Raigeki
+    45986603: "0", # Snatch Steal
+    42829885: "0", # The Forceful Sentry
+    57728570: "0", # Crush Card Virus
+    17484499: "0", # Exchange of the Spirit
+    61740673: "0", # Imperial Order
+    28566710: "0", # Last Turn
+    83555666: "0", # Ring of Destruction
+    35316708: "0", # Time Seal
+    32646477: "0", # Dark Strike Fighter
+    63519819: "0", # Thousand-Eyes Restrict
+
+    # Limited
+    2009101: "1", # Blackwing - Gale the Whirlwind
+    85087012: "1", # Card Trooper
+    9596126: "1", # Chaos Sorcerer
+    65192027: "1", # Dark Armed Dragon
+    40044918: "1", # Elemental HERO Stratos
+    33396948: "1", # Exodia the Forbidden One
+    41470137: "1", # Gladiator Beast Bestiari
+    44330098: "1", # Gorz the Emissary of Darkness
+    7902349: "1", # Left Arm of the Forbidden One
+    44519536: "1", # Left Leg of the Forbidden One
+    95503687: "1", # Lumina, Lightsworn Summoner
+    31305911: "1", # Marshmallon
+    92826944: "1", # Mezuki
+    96782886: "1", # Mind Master
+    33508719: "1", # Morphing Jar
+    28297833: "1", # Necroface
+    4906301: "1", # Necro Gardna
+    80344569: "1", # Neo-Spacian Grand Mole
+    16226786: "1", # Night Assailant
+    33420078: "1", # Plaguespreader Zombie
+    14878871: "1", # Rescue Cat
+    70903634: "1", # Right Arm of the Forbidden One
+    8124921: "1", # Right Leg of the Forbidden One
+    26202165: "1", # Sangan
+    84290642: "1", # Snipe Hunter
+    23205979: "1", # Spirit Reaper
+    423585: "1", # Summoner Monk
+    98777036: "1", # Tragoedia
+    46052429: "1", # Advanced Ritual Art
+    1475311: "1", # Allure of Darkness
+    87910978: "1", # Brain Control
+    48976825: "1", # Burial from a Different Dimension
+    72892473: "1", # Card Destruction
+    94886282: "1", # Charge of the Light Brigade
+    60682203: "1", # Cold Wave
+    45809008: "1", # Destiny Draw
+    67723438: "1", # Emergency Teleport
+    81439173: "1", # Foolish Burial
+    77565204: "1", # Future Fusion
+    42703248: "1", # Giant Trunade
+    19613556: "1", # Heavy Storm
+    3136426: "1", # Level Limit - Area B
+    23171610: "1", # Limiter Removal
+    23171610: "1", # Megamorph
+    37520316: "1", # Mind Control
+    43040603: "1", # Monster Gate
+    5318639: "1", # Mystical Space Typhoon
+    2295440: "1", # One for One
+    3659803: "1", # Overload Fusion
+    58577036: "1", # Reasoning
+    32807846: "1", # Reinforcement of the Army
+    73915051: "1", # Scapegoat
+    72302403: "1", # Sword of Revealing Light
+    97077563: "1", # Call of the Haunted
+    36468556: "1", # Ceasefire
+    85742772: "1", # Gravity Bind
+    62279055: "1", # Magic Cylinder
+    32723153: "1", # Magical Explosion
+    15800838: "1", # Mind Crush
+    44095762: "1", # Mirror Force
+    29843091: "1", # Ojama Trio
+    27174286: "1", # Return from the Different Dimension
+    41420027: "1", # Solemn Judgment
+    46652477: "1", # The Transmigration Prophecy
+    53582587: "1", # Torrential Tribute
+    64697231: "1", # Trap Dustshoot
+    17078030: "1", # Wall of Revealing Light
+    73580471: "1", # Black Rose Dragon
+    50321796: "1", # Brionac, Dragon of the Ice Barrier
+    7391448: "1", # Goyo Guardian
 }
 
 # ============================================================================
