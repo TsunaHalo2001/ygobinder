@@ -7,7 +7,7 @@ from datetime import datetime
 # ============================================================================
 # CONFIGURATION
 # ============================================================================
-API_URL = 'https://db.ygoprodeck.com/api/v7/cardinfo.php'
+API_URL = 'https://db.ygoprodeck.com/api/v7/cardinfo.php?misc=yes'
 OUTPUT_DIR = 'assets/json'
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, 'ygo_api_cache.json')
 USER_AGENT = 'YGOBinder/1.0 (https://github.com/TsunaHalo2001/ygobinder)'
