@@ -111,6 +111,279 @@ MANUAL_CORRECTIONS = {
             "set_rarity_code": "(UR)"
         }
     ],
+
+    93170499: [
+        {
+            "set_code": "BLMM-EN016",
+            "set_rarity_code": "(UR)"
+        }
+    ],
+
+    20568404: [
+        {
+            "set_code": "BLMM-EN017",
+            "set_rarity_code": "(UR)"
+        }
+    ],
+
+    80447641: [
+        {
+            "set_code": "BLMM-EN034",
+            "set_rarity_code": "(UR)"
+        }
+    ],
+
+    42382265: [
+        {
+            "set_code": "BLMM-EN042",
+            "set_rarity_code": "(UR)"
+        }
+    ],
+
+    74387963: [
+        {
+            "set_code": "BLMM-EN043",
+            "set_rarity_code": "(UR)"
+        }
+    ],
+
+    57775790: [
+        {
+            "set_code": "BLMM-EN015",
+            "set_rarity_code": "(UR)"
+        }
+    ],
+
+    50596425: [
+        {
+            "set_code": "BLMM-EN027",
+            "set_rarity_code": "(UR)"
+        }
+    ],
+
+    44459942: [
+        {
+            "set_code": "BLMM-EN029",
+            "set_rarity_code": "(UR)"
+        }
+    ],
+
+    88477149: [
+        {
+            "set_code": "BLMM-EN032",
+            "set_rarity_code": "(UR)"
+        }
+    ],
+
+    43236494: [
+        {
+            "set_code": "BLMM-EN036",
+            "set_rarity_code": "(UR)"
+        }
+    ],
+
+    42104806: [
+        {
+            "set_code": "BLMM-EN039",
+            "set_rarity_code": "(UR)"
+        }
+    ],
+
+    59080: [
+        {
+            "set_code": "BLMM-EN047",
+            "set_rarity_code": "(UR)"
+        }
+    ],
+
+    91019775: [
+        {
+            "set_code": "BLMM-EN030",
+            "set_rarity_code": "(UR)"
+        }
+    ],
+
+    44376395: [
+        {
+            "set_code": "DUAD-EN085",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    49451215: [
+        {
+            "set_code": "DUAD-EN051",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    70659412: [
+        {
+            "set_code": "DUAD-EN089",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    18988396: [
+        {
+            "set_code": "DUAD-EN084",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    336601: [
+        {
+            "set_code": "DUAD-EN100",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    74941992: [
+        {
+            "set_code": "DUAD-EN099",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    19316241: [
+        {
+            "set_code": "DUAD-EN097",
+            "set_rarity_code": "(SR)"
+        }
+    ],
+
+    7166709: [
+        {
+            "set_code": "DUAD-EN087",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    60600821: [
+        {
+            "set_code": "DUAD-EN073",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    97227123: [
+        {
+            "set_code": "DUAD-EN071",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    98349765: [
+        {
+            "set_code": "DUAD-EN068",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    61944066: [
+        {
+            "set_code": "DUAD-EN067",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    36494597: [
+        {
+            "set_code": "DUAD-EN060",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    1122030: [
+        {
+            "set_code": "DUAD-EN056",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    74733322: [
+        {
+            "set_code": "DUAD-EN055",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    85150300: [
+        {
+            "set_code": "DUAD-EN080",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    58761791: [
+        {
+            "set_code": "DUAD-EN079",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    95382988: [
+        {
+            "set_code": "DUAD-EN077",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    23599634: [
+        {
+            "set_code": "DUAD-EN075",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    87640391: [
+        {
+            "set_code": "ALIN-EN099",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    8240199: [
+        {
+            "set_code": "SDWD-EN013",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    66961194: [
+        {
+            "set_code": "SDWD-EN015",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    97268402: [
+        {
+            "set_code": "SDWD-EN018",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    71143015: [
+        {
+            "set_code": "SDWD-EN021",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    48800175: [
+        {
+            "set_code": "SDWD-EN022",
+            "set_rarity_code": "(C)"
+        }
+    ],
+
+    38120068: [
+        {
+            "set_code": "SDWD-EN025",
+            "set_rarity_code": "(C)"
+        }
+    ],
 }
 
 # ============================================================================
