@@ -242,6 +242,27 @@ EDISON_BANLIST_OVERRIDES = {
     73580471: "1", # Black Rose Dragon
     50321796: "1", # Brionac, Dragon of the Ice Barrier
     7391448: "1", # Goyo Guardian
+
+    # Semi-Limited
+    70095154: "2", # Cyber Dragon
+    15341821: "2", # Dandylion
+    72426662: "2", # Demise, King of Armageddon
+    9411399: "2", # Destiny HERO - Malicious
+    63665875: "2", # Goblin Zombie
+    37742478: "2", # Honest
+    57774843: "2", # Judgment Dragon
+    48686504: "2", # Lonefire Blossom
+    12538374: "2", # Treeborn Frog
+    91351370: "2", # Black Whirlwind
+    91623717: "2", # Chain Strike
+    75500286: "2", # Gold Sarcophagus
+    98494543: "2", # Magical Stone Excavation
+    56747793: "2", # United We Stand
+    29401950: "2", # Bottomless Trap Hole
+    51452091: "2", # Royal Decree
+    93016201: "2", # Royal Oppression
+    82732705: "2", # Skill Drain
+    80604091: "2", # Ultimate Offering
 }
 
 # ============================================================================
