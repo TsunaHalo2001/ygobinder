@@ -114,6 +114,21 @@ MANUAL_CORRECTIONS = {
 }
 
 # ============================================================================
+# EDISON FORMAT CONFIGURATION
+# ============================================================================
+EDISON_CUTOFF_DATE = "2010-04-20" # Duelist Pack: Kaiba release date
+
+# Manual overrides for the Edison Banlist.
+# Use "0" for Forbidden, "1" for Limited, "2" for Semi-Limited, or "3" to force legal.
+EDISON_BANLIST_OVERRIDES = {
+    # Example: 
+    # 46986414: "1",  # Dark Magician (Limited)
+    # 89631139: "0",  # Blue-Eyes White Dragon (Forbidden)
+    
+    # Add your Edison banlist overrides here 👇
+}
+
+# ============================================================================
 # CORE FUNCTIONS
 # ============================================================================
 
@@ -286,6 +301,50 @@ def clean_misc_info(card_data):
     print(f"   Kept dates for {kept_count} cards.")
     return card_data
 
+def apply_edison_banlist(card_data):
+    """
+    Adds 'ban_edison' to banlist_info. 
+    Sets it to '3' if the card's TCG release date is on or before the Edison cutoff.
+    Applies manual overrides from EDISON_BANLIST_OVERRIDES.
+    """
+    print("⚔️  Applying Edison Format banlist logic...")
+    legal_count = 0
+    override_count = 0
+    
+    for card in card_data.get('data', []):
+        card_id = card.get('id')
+        
+        # 1. Ensure banlist_info exists as a dictionary
+        if 'banlist_info' not in card or not isinstance(card['banlist_info'], dict):
+            card['banlist_info'] = {}
+            
+        banlist = card['banlist_info']
+        
+        # 2. Remove 'ban_edison' by default (in case it was there from a previous run)
+        banlist.pop('ban_edison', None)
+        
+        # 3. Find the card's TCG release date (located in misc_info)
+        tcg_date = None
+        if card.get('misc_info') and isinstance(card['misc_info'], list) and len(card['misc_info']) > 0:
+            tcg_date = card['misc_info'][0].get('tcg_date')
+            
+        # 4. Check if the card is legally in the Edison card pool
+        is_edison_legal = tcg_date and tcg_date <= EDISON_CUTOFF_DATE
+        
+        if is_edison_legal:
+            banlist['ban_edison'] = "3"
+            legal_count += 1
+            
+        # 5. Apply manual overrides (This overrides the "3" or adds it if missing)
+        if card_id in EDISON_BANLIST_OVERRIDES:
+            banlist['ban_edison'] = str(EDISON_BANLIST_OVERRIDES[card_id])
+            override_count += 1
+            
+    print(f"   ✅ Marked {legal_count} cards as Edison Legal ('3').")
+    print(f"   ⚙️  Applied {override_count} manual banlist overrides.")
+    
+    return card_data
+
 def main():
     print(f"🚀 Starting card update process at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 70)
@@ -303,7 +362,11 @@ def main():
     card_data = clean_misc_info(card_data)
     print("=" * 70)
     
-    # 4. Save the corrected and cleaned data
+    # 4. Apply Edison Banlist Logic
+    card_data = apply_edison_banlist(card_data)
+    print("=" * 70)
+    
+    # 5. Save the corrected and cleaned data
     save_data(card_data)
     save_corrections_log(corrections)
     
