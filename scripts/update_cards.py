@@ -26,8 +26,10 @@ SET_NAME_MAP = {
     "MP23": "25th Anniversary Tin: Dueling Heroes Mega Pack",
     # Add your missing set_code -> set_name mappings here 👇
     "MZTM" : "Maze of the Master",
-    "ALIN" : "Alliance Insight",
     "DUAD" : "Duelist's Advance",
+    "ALIN" : "Alliance Insight",
+    "SDWD" : "Structured Deck: Blue-Eyes White Destiny",
+    "BLMM" : "Battles of Legend: Monster Mayhem",
 }
 
 RARITY_NAME_MAP = {
