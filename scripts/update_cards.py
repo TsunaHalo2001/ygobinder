@@ -30,6 +30,7 @@ SET_NAME_MAP = {
     "ALIN" : "Alliance Insight",
     "SDWD" : "Structured Deck: Blue-Eyes White Destiny",
     "BLMM" : "Battles of Legend: Monster Mayhem",
+    "JUSH" : "Justice Hunters",
 }
 
 RARITY_NAME_MAP = {
