@@ -49,6 +49,18 @@ RARITY_NAME_MAP = {
 }
 
 # ============================================================================
+# ID CORRECTIONS
+# Format: wrong_api_id: correct_id
+# This runs FIRST so all other corrections use the correct ID.
+# ============================================================================
+ID_CORRECTIONS = {
+    # Example: The API incorrectly lists this card as 8131171, but its real ID is 46986414
+    # 8131171: 46986414, 
+    
+    # Add your ID corrections here 👇
+}
+
+# ============================================================================
 # MANUAL CORRECTIONS
 # Format: card_id: [ list of { 'set_code': '...', 'set_rarity_code': '...' } ]
 # ============================================================================
@@ -569,6 +581,28 @@ def get_set_name(code):
     # 3. Fallback to the code itself if not found in the map
     return code
 
+def apply_id_corrections(card_data):
+    """Fixes incorrect card IDs from the API before other corrections run."""
+    if not ID_CORRECTIONS:
+        print("ℹ️  No ID corrections to apply.")
+        return card_data
+
+    print(f" Applying {len(ID_CORRECTIONS)} ID correction(s)...")
+    id_fix_count = 0
+
+    for card in card_data.get('data', []):
+        old_id = card.get('id')
+        
+        # If this card has a known wrong ID, fix it
+        if old_id in ID_CORRECTIONS:
+            new_id = ID_CORRECTIONS[old_id]
+            card['id'] = new_id
+            id_fix_count += 1
+            print(f"  ✅ Fixed ID for '{card.get('name')}': {old_id} → {new_id}")
+
+    print(f"   🔄 Total IDs corrected: {id_fix_count}")
+    return card_data
+
 def apply_manual_corrections(card_data):
     """Applies manual corrections using code mappings."""
     if not MANUAL_CORRECTIONS:
@@ -764,19 +798,23 @@ def main():
     print(f"📦 Fetched {len(card_data.get('data', []))} cards from API")
     print("=" * 70)
     
-    # 2. Apply manual corrections (Sets/Rarities)
+    # 2. Fix IDs FIRST (So subsequent steps use the correct IDs)
+    card_data = apply_id_corrections(card_data)
+    print("=" * 70)
+    
+    # 3. Apply manual corrections (Sets/Rarities)
     card_data, corrections = apply_manual_corrections(card_data)
     print("=" * 70)
     
-    # 3. Clean misc_info (Keep only dates)
+    # 4. Clean misc_info (Keep only dates)
     card_data = clean_misc_info(card_data)
     print("=" * 70)
     
-    # 4. Apply Edison Banlist Logic
+    # 5. Apply Edison Banlist Logic
     card_data = apply_edison_banlist(card_data)
     print("=" * 70)
     
-    # 5. Save the corrected and cleaned data
+    # 6. Save the corrected and cleaned data
     save_data(card_data)
     save_corrections_log(corrections)
     
