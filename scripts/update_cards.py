@@ -7,7 +7,8 @@ from datetime import datetime
 # ============================================================================
 # CONFIGURATION
 # ============================================================================
-API_URL = 'https://db.ygoprodeck.com/api/v7/cardinfo.php?misc=yes'
+CARDS_API_URL = 'https://db.ygoprodeck.com/api/v7/cardinfo.php?misc=yes'
+SETS_API_URL = 'https://openapi.tcgtracking.com/v1/2/sets'
 OUTPUT_DIR = 'assets/json'
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, 'ygo_api_cache.json')
 USER_AGENT = 'YGOBinder/1.0 (https://github.com/TsunaHalo2001/ygobinder)'
@@ -569,12 +570,27 @@ def fetch_card_data():
     headers = {'User-Agent': USER_AGENT}
     
     try:
-        response = requests.get(API_URL, headers=headers, timeout=120) # Increased timeout for large payload
+        response = requests.get(CARDS_API_URL, headers=headers, timeout=120) # Increased timeout for large payload
         response.raise_for_status()
         return response.json()
     except requests.exceptions.RequestException as e:
         print(f"❌ Failed to fetch data: {e}")
         sys.exit(1)
+
+def fetch_sets_data():
+    print("🔍 Fetching sets data from TCGTracking API...")
+    headers = {'User-Agent': USER_AGENT}
+    try:
+        response = requests.get(SETS_API_URL, headers=headers, timeout=60)
+        response.raise_for_status()
+        data = response.json()
+        # The API returns {"category_id": 2, "sets": [...]}
+        # We only want the "sets" array
+        return data.get('sets', [])
+    except requests.exceptions.RequestException as e:
+        print(f"❌ Failed to fetch sets data: {e}")
+        # We don't sys.exit(1) here, we'll just save an empty sets array so cards still save
+        return []
 
 def get_set_name(code):
     """Resolves a set code to its full name, supporting prefix matching (e.g., MZTM-EN020 -> MZTM)."""
@@ -823,7 +839,19 @@ def main():
     card_data = apply_edison_banlist(card_data)
     print("=" * 70)
     
-    # 6. Save the corrected and cleaned data
+    # 6. Fetch and merge Sets data
+    print("📦 Fetching Sets data from TCGTracking API...")
+    try:
+        sets_array = fetch_sets_data()
+        card_data['sets'] = sets_array
+        print(f"   ✅ Added {len(sets_array)} sets to the JSON.")
+    except Exception as e:
+        print(f"   ⚠️  Failed to fetch sets data: {e}. Proceeding with empty sets array.")
+        card_data['sets'] = []
+    
+    print("=" * 70)
+    
+    # 7. Save everything
     save_data(card_data)
     save_corrections_log(corrections)
     
