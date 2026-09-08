@@ -12,6 +12,7 @@ SETS_API_URL = 'https://openapi.tcgtracking.com/v1/2/sets'
 OUTPUT_DIR = 'assets/json'
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, 'ygo_api_cache.json')
 USER_AGENT = 'YGOBinder/1.0 (https://github.com/TsunaHalo2001/ygobinder)'
+APP_VERSION = '1.3.0+16'
 
 # ============================================================================
 # MAPPING DICTIONARIES
@@ -816,25 +817,22 @@ def apply_edison_banlist(card_data):
     return card_data
 
 def main():
-    print(f"🚀 Starting card update process at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"🚀 Starting update process at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 70)
     
-    # 1. Fetch data from API
+    # 1. Fetch card data
     card_data = fetch_card_data()
     print(f"📦 Fetched {len(card_data.get('data', []))} cards from API")
     print("=" * 70)
     
-    # 2. Fix IDs FIRST (So subsequent steps use the correct IDs)
+    # 2. Fix IDs FIRST
     card_data = apply_id_corrections(card_data)
-    print("=" * 70)
     
     # 3. Apply manual corrections (Sets/Rarities)
     card_data, corrections = apply_manual_corrections(card_data)
-    print("=" * 70)
     
     # 4. Clean misc_info (Keep only dates)
     card_data = clean_misc_info(card_data)
-    print("=" * 70)
     
     # 5. Apply Edison Banlist Logic
     card_data = apply_edison_banlist(card_data)
@@ -850,9 +848,13 @@ def main():
         print(f"   ⚠️  Failed to fetch sets data: {e}. Proceeding with empty sets array.")
         card_data['sets'] = []
     
+    # ✅ 7. INJECT THE APP VERSION
+    card_data['version'] = APP_VERSION
+    print(f"   ✅ Added app version: {APP_VERSION}")
+    
     print("=" * 70)
     
-    # 7. Save everything
+    # 8. Save everything
     save_data(card_data)
     save_corrections_log(corrections)
     
