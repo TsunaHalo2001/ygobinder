@@ -12,7 +12,7 @@ SETS_API_URL = 'https://openapi.tcgtracking.com/v1/2/sets'
 OUTPUT_DIR = 'assets/json'
 OUTPUT_FILE = os.path.join(OUTPUT_DIR, 'ygo_api_cache.json')
 USER_AGENT = 'YGOBinder/1.0 (https://github.com/TsunaHalo2001/ygobinder)'
-APP_VERSION = '1.3.0+16'
+APP_VERSION = '1.4.0+17'
 
 # ============================================================================
 # MAPPING DICTIONARIES
