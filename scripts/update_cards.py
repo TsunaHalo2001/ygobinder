@@ -562,6 +562,178 @@ EDISON_BANLIST_OVERRIDES = {
     80604091: "2", # Ultimate Offering
 }
 
+HAT_CUTOFF_DATE = "2014-05-16"
+
+HAT_BANLIST_OVERRIDES = {
+    # Forbidden
+    53797637: "0", # Burner, Dragon Ruler of Sparks
+    82301904: "0", # Chaos Emperor Dragon - Envoy of the End
+    34124316: "0", # Cyber Jar
+    69015963: "0", # Cyber-Stein
+    40737112: "0", # Dark Magician of Chaos
+    56570271: "0", # Destiny HERO - Disk Commander
+    40044918: "0", # Elemental HERO Stratos
+    78706415: "0", # Fiber Jar
+    93369354: "0", # Fishborg Blaster
+    67441435: "0", # Glow-Up Bulb
+    89185742: "0", # Lightning, Dragon Ruler of Drafts
+    34206604: "0", # Magical Scientist
+    21593977: "0", # Makyura the Destructor
+    96782886: "0", # Mind Master
+    33508719: "0", # Morphing Jar
+    79106360: "0", # Morphing Jar #2
+    91020571: "0", # Reactan, Dragon Ruler of Pebbles
+    14878871: "0", # Rescue Cat
+    26202165: "0", # Sangan
+    8131171: "0", # Sinister Serpent
+    27415516: "0", # Stream, Dragon Ruler of Droplets
+    20663556: "0", # Substitoad
+    33184167: "0", # Tribe-Infecting Virus
+    44910027: "0", # Victory Dragon
+    78010363: "0", # Witch of the Black Forest
+    3072576: "0", # Yata-Garasu
+    63519819: "0", # Thousand-Eyes Restrict
+    50321796: "0", # Brionac, Dragon of the Ice Barrier
+    32646477: "0", # Dark Strike Fighter
+    7391448: "0", # Goyo Guardian
+    52687916: "0", # Trishula, Dragon of the Ice Barrier
+    54719828: "0", # Number 16: Shock Master
+    81122844: "0", # Wind-Up Carrier Zenmaity
+    87910978: "0", # Brain Control
+    69243953: "0", # Butterfly Dagger - Elma
+    72892473: "0", # Card Destruction
+    57953380: "0", # Card of Safe Return
+    4031928: "0", # Change of Heart
+    60682203: "0", # Cold Wave
+    17375316: "0", # Confiscation
+    44763025: "0", # Delinquent Duo
+    23557835: "0", # Dimension Fusion
+    62265044: "0", # Dragon Ravine
+    77565204: "0", # Future Fusion
+    27970830: "0", # Gateway of the Six
+    42703248: "0", # Giant Trunade
+    79571449: "0", # Graceful Charity
+    18144506: "0", # Harpie's Feather Duster
+    19613556: "0", # Heavy Storm
+    85602018: "0", # Last Will
+    34906152: "0", # Mass Driver
+    46411259: "0", # Metamorphosis
+    41482598: "0", # Mirage of Nightmare
+    83764718: "0", # Monster Reborn
+    74191942: "0", # Painful Choice
+    67169062: "0", # Pot of Avarice
+    55144522: "0", # Pot of Greed
+    70828912: "0", # Premature Burial
+    12580477: "0", # Raigeki
+    45986603: "0", # Snatch Steal
+    46448938: "0", # Spellbook of Judgment
+    27770341: "0", # Super Rejuvenation
+    29762407: "0", # Temple of the Kings
+    42829885: "0", # The Forceful Sentry
+    57728570: "0", # Crush Card Virus
+    17484499: "0", # Exchange of the Spirit
+    61740673: "0", # Imperial Order
+    28566710: "0", # Last Turn
+    27174286: "0", # Return from the Different Dimension
+    83555666: "0", # Ring of Destruction
+    93016201: "0", # Royal Oppression
+    57585212: "0", # Self-Destruct Button
+    3280747: "0", # Sixth Sense
+    41420027: "0", # Solemn Judgment
+    35316708: "0", # Time Seal
+    64697231: "0", # Trap Dustshoot
+    80604091: "0", # Ultimate Offering
+
+    # Limited
+    7902349: "1", # Left Arm of the Forbidden One
+    44519536: "1", # Left Leg of the Forbidden One
+    70903634: "1", # Right Arm of the Forbidden One
+    8124921: "1", # Right Leg of the Forbidden One
+    74311226: "1", # Atlantean Dragoons
+    72989439: "1", # Black Luster Soldier - Envoy of the Beginning
+    2009101: "1", # Blackwing - Gale the Whirlwind
+    53804307: "1", # Blaster, Dragon Ruler of Infernos
+    1662004: "1", # Brotherhood of the Fire Fist - Spirit
+    3534077: "1", # Coach Soldier Wolfbark
+    15341821: "1", # Dandylion
+    65192027: "1", # Dark Armed Dragon
+    14943837: "1", # Debris Dragon
+    78868119: "1", # Deep Sea Diva
+    33396948: "1", # Exodia the Forbidden One
+    64034255: "1", # Genex Ally Birdman
+    41470137: "1", # Gladiator Beast Bestiari
+    44330098: "1", # Gorz the Emissary of Darkness
+    37742478: "1", # Honest
+    68184115: "1", # Inzektor Dragonfly
+    69207766: "1", # Inzektor Hornet
+    31560081: "1", # Magician of Faith
+    69293721: "1", # Mermail Abyssgunde
+    80344569: "1", # Neo-Spacian Grand Mole
+    16226786: "1", # Night Assailant
+    88264978: "1", # Red-Eyes Darkness Metal Dragon
+    90411554: "1", # Redox, Dragon Ruler of Boulders
+    85138716: "1", # Rescue Rabbit
+    89399912: "1", # Tempest, Dragon Ruler of Storms
+    71564252: "1", # Thunder King Rai-Oh
+    26400609: "1", # Tidal, Dragon Ruler of Waterfalls
+    59297550: "1", # Wind-Up Magician
+    45222299: "1", # Evigishki Gustkraken
+    11877465: "1", # Evigishki Mind Augus
+    70583986: "1", # Dewloren, Tiger King of the Ice Barrier
+    50091196: "1", # Formula Synchron
+    29981921: "1", # Legendary Six Samurai - Shi En
+    90953320: "1", # T.G. Hyper Librarian
+    1475311: "1", # Allure of Darkness
+    14087893: "1", # Book of Moon
+    48976825: "1", # Burial from a Different Dimension
+    94886282: "1", # Charge of the Light Brigade
+    53129443: "1", # Dark Hole
+    81674782: "1", # Dimensional Fissure
+    15854426: "1", # Divine Wind of Mist Valley
+    95308449: "1", # Final Countdown
+    81439173: "1", # Foolish Burial
+    75500286: "1", # Gold Sarcophagus
+    66957584: "1", # Infernity Launcher
+    23171610: "1", # Limiter Removal
+    37520316: "1", # Mind Control
+    43040603: "1", # Monster Gate
+    33782437: "1", # One Day of Peace
+    2295440: "1", # One for One
+    32807846: "1", # Reinforcement of the Army
+    74845897: "1", # Rekindling
+    72405967: "1", # Royal Tribute
+    45725480: "1", # Sacred Sword of Seven Stars
+    97997309: "1", # Spellbook of Fate
+    29401950: "1", # Bottomless Trap Hole
+    36468556: "1", # Ceasefire
+    94192409: "1", # Compulsory Evacuation Device
+    54974237: "1", # Eradicator Epidemic Virus
+    9059700: "1", # Infernity Barrier
+    30241314: "1", # Macro Cosmos
+    32723153: "1", # Magical Explosion
+    84749824: "1", # Solemn Warning
+    73599290: "1", # Soul Drain
+    46652477: "1", # The Transmigration Prophecy
+    53582587: "1", # Torrential Tribute
+    17078030: "1", # Wall of Revealing Light
+
+    # Semi-Limited
+    85087012: "2", # Card Trooper
+    9596126: "2", # Chaos Sorcerer
+    48686504: "2", # Lonefire Blossom
+    28297833: "2", # Necroface
+    10028593: "2", # Reborn Tengu
+    423585: "2", # Summoner Monk
+    98777036: "2", # Tragoedia
+    46052429: "2", # Advanced Ritual Art
+    91623717: "2", # Chain Strike
+    25377819: "2", # Hieratic Seal of Convocation
+    58577036: "2", # Reasoning
+    70342110: "2", # Dimensional Prison
+    44095762: "2", # Mirror Force
+    29843091: "2", # Ojama Trio
+}
+
 # ============================================================================
 # CORE FUNCTIONS
 # ============================================================================
@@ -816,6 +988,50 @@ def apply_edison_banlist(card_data):
     
     return card_data
 
+def apply_hat_banlist(card_data):
+    """
+    Adds 'ban_hat' to banlist_info. 
+    Sets it to '3' if the card's TCG release date is on or before the Hat cutoff.
+    Applies manual overrides from HAT_BANLIST_OVERRIDES.
+    """
+    print("⚔️  Applying Hat Format banlist logic...")
+    legal_count = 0
+    override_count = 0
+    
+    for card in card_data.get('data', []):
+        card_id = card.get('id')
+        
+        # 1. Ensure banlist_info exists as a dictionary
+        if 'banlist_info' not in card or not isinstance(card['banlist_info'], dict):
+            card['banlist_info'] = {}
+            
+        banlist = card['banlist_info']
+        
+        # 2. Remove 'ban_hat' by default (in case it was there from a previous run)
+        banlist.pop('ban_hat', None)
+        
+        # 3. Find the card's TCG release date (located in misc_info)
+        tcg_date = None
+        if card.get('misc_info') and isinstance(card['misc_info'], list) and len(card['misc_info']) > 0:
+            tcg_date = card['misc_info'][0].get('tcg_date')
+            
+        # 4. Check if the card is legally in the Hat card pool
+        is_hat_legal = tcg_date and tcg_date <= HAT_CUTOFF_DATE
+        
+        if is_hat_legal:
+            banlist['ban_hat'] = "3"
+            legal_count += 1
+            
+        # 5. Apply manual overrides (This overrides the "3" or adds it if missing)
+        if card_id in HAT_BANLIST_OVERRIDES:
+            banlist['ban_hat'] = str(HAT_BANLIST_OVERRIDES[card_id])
+            override_count += 1
+            
+    print(f"   ✅ Marked {legal_count} cards as Hat Legal ('3').")
+    print(f"   ⚙️  Applied {override_count} manual banlist overrides.")
+    
+    return card_data
+
 def main():
     print(f"🚀 Starting update process at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 70)
@@ -836,6 +1052,10 @@ def main():
     
     # 5. Apply Edison Banlist Logic
     card_data = apply_edison_banlist(card_data)
+    print("=" * 70)
+
+    # 6. Apply Hat Banlist Logic
+    card_data = apply_hat_banlist(card_data)
     print("=" * 70)
     
     # 6. Fetch and merge Sets data
